@@ -1,0 +1,4 @@
+cd path_to_your_repository
+git add AI_Friend.apk
+git commit -m "Add AI_Friend.apk"
+git push origin main
