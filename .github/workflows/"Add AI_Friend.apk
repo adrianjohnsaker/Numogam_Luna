@@ -1,0 +1,4 @@
+# Step 6: Decompile APK
+- name: Decompile APK
+  run: |
+    java -jar apktool.jar d AI_Friend.apk -o AI_Friend_decompiled
