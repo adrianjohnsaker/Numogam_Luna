@@ -1,0 +1,35 @@
+cd path_to_your_repository
+mkdir numogram_code
+cp /path_to_your_numogram_code_files/* numogram_code/
+git add numogram_code/*
+git commit -m 
+# Numogram core logic
+def zone_transition(current_zone, user_input):
+    transition_map = {
+        "1": ["2", "4"],
+        "2": ["3", "6"],
+        "3": ["1", "9"],
+    }
+    return transition_map.get(current_zone, ["1"])
+from fastapi import FastAPI
+from pydantic import BaseModel
+from numogram_algorithm import zone_transition
+
+app = FastAPI()
+
+class TransitionRequest(BaseModel):
+    current_zone: str
+    input: str
+
+@app.post("/numogram/transition")
+async def transition(request: TransitionRequest):
+    result = zone_transition(request.current_zone, request.input)
+    return {"transition_result": result}
+{
+    "zones": {
+        "1": {"name": "Zone 1", "description": "Description for Zone 1"},
+        "2": {"name": "Zone 2", "description": "Description for Zone 2"},
+        "3": {"name": "Zone 3", "description": "Description for Zone 3"}
+    }
+}
+git push origin main
