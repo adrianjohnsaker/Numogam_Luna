@@ -1,0 +1,90 @@
+name: Numogram-Luna Integration and APK Repackage
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Step 2: Set up Python for Numogram AI backend
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip openjdk-11-jdk
+        python -m pip install --upgrade pip
+        pip install fastapi uvicorn pydantic numpy
+
+    # Step 3: Set up Docker for API container
+    - name: Set up Docker
+      run: |
+        echo "FROM python:3.11-slim" > Dockerfile
+        echo "WORKDIR /app" >> Dockerfile
+        echo "COPY . /app" >> Dockerfile
+        echo "RUN pip install fastapi uvicorn pydantic numpy" >> Dockerfile
+        echo 'CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]' >> Dockerfile
+
+    - name: Build Docker Image
+      run: docker build -t numogram-luna-app .
+
+    # Step 4: Run API Server (optional during workflow)
+    - name: Run Docker Container
+      run: docker run -d -p 8000:8000 numogram-luna-app
+
+    # Step 5: Manually install JDK
+    - name: Install OpenJDK 11
+      run: sudo apt-get install -y openjdk-11-jdk
+
+    # Step 6: Verify APK File and Set Permissions
+    - name: Verify APK File and Set Permissions
+      run: |
+        if [ -f "AI_Friend.apk" ]; then
+          echo "AI_Friend.apk found"
+          ls -l AI_Friend.apk
+          chmod 644 AI_Friend.apk
+          ls -l AI_Friend.apk
+        else
+          echo "AI_Friend.apk not found"
+          exit 1
+        fi
+
+    # Step 7: Install APKTool
+    - name: Install APKTool
+      run: |
+        wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool.jar
+        wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O apktool
+        chmod +x apktool
+        sudo mv apktool /usr/local/bin/
+
+    # Step 8: Decompile APK
+    - name: Decompile APK
+      run: |
+        java -jar apktool.jar d AI_Friend.apk -o AI_Friend_decompiled
+
+    # Step 9: Modify APK (Insert Numogram code)
+    - name: Modify APK (Add Numogram-Luna Integration)
+      run: |
+        echo "Integrating Numogram with Luna's Core..."
+        cp -r ./numogram_code/* AI_Friend_decompiled/assets/numogram/
+        echo "Integration complete."
+
+    # Step 10: Recompile APK
+    - name: Recompile APK
+      run: |
+        java -jar apktool.jar b AI_Friend_decompiled -o AI_Friend_Modified.apk
+
+    # Step 11: Upload Modified APK as Artifact
+    - name: Upload Modified APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: modified-apk
+        path: AI_Friend_Modified.apk
