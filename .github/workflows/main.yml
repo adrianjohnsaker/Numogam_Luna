@@ -70,7 +70,7 @@ jobs:
 
     # Step 9: Upload Modified APK as Artifact
     - name: Upload Modified APK
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: modified-apk
         path: AI_Friend_Modified.apk
