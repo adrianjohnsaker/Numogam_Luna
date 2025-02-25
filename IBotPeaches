@@ -1,0 +1,4 @@
+wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool
+wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.8.0.jar
+chmod +x apktool
+sudo mv apktool apktool_2.8.0.jar /usr/local/bin
