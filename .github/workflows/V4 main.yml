@@ -1,0 +1,41 @@
+name: Build AI Chat App
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
+    - name: Install Android SDK
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget unzip
+        wget https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip
+        mkdir -p android-sdk/cmdline-tools
+        unzip -q commandlinetools-linux-7302050_latest.zip -d android-sdk/cmdline-tools
+        yes | android-sdk/cmdline-tools/bin/sdkmanager --sdk_root=android-sdk "platforms;android-30" "build-tools;30.0.3"
+
+    - name: Build APK
+      run: |
+        ./android-sdk/cmdline-tools/bin/sdkmanager --licenses
+        ./android-sdk/cmdline-tools/bin/gradlew assembleRelease
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: AI_Chat_App
+        path: app/build/outputs/apk/release/app-release.apk
