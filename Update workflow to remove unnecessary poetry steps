@@ -1,0 +1,108 @@
+name: Numogram AI Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Step 2: Set up Python
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+
+    # Step 4: Verify APK integrity
+    - name: Verify APK integrity
+      run: |
+        if [ ! -s "base.apk" ]; then
+          echo "Error: APK file not found or file is empty."
+          exit 1
+        fi
+
+    # Step 5: Install APKTool
+    - name: Install APKTool
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y apktool
+
+    # Step 6: Decompile APK using APKTool
+    - name: Decompile APK using APKTool
+      run: |
+        apktool d base.apk -o decompiled_apk
+
+    # Step 7: Add Numogram AI Logic
+    - name: Add Numogram AI Logic
+      run: |
+        cat << 'EOF' > decompiled_apk/assets/numogram_logic.py
+        import random
+        from collections import defaultdict
+
+        class NumogramZone:
+            def __init__(self, zone_id):
+                self.zone_id = zone_id
+                self.transition_count = defaultdict(int)
+
+            def update_transitions(self, target_zone):
+                self.transition_count[target_zone] += 1
+
+        class NumogramAI:
+            def __init__(self):
+                self.zones = {i: NumogramZone(i) for i in range(9)}
+                self.current_zone = random.choice(list(self.zones.keys()))
+
+            def transition_zone(self):
+                probabilities = {z: count + 1 for z, count in self.zones[self.current_zone].transition_count.items()}
+                total = sum(probabilities.values())
+                choices, weights = zip(*probabilities.items())
+
+                new_zone = random.choices(choices, weights=weights, k=1)[0]
+                self.zones[self.current_zone].update_transitions(new_zone)
+                self.current_zone = new_zone
+
+                return self.current_zone
+
+            def get_zone_state(self):
+                return {
+                    "current_zone": self.current_zone,
+                    "transitions": dict(self.zones[self.current_zone].transition_count)
+                }
+
+        if __name__ == "__main__":
+            ai = NumogramAI()
+            for _ in range(10):
+                print(f"Transitioning to Zone: {ai.transition_zone()}")
+            print(f"Final Zone State: {ai.get_zone_state()}")
+        EOF
+
+    # Step 8: Recompile APK
+    - name: Recompile APK
+      run: |
+        apktool b decompiled_apk -o Modified_AI_Friend.apk
+
+    # Step 9: Sign APK
+    - name: Sign APK
+      run: |
+        keytool -genkey -v -keystore my-release-key.keystore -alias numogram-ai -keyalg RSA -keysize 2048 -validity 10000 -storepass android
+        jarsigner -verbose -keystore my-release-key.keystore -storepass android -keypass android Modified_AI_Friend.apk numogram-ai
+
+    # Step 10: Upload Modified APK as Artifact
+    - name: Upload Modified APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: Modified_AI_Friend
+        path: Modified_AI_Friend.apk
