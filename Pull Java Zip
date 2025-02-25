@@ -1,0 +1,7 @@
+adb pull /data/app/com.antonio.my.ai.girlfriend.free-LFyptcADKH2dAq3epmNhEw==/base.apk ./AI_Friend.apk
+zip -T AI_Friend.apk
+java -jar apktool.jar d AI_Friend.apk -o AI_Friend_decompiled
+adb shell pm path com.antonio.my.ai.girlfriend.free
+java -jar bundletool.jar build-apks --mode=universal --output=merged.apks --bundle=base.apk --overwrite
+unzip merged.apks -d final_apk
+java -jar apktool.jar b AI_Friend_decompiled -o AI_Friend_Modified.apk
