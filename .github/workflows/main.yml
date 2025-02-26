@@ -1,39 +1,28 @@
-name: Numogram-Luna Integration
+name: Numogram Luna Integration
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  test_numogram:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
 
-      - name: Set Up Python
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.9"
-
-      - name: Install Dependencies
-        run: pip install fastapi uvicorn numpy pydantic
-
-      - name: Run API Tests
-        run: python -m unittest numogram_code.tests  # Updated the test file path
-
-  package_apk:
-    runs-on: ubuntu-latest
-    needs: test_numogram
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Build APK
-        run: |
-          cd Luna_App
-          ./gradlew assembleDebug
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: Luna_App
-          path: Luna_App/app/build/outputs/apk/debug/app-debug.apk
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Run Tests
+        run: pytest
+      
+      - name: Deploy
+        run: echo "Deploying..."
