@@ -1,4 +1,4 @@
-name: Numogram Luna Integration
+name: Numogram-Luna Integration and APK Repackage
 
 on:
   push:
