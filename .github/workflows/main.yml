@@ -1,5 +1,4 @@
 name: Numogram-Luna Integration and APK Repackage
-
 on:
   push:
     branches:
