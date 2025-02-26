@@ -3,7 +3,7 @@ name: Numogram-Luna Integration and APK Repackage
 on:
   push:
     branches:
-      - main
+      main
 
 jobs:
   build:
