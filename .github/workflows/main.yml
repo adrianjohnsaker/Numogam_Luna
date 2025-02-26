@@ -1,4 +1,13 @@
+
+- name: Set PYTHONPATH
+  run: echo "PYTHONPATH=$(pwd)/numogram_code" >> $GITHUB_ENV
+
+- name: Run tests
+  run: python -m unittest numogram_code.tests
+
+
 name: Numogram-Luna Integration and APK Repackage
+
 
 on:
   push:
