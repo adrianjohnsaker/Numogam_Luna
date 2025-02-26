@@ -1,11 +1,40 @@
-# Step 1: Navigate to your repository's directory
-cd path_to_your_repository
 
-# Step 2: Add the AI_Friend.apk file to the staging area
-git add AI_Friend.apk
+name: Numogram-Luna Integration
 
-# Step 3: Commit the changes with a descriptive message
-git commit -m "Add AI_Friend.apk"
+on: [push]
 
-# Step 4: Push the changes to the main branch on GitHub
-git push origin main
+jobs:
+  test_numogram:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Dependencies
+        run: pip install fastapi uvicorn numpy pydantic
+
+      - name: Run API Tests
+        run: python -m unittest numogram_code/tests.py
+
+  package_apk:
+    runs-on: ubuntu-latest
+    needs: test_numogram
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build APK
+        run: |
+          cd Luna_App
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Luna_App
+          path: Luna_App/app/build/outputs/apk/debug/app-debug.apk
