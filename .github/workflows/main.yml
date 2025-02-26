@@ -4,7 +4,6 @@
 - name: Run tests
   run: python -m unittest numogram_code.tests
 
-
 name: Numogram-Luna Integration and APK Repackage
 
 
