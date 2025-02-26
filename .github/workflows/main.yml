@@ -1,4 +1,11 @@
+# Step 1: Navigate to your repository's directory
 cd path_to_your_repository
+
+# Step 2: Add the AI_Friend.apk file to the staging area
 git add AI_Friend.apk
+
+# Step 3: Commit the changes with a descriptive message
 git commit -m "Add AI_Friend.apk"
+
+# Step 4: Push the changes to the main branch on GitHub
 git push origin main
