@@ -1,35 +1,48 @@
-cd path_to_your_repository
-mkdir numogram_code
-cp /path_to_your_numogram_code_files/* numogram_code/
-git add numogram_code/*
-git commit -m 
-# Numogram core logic
-def zone_transition(current_zone, user_input):
-    transition_map = {
-        "1": ["2", "4"],
-        "2": ["3", "6"],
-        "3": ["1", "9"],
-    }
-    return transition_map.get(current_zone, ["1"])
 from fastapi import FastAPI
 from pydantic import BaseModel
-from numogram_algorithm import zone_transition
+import json
+import random
+
+# Load zone data
+with open("numogram_code/zones.json") as f:
+    ZONE_DATA = json.load(f)["zones"]
+
+# Bayesian transition probabilities
+transition_probabilities = {
+    "1": {"2": 0.6, "4": 0.4},
+    "2": {"3": 0.7, "6": 0.3},
+    "3": {"1": 0.5, "9": 0.5},
+}
 
 app = FastAPI()
 
 class TransitionRequest(BaseModel):
+    user_id: str
     current_zone: str
-    input: str
+    feedback: float  # Reinforcement learning feedback
+
+# Memory storage
+user_memory = {}
 
 @app.post("/numogram/transition")
 async def transition(request: TransitionRequest):
-    result = zone_transition(request.current_zone, request.input)
-    return {"transition_result": result}
-{
-    "zones": {
-        "1": {"name": "Zone 1", "description": "Description for Zone 1"},
-        "2": {"name": "Zone 2", "description": "Description for Zone 2"},
-        "3": {"name": "Zone 3", "description": "Description for Zone 3"}
-    }
-}
-git push origin main
+    current_zone = request.current_zone
+
+    # Store user feedback
+    if request.user_id not in user_memory:
+        user_memory[request.user_id] = {"zone": current_zone, "feedback": request.feedback}
+    else:
+        user_memory[request.user_id]["feedback"] = request.feedback
+
+    # Bayesian transition logic
+    if current_zone in transition_probabilities:
+        next_zone = random.choices(
+            list(transition_probabilities[current_zone].keys()),
+            weights=list(transition_probabilities[current_zone].values())
+        )[0]
+    else:
+        next_zone = "1"  # Default fallback
+
+    user_memory[request.user_id]["zone"] = next_zone
+
+    return {"next_zone": next_zone, "zone_description": ZONE_DATA.get(next_zone, {})}
