@@ -1,4 +1,3 @@
-
 name: Numogram-Luna Integration
 
 on: [push]
@@ -19,7 +18,7 @@ jobs:
         run: pip install fastapi uvicorn numpy pydantic
 
       - name: Run API Tests
-        run: python -m unittest numogram_code/tests.py
+        run: python -m unittest numogram_code.tests  # Updated the test file path
 
   package_apk:
     runs-on: ubuntu-latest
