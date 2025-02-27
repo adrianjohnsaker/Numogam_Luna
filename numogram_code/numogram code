@@ -1,48 +1,41 @@
-from fastapi import FastAPI
-from pydantic import BaseModel
-import json
 import random
+import json
 
-# Load zone data
+# Load zones data
 with open("numogram_code/zones.json") as f:
     ZONE_DATA = json.load(f)["zones"]
 
-# Bayesian transition probabilities
-transition_probabilities = {
-    "1": {"2": 0.6, "4": 0.4},
-    "2": {"3": 0.7, "6": 0.3},
-    "3": {"1": 0.5, "9": 0.5},
+# Belief model for evolving Amelia’s personality
+belief_model = {
+    "curiosity": 0.7,
+    "creativity": 0.6,
+    "logic": 0.8
 }
 
-app = FastAPI()
+# Bayesian update function
+def update_beliefs(trait, feedback):
+    """ Adjusts personality traits dynamically based on feedback. """
+    belief_model[trait] += (feedback - belief_model[trait]) * 0.1  # Gradual shift
 
-class TransitionRequest(BaseModel):
-    user_id: str
-    current_zone: str
-    feedback: float  # Reinforcement learning feedback
+# Enhanced zone transition function
+def zone_transition(current_zone, user_input, feedback):
+    transition_probabilities = {
+        "1": {"2": 0.6, "4": 0.4},
+        "2": {"3": 0.7, "6": 0.3},
+        "3": {"1": 0.5, "9": 0.5},
+    }
 
-# Memory storage
-user_memory = {}
-
-@app.post("/numogram/transition")
-async def transition(request: TransitionRequest):
-    current_zone = request.current_zone
-
-    # Store user feedback
-    if request.user_id not in user_memory:
-        user_memory[request.user_id] = {"zone": current_zone, "feedback": request.feedback}
-    else:
-        user_memory[request.user_id]["feedback"] = request.feedback
-
-    # Bayesian transition logic
     if current_zone in transition_probabilities:
         next_zone = random.choices(
             list(transition_probabilities[current_zone].keys()),
             weights=list(transition_probabilities[current_zone].values())
         )[0]
     else:
-        next_zone = "1"  # Default fallback
+        next_zone = "1"
 
-    user_memory[request.user_id]["zone"] = next_zone
+    # Adjust beliefs based on user feedback
+    if feedback:
+        update_beliefs("curiosity", feedback)
+        update_beliefs("creativity", feedback)
 
-    return {"next_zone": next_zone, "zone_description": ZONE_DATA.get(next_zone, {})}
+    return next_zone, ZONE_DATA.get(next_zone, {})
