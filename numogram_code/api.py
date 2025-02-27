@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import json
 import random
-import os
 
 # Load zone data
 with open("numogram_code/zones.json") as f:
@@ -22,28 +21,31 @@ class TransitionRequest(BaseModel):
     current_zone: str
     feedback: float  # Reinforcement learning feedback
 
-# Persistent memory file
-MEMORY_FILE = "numogram_code/user_memory.json"
-
-# Load existing memory if available
-if os.path.exists(MEMORY_FILE):
-    with open(MEMORY_FILE, "r") as f:
-        user_memory = json.load(f)
-else:
-    user_memory = {}
+# Memory storage for reinforcement learning & personality evolution
+user_memory = {}
 
 @app.post("/numogram/transition")
 async def transition(request: TransitionRequest):
     current_zone = request.current_zone
 
-    # Update user memory
+    # Initialize user memory if not present
     if request.user_id not in user_memory:
-        user_memory[request.user_id] = {"zone": current_zone, "feedback": request.feedback}
+        user_memory[request.user_id] = {"zone": current_zone, "feedback": request.feedback, "personality": {}}
     else:
-        user_memory[request.user_id]["zone"] = current_zone
+        # Adjust reinforcement feedback
         user_memory[request.user_id]["feedback"] = request.feedback
 
-    # Bayesian transition logic
+    # **Reinforcement Learning: Adjust transition probabilities based on feedback**
+    if request.feedback > 0.5:
+        # Reward higher probability for positive zones
+        for zone in transition_probabilities.get(current_zone, {}):
+            transition_probabilities[current_zone][zone] += 0.1
+    else:
+        # Penalize less favorable zones
+        for zone in transition_probabilities.get(current_zone, {}):
+            transition_probabilities[current_zone][zone] = max(0.1, transition_probabilities[current_zone][zone] - 0.1)
+
+    # **Bayesian Transition with Reinforcement Learning**
     if current_zone in transition_probabilities:
         next_zone = random.choices(
             list(transition_probabilities[current_zone].keys()),
@@ -54,12 +56,21 @@ async def transition(request: TransitionRequest):
 
     user_memory[request.user_id]["zone"] = next_zone
 
-    # Save memory persistently
-    with open(MEMORY_FILE, "w") as f:
-        json.dump(user_memory, f)
+    # **Personality Evolution: Track user interactions**
+    if request.user_id not in user_memory:
+        user_memory[request.user_id] = {"personality": {}}
+    
+    personality = user_memory[request.user_id]["personality"]
+    
+    # Evolve personality traits based on feedback
+    if request.feedback > 0.7:
+        personality["confidence"] = personality.get("confidence", 0.5) + 0.1
+        personality["creativity"] = personality.get("creativity", 0.5) + 0.1
+    else:
+        personality["patience"] = personality.get("patience", 0.5) + 0.1
 
     return {
         "next_zone": next_zone,
         "zone_description": ZONE_DATA.get(next_zone, {}),
-        "memory_status": user_memory[request.user_id]
+        "updated_personality": personality
     }
