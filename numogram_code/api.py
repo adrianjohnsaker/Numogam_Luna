@@ -1,41 +1,31 @@
-import random
-import json
+from fastapi import FastAPI
+from pydantic import BaseModel
+from numogram_algorithm import zone_transition, belief_model
 
-# Load zones data
-with open("numogram_code/zones.json") as f:
-    ZONE_DATA = json.load(f)["zones"]
+app = FastAPI()
 
-# Belief model for evolving Amelia’s personality
-belief_model = {
-    "curiosity": 0.7,
-    "creativity": 0.6,
-    "logic": 0.8
-}
+class TransitionRequest(BaseModel):
+    user_id: str
+    current_zone: str
+    feedback: float  # User provides feedback (positive/negative)
 
-# Bayesian update function
-def update_beliefs(trait, feedback):
-    """ Adjusts personality traits dynamically based on feedback. """
-    belief_model[trait] += (feedback - belief_model[trait]) * 0.1  # Gradual shift
+user_memory = {}
 
-# Enhanced zone transition function
-def zone_transition(current_zone, user_input, feedback):
-    transition_probabilities = {
-        "1": {"2": 0.6, "4": 0.4},
-        "2": {"3": 0.7, "6": 0.3},
-        "3": {"1": 0.5, "9": 0.5},
-    }
+@app.post("/numogram/transition")
+async def transition(request: TransitionRequest):
+    current_zone = request.current_zone
 
-    if current_zone in transition_probabilities:
-        next_zone = random.choices(
-            list(transition_probabilities[current_zone].keys()),
-            weights=list(transition_probabilities[current_zone].values())
-        )[0]
+    if request.user_id not in user_memory:
+        user_memory[request.user_id] = {"zone": current_zone, "feedback": request.feedback}
     else:
-        next_zone = "1"
+        user_memory[request.user_id]["feedback"] = request.feedback
 
-    # Adjust beliefs based on user feedback
-    if feedback:
-        update_beliefs("curiosity", feedback)
-        update_beliefs("creativity", feedback)
+    next_zone, description = zone_transition(current_zone, request.feedback)
 
-    return next_zone, ZONE_DATA.get(next_zone, {})
+    user_memory[request.user_id]["zone"] = next_zone
+
+    return {
+        "next_zone": next_zone,
+        "zone_description": description,
+        "updated_beliefs": belief_model
+    }
