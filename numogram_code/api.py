@@ -1,31 +1,26 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from numogram_algorithm import zone_transition, belief_model
+from meta_reflection import meta_reflection
+from memory_module import update_memory
 
 app = FastAPI()
 
-class TransitionRequest(BaseModel):
+class UserRequest(BaseModel):
     user_id: str
-    current_zone: str
-    feedback: float  # User provides feedback (positive/negative)
+    input_text: str
 
-user_memory = {}
+@app.post("/respond")
+async def respond(request: UserRequest):
+    user_id = request.user_id
+    user_input = request.input_text
 
-@app.post("/numogram/transition")
-async def transition(request: TransitionRequest):
-    current_zone = request.current_zone
+    # Generate Amelia's response (base response logic)
+    base_response = f"That's an interesting thought about '{user_input}'. Let's explore that further."
 
-    if request.user_id not in user_memory:
-        user_memory[request.user_id] = {"zone": current_zone, "feedback": request.feedback}
-    else:
-        user_memory[request.user_id]["feedback"] = request.feedback
+    # Apply meta-reflection
+    refined_response = meta_reflection(user_id, user_input, base_response)
 
-    next_zone, description = zone_transition(current_zone, request.feedback)
+    # Update memory
+    update_memory(user_id, "last_response", refined_response)
 
-    user_memory[request.user_id]["zone"] = next_zone
-
-    return {
-        "next_zone": next_zone,
-        "zone_description": description,
-        "updated_beliefs": belief_model
-    }
+    return {"response": refined_response}
