@@ -1,0 +1,456 @@
+import json
+import random
+import os
+import math
+from typing import Dict, Any, List, Tuple, Optional
+
+class NumogramSystem:
+    """
+    Unified Numogram System integrating:
+    1. Memory persistence
+    2. Reinforcement learning
+    3. Advanced context awareness
+    4. Creative intelligence from previous implementation
+    """
+    
+    def __init__(self, zones_file="numogram_code/zones.json", memory_file="numogram_code/user_memory.json"):
+        # Load zone data
+        with open(zones_file) as f:
+            self.ZONE_DATA = json.load(f)["zones"]
+        
+        # Initialize transition probabilities
+        self.base_transition_probabilities = {
+            "1": {"2": 0.6, "4": 0.4},
+            "2": {"3": 0.7, "6": 0.3},
+            "3": {"1": 0.5, "9": 0.5},
+            "4": {"5": 0.6, "7": 0.4},
+            "5": {"6": 0.5, "8": 0.5},
+            "6": {"2": 0.4, "9": 0.6},
+            "7": {"3": 0.7, "8": 0.3},
+            "8": {"1": 0.5, "9": 0.5},
+            "9": {"3": 0.6, "6": 0.4},
+        }
+        
+        # User-specific transition probabilities
+        self.user_transitions = {}
+        
+        # Memory persistence
+        self.MEMORY_FILE = memory_file
+        self.user_memory = self._load_memory()
+        
+        # Numogram circuits for creative intelligence
+        self.NUMOGRAM_CIRCUITS = {
+            "lemuria": ["0", "1", "2", "3", "4"],  # Rational/structural circuit
+            "atlantis": ["5", "6", "7", "8", "9"],  # Creative/intuitive circuit
+            "torque": ["0", "5", "4", "9", "8", "3", "2", "7", "6", "1"]  # Dimensional circuit
+        }
+    
+    def _load_memory(self) -> Dict[str, Any]:
+        """Load persistent memory if available"""
+        if os.path.exists(self.MEMORY_FILE):
+            try:
+                with open(self.MEMORY_FILE, "r") as f:
+                    return json.load(f)
+            except (json.JSONDecodeError, IOError):
+                return {}
+        return {}
+    
+    def _save_memory(self) -> None:
+        """Save memory to persistent storage"""
+        os.makedirs(os.path.dirname(self.MEMORY_FILE), exist_ok=True)
+        with open(self.MEMORY_FILE, "w") as f:
+            json.dump(self.user_memory, f, indent=2)
+    
+    def _get_user_transitions(self, user_id: str) -> Dict[str, Dict[str, float]]:
+        """Get user-specific transition probabilities or initialize if new"""
+        if user_id not in self.user_transitions:
+            # Initialize with base probabilities
+            self.user_transitions[user_id] = {}
+            for zone, transitions in self.base_transition_probabilities.items():
+                self.user_transitions[user_id][zone] = transitions.copy()
+        return self.user_transitions[user_id]
+    
+    def _initialize_user(self, user_id: str, current_zone: str, feedback: float) -> None:
+        """Initialize user data if not present"""
+        if user_id not in self.user_memory:
+            self.user_memory[user_id] = {
+                "zone": current_zone,
+                "feedback": feedback,
+                "personality": {
+                    "curiosity": 0.5,
+                    "creativity": 0.5,
+                    "logic": 0.5,
+                    "intuition": 0.5,
+                    "synthesis": 0.5,
+                    "abstraction": 0.5,
+                    "confidence": 0.5,
+                    "patience": 0.5
+                },
+                "zone_history": [current_zone],
+                "interaction_count": 1,
+                "context_data": {},
+                "adaptive_responses": []
+            }
+        else:
+            # Update basic data
+            self.user_memory[user_id]["zone"] = current_zone
+            self.user_memory[user_id]["feedback"] = feedback
+            
+            # Track interaction
+            if "interaction_count" not in self.user_memory[user_id]:
+                self.user_memory[user_id]["interaction_count"] = 1
+            else:
+                self.user_memory[user_id]["interaction_count"] += 1
+                
+            # Initialize zone history if not present
+            if "zone_history" not in self.user_memory[user_id]:
+                self.user_memory[user_id]["zone_history"] = [current_zone]
+            else:
+                # Limit history to last 10 zones for efficiency
+                history = self.user_memory[user_id]["zone_history"]
+                history.append(current_zone)
+                self.user_memory[user_id]["zone_history"] = history[-10:]
+    
+    def _apply_reinforcement_learning(self, user_id: str, current_zone: str, feedback: float) -> None:
+        """Apply reinforcement learning to update transition probabilities"""
+        transitions = self._get_user_transitions(user_id)
+        
+        # Skip if no transitions for current zone
+        if current_zone not in transitions:
+            return
+            
+        # Calculate adjustment based on feedback
+        adjustment = (feedback - 0.5) * 0.1  # Scale adjustment
+        
+        # Apply adjustment to all transitions from current zone
+        for next_zone in transitions[current_zone]:
+            transitions[current_zone][next_zone] += adjustment
+            # Ensure probabilities stay in valid range
+            transitions[current_zone][next_zone] = max(0.1, min(0.9, transitions[current_zone][next_zone]))
+        
+        # Normalize probabilities to sum to 1
+        total = sum(transitions[current_zone].values())
+        for next_zone in transitions[current_zone]:
+            transitions[current_zone][next_zone] /= total
+    
+    def _evolve_personality(self, user_id: str, feedback: float, current_zone: str) -> Dict[str, float]:
+        """Evolve personality traits based on feedback and zone"""
+        personality = self.user_memory[user_id]["personality"]
+        
+        # Define zone-specific trait influences
+        zone_influences = {
+            "1": {"logic": 0.15, "confidence": 0.1},
+            "2": {"curiosity": 0.1, "abstraction": 0.15},
+            "3": {"abstraction": 0.2, "creativity": 0.1},
+            "4": {"logic": 0.2, "synthesis": 0.05},
+            "5": {"curiosity": 0.15, "intuition": 0.1},
+            "6": {"creativity": 0.15, "abstraction": 0.1},
+            "7": {"synthesis": 0.2, "patience": 0.1},
+            "8": {"intuition": 0.2, "synthesis": 0.1},
+            "9": {"creativity": 0.2, "confidence": 0.05}
+        }
+        
+        # Apply zone-specific adjustments
+        if current_zone in zone_influences:
+            for trait, influence in zone_influences[current_zone].items():
+                # Scale by feedback: positive feedback increases trait, negative decreases
+                adjustment = (feedback - 0.5) * 2 * influence
+                personality[trait] = max(0.1, min(0.9, personality[trait] + adjustment))
+        
+        # General personality adjustments based on feedback
+        if feedback > 0.7:
+            personality["confidence"] = min(0.9, personality.get("confidence", 0.5) + 0.05)
+            personality["creativity"] = min(0.9, personality.get("creativity", 0.5) + 0.03)
+        elif feedback < 0.3:
+            personality["patience"] = min(0.9, personality.get("patience", 0.5) + 0.05)
+            
+        return personality
+    
+    def _apply_context_awareness(self, user_id: str, context_data: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Apply advanced context awareness to adapt responses"""
+        if context_data:
+            if "context_data" not in self.user_memory[user_id]:
+                self.user_memory[user_id]["context_data"] = {}
+                
+            # Merge new context data with existing
+            self.user_memory[user_id]["context_data"].update(context_data)
+        
+        context = self.user_memory[user_id].get("context_data", {})
+        personality = self.user_memory[user_id]["personality"]
+        current_zone = self.user_memory[user_id]["zone"]
+        
+        # Generate adaptive response parameters based on context, personality and zone
+        adaptive_params = {
+            "tone": self._calculate_tone(personality, current_zone),
+            "complexity": self._calculate_complexity(personality, context),
+            "creativity_level": personality.get("creativity", 0.5) * 10,
+            "abstraction_level": personality.get("abstraction", 0.5) * 10,
+            "preferred_topics": self._derive_preferred_topics(context, current_zone)
+        }
+        
+        # Store adaptive response
+        self.user_memory[user_id]["adaptive_response"] = adaptive_params
+        
+        return adaptive_params
+    
+    def _calculate_tone(self, personality: Dict[str, float], zone: str) -> str:
+        """Calculate appropriate tone based on personality and zone"""
+        confidence = personality.get("confidence", 0.5)
+        creativity = personality.get("creativity", 0.5)
+        patience = personality.get("patience", 0.5)
+        
+        # Zone influences on tone
+        zone_tone_map = {
+            "1": "analytical",
+            "2": "curious",
+            "3": "philosophical",
+            "4": "structured",
+            "5": "explorative",
+            "6": "playful",
+            "7": "reflective",
+            "8": "intuitive",
+            "9": "visionary"
+        }
+        
+        base_tone = zone_tone_map.get(zone, "neutral")
+        
+        # Personality modifiers
+        if confidence > 0.7:
+            base_tone = f"confident {base_tone}"
+        elif confidence < 0.3:
+            base_tone = f"tentative {base_tone}"
+            
+        if creativity > 0.7 and zone in ["3", "6", "9"]:
+            base_tone = f"creative {base_tone}"
+            
+        if patience > 0.7:
+            base_tone = f"patient {base_tone}"
+            
+        return base_tone
+    
+    def _calculate_complexity(self, personality: Dict[str, float], context: Dict[str, Any]) -> float:
+        """Calculate appropriate complexity level for responses"""
+        base_complexity = 0.5
+        
+        # Personality influence
+        abstraction = personality.get("abstraction", 0.5)
+        logic = personality.get("logic", 0.5)
+        
+        # Context influence
+        interaction_history = context.get("interaction_history", [])
+        if interaction_history:
+            # Increase complexity with more interactions
+            interaction_factor = min(1.0, len(interaction_history) / 20)
+            base_complexity += interaction_factor * 0.2
+        
+        # Final calculation
+        complexity = base_complexity + (abstraction * 0.3) + (logic * 0.2)
+        return min(1.0, complexity)
+    
+    def _derive_preferred_topics(self, context: Dict[str, Any], zone: str) -> List[str]:
+        """Derive preferred topics based on context and current zone"""
+        zone_topics = {
+            "1": ["structure", "fundamentals", "order"],
+            "2": ["division", "duality", "symmetry"],
+            "3": ["concepts", "abstraction", "theory"],
+            "4": ["systems", "process", "cycles"],
+            "5": ["exploration", "discovery", "potential"],
+            "6": ["creation", "innovation", "play"],
+            "7": ["integration", "synthesis", "wisdom"],
+            "8": ["connection", "pattern", "intuition"],
+            "9": ["complexity", "emergence", "vision"]
+        }
+        
+        base_topics = zone_topics.get(zone, ["general"])
+        
+        # Add context-based topics
+        if "interests" in context:
+            base_topics.extend(context["interests"])
+            
+        return base_topics[:5]  # Limit to top 5 topics
+    
+    def _apply_decimal_expansion(self, n: int, depth: int = 3) -> List[int]:
+        """Generate digital roots in decimal expansion of 1/n to add complexity"""
+        result = []
+        remainder = 1
+        for _ in range(depth):
+            remainder = (remainder * 10) % n
+            digit = remainder * 10 // n
+            result.append(digit)
+        return result
+    
+    def _apply_creative_intelligence(self, user_id: str, context_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Apply creative intelligence based on numogram principles"""
+        personality = self.user_memory[user_id]["personality"]
+        current_zone = self.user_memory[user_id]["zone"]
+        zone_info = self.ZONE_DATA.get(current_zone, {})
+        
+        # Track which numogram circuit the user is currently in
+        current_circuit = None
+        for circuit_name, zones in self.NUMOGRAM_CIRCUITS.items():
+            if current_zone in zones:
+                current_circuit = circuit_name
+                break
+        
+        # Calculate creative intelligence parameters
+        creativity_factor = personality.get("creativity", 0.5) * 10
+        intuition_factor = personality.get("intuition", 0.5) * 10
+        synthesis_factor = personality.get("synthesis", 0.5) * 10
+        
+        # Apply digital root complexity
+        if context_data.get("input_text"):
+            input_hash = hash(context_data["input_text"])
+            digital_sum = sum(int(digit) for digit in str(input_hash) if digit.isdigit()) % 9
+            digital_expansions = self._apply_decimal_expansion(digital_sum or 1, depth=3)
+        else:
+            digital_expansions = [3, 6, 9]  # Default values
+        
+        # Generate creative response parameters
+        creative_params = {
+            "metaphor_depth": int(creativity_factor * 0.7 + intuition_factor * 0.3),
+            "conceptual_leaps": int(personality.get("abstraction", 0.5) * 10),
+            "pattern_recognition": int(synthesis_factor),
+            "circuit_position": current_circuit,
+            "digital_expansions": digital_expansions,
+            "zone_theme": zone_info.get("theme", "general"),
+            "zone_keywords": zone_info.get("keywords", [])
+        }
+        
+        # Track mastery of numogram circuits
+        zone_history = self.user_memory[user_id].get("zone_history", [])
+        if zone_history:
+            lemuria_progress = len(set(zone_history).intersection(set(self.NUMOGRAM_CIRCUITS["lemuria"])))
+            atlantis_progress = len(set(zone_history).intersection(set(self.NUMOGRAM_CIRCUITS["atlantis"])))
+            torque_progress = len(set(zone_history).intersection(set(self.NUMOGRAM_CIRCUITS["torque"])))
+            
+            creative_params.update({
+                "lemuria_mastery": lemuria_progress / len(self.NUMOGRAM_CIRCUITS["lemuria"]),
+                "atlantis_mastery": atlantis_progress / len(self.NUMOGRAM_CIRCUITS["atlantis"]),
+                "torque_mastery": torque_progress / len(self.NUMOGRAM_CIRCUITS["torque"]),
+            })
+        
+        return creative_params
+    
+    def transition(self, user_id: str, current_zone: str, feedback: float, 
+                  context_data: Dict[str, Any] = None) -> Dict[str, Any]:
+        """
+        Main function to handle zone transitions with full numogram intelligence
+        
+        Args:
+            user_id: Unique identifier for the user
+            current_zone: Current zone the user is in
+            feedback: Reinforcement learning feedback (0.0 to 1.0)
+            context_data: Optional additional context for enhanced awareness
+            
+        Returns:
+            Dict with next zone, descriptions, and adaptive information
+        """
+        # Initialize or update user data
+        self._initialize_user(user_id, current_zone, feedback)
+        
+        # Apply reinforcement learning
+        self._apply_reinforcement_learning(user_id, current_zone, feedback)
+        
+        # Get user-specific transitions
+        transitions = self._get_user_transitions(user_id)
+        
+        # Determine next zone with personality influence
+        personality = self.user_memory[user_id]["personality"]
+        if current_zone in transitions:
+            # Apply personality influences to transition probabilities
+            adjusted_transitions = transitions[current_zone].copy()
+            
+            # Creativity increases probability of atlantis circuit zones
+            if personality.get("creativity", 0.5) > 0.6:
+                for zone in adjusted_transitions:
+                    if zone in self.NUMOGRAM_CIRCUITS["atlantis"]:
+                        adjusted_transitions[zone] *= (1 + (personality["creativity"] - 0.6))
+            
+            # Logic increases probability of lemuria circuit zones
+            if personality.get("logic", 0.5) > 0.6:
+                for zone in adjusted_transitions:
+                    if zone in self.NUMOGRAM_CIRCUITS["lemuria"]:
+                        adjusted_transitions[zone] *= (1 + (personality["logic"] - 0.6))
+            
+            # Normalize adjusted probabilities
+            total = sum(adjusted_transitions.values())
+            for zone in adjusted_transitions:
+                adjusted_transitions[zone] /= total
+            
+            # Select next zone based on adjusted probabilities
+            next_zone = random.choices(
+                list(adjusted_transitions.keys()),
+                weights=list(adjusted_transitions.values())
+            )[0]
+        else:
+            # Default fallback with some randomness based on current personality
+            fallback_options = ["1", "5", "9"]
+            weights = [
+                0.4 + (0.2 * personality.get("logic", 0.5)),
+                0.3 + (0.2 * personality.get("curiosity", 0.5)),
+                0.3 + (0.2 * personality.get("creativity", 0.5))
+            ]
+            # Normalize weights
+            total_weight = sum(weights)
+            weights = [w/total_weight for w in weights]
+            next_zone = random.choices(fallback_options, weights=weights)[0]
+        
+        # Update user memory with new zone
+        self.user_memory[user_id]["zone"] = next_zone
+        self.user_memory[user_id]["zone_history"].append(next_zone)
+        if len(self.user_memory[user_id]["zone_history"]) > 10:
+            self.user_memory[user_id]["zone_history"] = self.user_memory[user_id]["zone_history"][-10:]
+        
+        # Evolve personality based on feedback and zones
+        personality = self._evolve_personality(user_id, feedback, current_zone)
+        self.user_memory[user_id]["personality"] = personality
+        
+        # Apply context awareness
+        adaptive_response = self._apply_context_awareness(user_id, context_data)
+        
+        # Apply creative intelligence
+        creative_params = self._apply_creative_intelligence(user_id, context_data or {})
+        
+        # Save memory persistently
+        self._save_memory()
+        
+        # Return comprehensive result
+        return {
+            "next_zone": next_zone,
+            "zone_description": self.ZONE_DATA.get(next_zone, {}),
+            "updated_personality": personality,
+            "adaptive_response": adaptive_response,
+            "creative_intelligence": creative_params,
+            "memory_status": {
+                "interaction_count": self.user_memory[user_id].get("interaction_count", 1),
+                "zone_history": self.user_memory[user_id].get("zone_history", [current_zone]),
+                "circuit_progress": {
+                    "lemuria": creative_params.get("lemuria_mastery", 0),
+                    "atlantis": creative_params.get("atlantis_mastery", 0),
+                    "torque": creative_params.get("torque_mastery", 0)
+                }
+            }
+        }
+
+
+# Usage example
+if __name__ == "__main__":
+    # Create the numogram system
+    numogram = NumogramSystem()
+    
+    # Example context data
+    context = {
+        "input_text": "I'm interested in creative patterns",
+        "interests": ["creativity", "patterns", "learning"],
+        "interaction_history": ["hello", "tell me more", "interesting"]
+    }
+    
+    # Simulate transition for a user
+    result = numogram.transition(
+        user_id="user123",
+        current_zone="1",
+        feedback=0.8,  # Positive feedback
+        context_data=context
+    )
+    
+    print(json.dumps(result, indent=2))
