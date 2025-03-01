@@ -1,0 +1,157 @@
+import json
+import os
+from typing import Dict, List, Any, Optional
+
+
+class MetaReflection:
+    def __init__(self, memory_path: str = "./memory"):
+        """
+        Initialize the MetaReflection module.
+        
+        Args:
+            memory_path: Path to the directory where memory files are stored
+        """
+        self.memory_path = memory_path
+        os.makedirs(memory_path, exist_ok=True)
+    
+    def _load_memory(self, user_id: str) -> Dict[str, Any]:
+        """
+        Load user memory from file.
+        
+        Args:
+            user_id: Unique identifier for the user
+            
+        Returns:
+            Dictionary containing user memory data
+        """
+        memory_file = os.path.join(self.memory_path, f"{user_id}.json")
+        
+        if os.path.exists(memory_file):
+            try:
+                with open(memory_file, 'r') as f:
+                    return json.load(f)
+            except json.JSONDecodeError:
+                return {"conversation_history": []}
+        else:
+            return {"conversation_history": []}
+    
+    def _evaluate_response_quality(self, response: str) -> Dict[str, float]:
+        """
+        Evaluate the quality of a response based on various metrics.
+        
+        Args:
+            response: The AI-generated response to evaluate
+            
+        Returns:
+            Dictionary of quality metrics with scores
+        """
+        # Simple example metrics (in a real implementation, these would be more sophisticated)
+        metrics = {
+            "clarity": 0.0,
+            "relevance": 0.0,
+            "helpfulness": 0.0,
+            "engagement": 0.0
+        }
+        
+        # Word count as a simple proxy for thoroughness (up to a point)
+        word_count = len(response.split())
+        if 20 <= word_count <= 100:
+            metrics["clarity"] = 0.7
+        elif word_count > 100:
+            metrics["clarity"] = 0.9
+        else:
+            metrics["clarity"] = 0.5
+            
+        # Check for question marks as a proxy for engagement
+        if '?' in response:
+            metrics["engagement"] = 0.8
+        else:
+            metrics["engagement"] = 0.6
+            
+        # These would normally use more sophisticated NLP techniques
+        metrics["relevance"] = 0.8  # Placeholder
+        metrics["helpfulness"] = 0.75  # Placeholder
+        
+        return metrics
+    
+    def _improve_response(self, response: str, quality_metrics: Dict[str, float], 
+                         user_input: str, user_memory: Dict[str, Any]) -> str:
+        """
+        Improve the response based on quality metrics and user context.
+        
+        Args:
+            response: The original AI-generated response
+            quality_metrics: Dictionary of quality metrics with scores
+            user_input: The user's input text
+            user_memory: The user's memory data
+            
+        Returns:
+            Improved response text
+        """
+        improved_response = response
+        
+        # Example improvements based on metrics (would be more sophisticated in practice)
+        avg_quality = sum(quality_metrics.values()) / len(quality_metrics)
+        
+        if avg_quality < 0.7:
+            # Simple enhancement by adding a more thoughtful closing
+            if "conversation_history" in user_memory and len(user_memory["conversation_history"]) > 2:
+                improved_response += "\n\nBased on our previous conversation, I hope this helps with what you're working on."
+        
+        # Check if we've been repeating ourselves
+        if "last_response" in user_memory:
+            last_response = user_memory["last_response"]
+            if len(last_response) > 20 and last_response[:20] == improved_response[:20]:
+                improved_response = "Taking a different approach: " + improved_response
+        
+        # Add personalization if available
+        if "preferences" in user_memory and user_memory["preferences"]:
+            improved_response += "\n\nI've taken your preferences into account in this response."
+            
+        return improved_response
+    
+    def reflect(self, user_id: str, user_input: str, base_response: str) -> str:
+        """
+        Apply meta-reflection to improve a base response.
+        
+        Args:
+            user_id: Unique identifier for the user
+            user_input: The user's input text
+            base_response: The original AI-generated response
+            
+        Returns:
+            Improved response after meta-reflection
+        """
+        # Load user memory
+        user_memory = self._load_memory(user_id)
+        
+        # Evaluate response quality
+        quality_metrics = self._evaluate_response_quality(base_response)
+        
+        # Improve the response
+        improved_response = self._improve_response(
+            base_response, 
+            quality_metrics,
+            user_input,
+            user_memory
+        )
+        
+        return improved_response
+
+
+# Create a singleton instance for easy import
+meta_reflection_instance = MetaReflection()
+
+def meta_reflection(user_id: str, user_input: str, base_response: str) -> str:
+    """
+    Convenience function to access the meta_reflection functionality.
+    
+    Args:
+        user_id: Unique identifier for the user
+        user_input: The user's input text
+        base_response: The original AI-generated response
+        
+    Returns:
+        Improved response after meta-reflection
+    """
+    return meta_reflection_instance.reflect(user_id, user_input, base_response)
