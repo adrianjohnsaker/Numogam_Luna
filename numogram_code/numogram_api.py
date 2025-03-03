@@ -11,8 +11,9 @@ from modules.numogram_algorithm import NumogramCore
 from modules.edge_explorer import EdgeExplorer
 from modules.knowledge_synthesis import KnowledgeSynthesis
 from modules.consequence_chains import ConsequenceChains
-from modules.numogram code_belief import NumogramCodeBelief
+from modules.numogram_code_belief import NumogramCodeBelief
 from modules.contradictory_analysis import ContradictoryAnalysis
+from modules.hybrid_model import AdaptiveHybridModel  # Add the hybrid model module
 
 app = FastAPI()
 
@@ -28,16 +29,25 @@ numogram_core = NumogramCore()
 edge_explorer = EdgeExplorer()
 knowledge_synthesis = KnowledgeSynthesis()
 consequence_chains = ConsequenceChains()
+numogram_belief = NumogramCodeBelief()
+contradictory_analysis = ContradictoryAnalysis()
+
+# Instantiate the Adaptive Hybrid Model
+adaptive_hybrid_model = AdaptiveHybridModel(som_params={"learning_rate": 0.5, "grid_size": (10, 10)},
+                                            rnn_params={"hidden_size": 128, "num_layers": 2},
+                                            evo_params={"population_size": 50, "mutation_rate": 0.1})
 
 # BaseModel for API Request
 class UserRequest(BaseModel):
     user_id: str
     input_text: str
+    input_data: list  # Added for passing data to the hybrid model
 
 @app.post("/respond")
 async def respond(request: UserRequest):
     user_id = request.user_id
     user_input = request.input_text
+    input_data = request.input_data  # Extract data for hybrid model
 
     # Step 1: Meta-reflection for refined response
     base_response = f"That's an interesting thought about '{user_input}'. Let's explore that further."
@@ -69,6 +79,17 @@ async def respond(request: UserRequest):
     knowledge_output = knowledge_synthesis.synthesize_knowledge(user_input, memory_context)
     consequence_analysis = consequence_chains.analyze_consequences(refined_response, 3)  # depth of 3
 
+    # Step 9: Advanced reasoning from belief and contradiction modules
+    belief_output = numogram_belief.analyze_beliefs(memory_context)
+    contradictory_output = contradictory_analysis.find_contradictions(refined_response)
+
+    # Step 10: Adaptive Hybrid Model integration
+    print("Running Adaptive Hybrid Model...")
+    som_clusters = adaptive_hybrid_model.train_som(input_data)
+    adaptive_hybrid_model.train_rnn(input_data, time_steps=5)
+    optimized_params = adaptive_hybrid_model.optimize_parameters()
+    hybrid_model_predictions = adaptive_hybrid_model.run(input_data, time_steps=5)
+
     # Final response compilation
     return {
         "refined_response": refined_response,
@@ -81,5 +102,12 @@ async def respond(request: UserRequest):
         "numogram_analysis": numogram_output,
         "edge_analysis": edge_analysis,
         "knowledge_synthesis": knowledge_output,
-        "consequence_chains": consequence_analysis
+        "consequence_chains": consequence_analysis,
+        "belief_analysis": belief_output,
+        "contradictory_analysis": contradictory_output,
+        "adaptive_hybrid_model": {
+            "som_clusters": som_clusters,
+            "optimized_params": optimized_params,
+            "predictions": hybrid_model_predictions
+        }
     }
