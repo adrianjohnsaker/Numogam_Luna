@@ -12,7 +12,7 @@ from modules.edge_explorer import EdgeExplorer
 from modules.knowledge_synthesis import KnowledgeSynthesis
 from modules.consequence_chains import ConsequenceChains
 from modules.numogram code_belief import NumogramCodeBelief
-
+from modules.contradictory_analysis import ContradictoryAnalysis
 
 app = FastAPI()
 
