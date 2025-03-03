@@ -11,6 +11,8 @@ from modules.numogram_algorithm import NumogramCore
 from modules.edge_explorer import EdgeExplorer
 from modules.knowledge_synthesis import KnowledgeSynthesis
 from modules.consequence_chains import ConsequenceChains
+from modules.numogram code_belief import NumogramCodeBelief
+
 
 app = FastAPI()
 
