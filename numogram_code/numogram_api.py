@@ -8,6 +8,9 @@ from modules.recursive_thought import RecursiveThought
 from modules.multi_zone_memory import MultiZoneMemory
 from modules.creative_expansion import CreativeExpansion
 from modules.numogram_algorithm import NumogramCore
+from modules.edge_explorer import EdgeExplorer
+from modules.knowledge_synthesis import KnowledgeSynthesis
+from modules.consequence_chains import ConsequenceChains
 
 app = FastAPI()
 
@@ -18,6 +21,11 @@ recursive_thought = RecursiveThought()
 multi_zone_memory = MultiZoneMemory()
 creative_expansion = CreativeExpansion()
 numogram_core = NumogramCore()
+
+# Initialize the new numogram modules
+edge_explorer = EdgeExplorer()
+knowledge_synthesis = KnowledgeSynthesis()
+consequence_chains = ConsequenceChains()
 
 # BaseModel for API Request
 class UserRequest(BaseModel):
@@ -51,8 +59,13 @@ async def respond(request: UserRequest):
     # Step 6: Creative expansion for more dynamic suggestions
     creative_ideas = creative_expansion.expand_on_ideas(refined_response)
 
-    # Step 7: Utilize the Numogram Core for advanced reasoning
+    # Step 7: Utilize the Numogram modules for advanced reasoning
     numogram_output = numogram_core.analyze_and_optimize(user_input)
+    
+    # Step 8: Apply the new numogram modules
+    edge_analysis = edge_explorer.explore_edge_cases(user_input, refined_response)
+    knowledge_output = knowledge_synthesis.synthesize_knowledge(user_input, memory_context)
+    consequence_analysis = consequence_chains.analyze_consequences(refined_response, 3)  # depth of 3
 
     # Final response compilation
     return {
@@ -63,5 +76,8 @@ async def respond(request: UserRequest):
         "memory_context": memory_context,
         "updated_memory": updated_memory,
         "creative_expansion": creative_ideas,
-        "numogram_analysis": numogram_output
+        "numogram_analysis": numogram_output,
+        "edge_analysis": edge_analysis,
+        "knowledge_synthesis": knowledge_output,
+        "consequence_chains": consequence_analysis
     }
