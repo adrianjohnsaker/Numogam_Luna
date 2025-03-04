@@ -1,202 +1,198 @@
-name: Numogram-Luna Integration and APK Repackage
+name: Numogram-Luna APK Integration
 
-on: [push]
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  PYTHON_VERSION: '3.11'
+  JAVA_VERSION: '11'
+  APK_FILE_ID: '1-0851uVsVN9N1ghMQePcFSUV-TyCQnZd'
 
 jobs:
-  build:
+  build-and-integrate:
     runs-on: ubuntu-latest
-
+    
     steps:
-    # Step 1: Checkout the repository
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    # Step 2: Set up Python for Numogram AI backend
-    - name: Set up Python
-      uses: actions/setup-python@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python ${{ env.PYTHON_VERSION }}
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
-
-    # Step 3: Install Dependencies
-    - name: Install Dependencies
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Set up Java ${{ env.JAVA_VERSION }}
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: ${{ env.JAVA_VERSION }}
+        
+    - name: Install System Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget unzip openjdk-11-jdk
+        sudo apt-get install -y wget unzip git
+        
+    - name: Install Python Dependencies
+      run: |
         python -m pip install --upgrade pip
-        pip install fastapi uvicorn pydantic numpy gdown
-
-    # Step 4: Prepare numogram code files
-    - name: Prepare Numogram code
+        pip install fastapi uvicorn pydantic numpy requests gdown
+        
+    - name: Prepare Numogram Integration Files
       run: |
-        mkdir -p numogram_code
+        mkdir -p numogram_integration
         
-        # Create numogram_algorithm.py
-        cat > numogram_code/numogram_algorithm.py << 'EOF'
-        # Numogram core logic
-        def zone_transition(current_zone, user_input):
-            transition_map = {
-                "1": ["2", "4"],
-                "2": ["3", "6"],
-                "3": ["1", "9"],
-            }
-            return transition_map.get(current_zone, ["1"])
-        EOF
+        # Create robust Numogram algorithm
+        cat > numogram_integration/numogram_core.py << 'EOF'
+import json
+from typing import List, Dict, Optional
+import numpy as np
+
+class NumogramEngine:
+    def __init__(self, zones_config: str = 'zones.json'):
+        with open(zones_config, 'r') as f:
+            self.zones_config = json.load(f)
         
-        # Create api.py
-        cat > numogram_code/api.py << 'EOF'
-        from fastapi import FastAPI
-        from pydantic import BaseModel
-        from numogram_algorithm import zone_transition
+    def validate_zone(self, zone: str) -> bool:
+        return zone in self.zones_config['zones']
+    
+    def zone_transition(self, current_zone: str, user_input: str) -> List[str]:
+        if not self.validate_zone(current_zone):
+            raise ValueError(f"Invalid zone: {current_zone}")
         
-        app = FastAPI()
-        
-        class TransitionRequest(BaseModel):
-            current_zone: str
-            input: str
-        
-        @app.post("/numogram/transition")
-        async def transition(request: TransitionRequest):
-            result = zone_transition(request.current_zone, request.input)
-            return {"transition_result": result}
-        EOF
-        
-        # Create zones.json
-        cat > numogram_code/zones.json << 'EOF'
-        {
-            "zones": {
-                "1": {"name": "Zone 1", "description": "Description for Zone 1"},
-                "2": {"name": "Zone 2", "description": "Description for Zone 2"},
-                "3": {"name": "Zone 3", "description": "Description for Zone 3"}
-            }
+        transition_map = {
+            "1": ["2", "4"],
+            "2": ["3", "6"],
+            "3": ["1", "9"],
+            # Expand transition logic as needed
         }
-        EOF
         
-        # Verify files
-        ls -la numogram_code/
+        return transition_map.get(current_zone, ["1"])
+    
+    def calculate_zone_probability(self, transitions: List[str]) -> Dict[str, float]:
+        total_transitions = len(transitions)
+        return {
+            zone: transitions.count(zone) / total_transitions 
+            for zone in set(transitions)
+        }
+EOF
+        
+        # Create FastAPI backend
+        cat > numogram_integration/numogram_api.py << 'EOF'
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from numogram_core import NumogramEngine
+import uvicorn
 
-    # Step 5: Download your APK from Google Drive with improved handling
-    - name: Download AI_Friend APK from Google Drive
+app = FastAPI(title="Numogram Luna Integration")
+numogram = NumogramEngine()
+
+class TransitionRequest(BaseModel):
+    current_zone: str
+    user_input: str
+
+class TransitionResponse(BaseModel):
+    current_zone: str
+    possible_transitions: List[str]
+    transition_probabilities: Dict[str, float]
+
+@app.post("/transition", response_model=TransitionResponse)
+async def zone_transition(request: TransitionRequest):
+    try:
+        transitions = numogram.zone_transition(request.current_zone, request.user_input)
+        probabilities = numogram.calculate_zone_probability(transitions)
+        
+        return TransitionResponse(
+            current_zone=request.current_zone,
+            possible_transitions=transitions,
+            transition_probabilities=probabilities
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+EOF
+        
+        # Create zones configuration
+        cat > numogram_integration/zones.json << 'EOF'
+{
+    "zones": {
+        "1": {"name": "Luna's Core", "description": "Primary Intelligence Zone"},
+        "2": {"name": "Cognitive Expansion", "description": "Advanced Processing Zone"},
+        "3": {"name": "Adaptive Learning", "description": "Machine Learning Optimization Zone"}
+    }
+}
+EOF
+        
+        ls -la numogram_integration/
+        
+    - name: Download Target APK
       run: |
-        # Install gdown for downloading from Google Drive
         pip install gdown
+        gdown --id ${{ env.APK_FILE_ID }} -O AI_Friend.apk --fuzzy
         
-        # The file ID from your Google Drive link
-        FILE_ID="1-0851uVsVN9N1ghMQePcFSUV-TyCQnZd"
-        
-        # Download using gdown with more options for reliability
-        echo "Downloading AI_Friend.apk from Google Drive..."
-        gdown --id $FILE_ID -O AI_Friend.apk --fuzzy
-        
-        # Check if the file exists and has a valid size
-        echo "Verifying downloaded file..."
-        if [ -f AI_Friend.apk ] && [ -s AI_Friend.apk ]; then
-          echo "File downloaded. Size: $(du -h AI_Friend.apk | cut -f1)"
-          
-          # Additional verification: Try to list contents with zipinfo
-          if zipinfo -1 AI_Friend.apk > /dev/null 2>&1; then
-            echo "APK file structure verified successfully."
-          else
-            echo "APK file structure verification failed. File may be corrupted."
-            USE_FALLBACK=true
-          fi
-        else
-          echo "Download failed or file is empty."
-          USE_FALLBACK=true
-        fi
-        
-        # Use a fallback APK if needed
-        if [ "$USE_FALLBACK" = true ] || [ ! -f AI_Friend.apk ] || [ ! -s AI_Friend.apk ]; then
-          echo "Using a sample APK as fallback..."
-          wget "https://github.com/appium/android-apidemos/raw/master/bin/ApiDemos-debug.apk" -O AI_Friend.apk
-          
-          # Verify the fallback download
-          if [ -f AI_Friend.apk ] && [ -s AI_Friend.apk ]; then
-            echo "Fallback APK downloaded successfully. Size: $(du -h AI_Friend.apk | cut -f1)"
-          else
-            echo "ERROR: Failed to download fallback APK as well."
-            exit 1
-          fi
-        fi
-
-    # Step 6: Install APKTool
     - name: Install APKTool
       run: |
         wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool.jar
-        wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O apktool
-        chmod +x apktool
-        sudo mv apktool /usr/local/bin/
-
-    # Step 7: Decompile APK with improved error handling
+        chmod +x apktool.jar
+        
     - name: Decompile APK
       run: |
-        # Try to decompile with normal settings first
-        echo "Attempting to decompile APK..."
-        java -jar apktool.jar d AI_Friend.apk -o AI_Friend_decompiled
+        java -jar apktool.jar d AI_Friend.apk -o decompiled_apk
         
-        # Check if decompiling was successful
-        if [ ! -d "AI_Friend_decompiled/smali" ] && [ ! -d "AI_Friend_decompiled/res" ]; then
-          echo "First decompile attempt failed. Trying with force option..."
-          java -jar apktool.jar d -f AI_Friend.apk -o AI_Friend_decompiled
-          
-          # Check again
-          if [ ! -d "AI_Friend_decompiled/smali" ] && [ ! -d "AI_Friend_decompiled/res" ]; then
-            echo "Second decompile attempt failed. Downloading a known working APK as fallback..."
-            wget "https://github.com/appium/android-apidemos/raw/master/bin/ApiDemos-debug.apk" -O fallback.apk
-            
-            # Decompile the fallback APK
-            echo "Decompiling fallback APK..."
-            java -jar apktool.jar d fallback.apk -o AI_Friend_decompiled
-            
-            # Verify decompilation of fallback
-            if [ ! -d "AI_Friend_decompiled/smali" ] && [ ! -d "AI_Friend_decompiled/res" ]; then
-              echo "ERROR: All decompilation attempts failed."
-              exit 1
-            else
-              echo "Successfully decompiled fallback APK."
-            fi
-          else
-            echo "Successfully decompiled APK with force option."
-          fi
-        else
-          echo "Successfully decompiled APK."
-        fi
-        
-        # List the decompiled structure for verification
-        echo "Decompiled APK structure:"
-        ls -la AI_Friend_decompiled/
-
-    # Step 8: Modify APK (Insert Numogram code)
-    - name: Modify APK (Add Numogram-Luna Integration)
+    - name: Integrate Numogram Files
       run: |
-        echo "Integrating Numogram with Luna's Core..."
-        mkdir -p AI_Friend_decompiled/assets/numogram/
-        cp -r ./numogram_code/* AI_Friend_decompiled/assets/numogram/
-        echo "Integration complete."
-        ls -la AI_Friend_decompiled/assets/numogram/
+        # Copy Numogram integration files
+        mkdir -p decompiled_apk/assets/numogram
+        cp numogram_integration/* decompiled_apk/assets/numogram/
+        
+        # Create Java bridge for Numogram integration
+        mkdir -p decompiled_apk/smali/com/numogram/integration
+        cat > decompiled_apk/smali/com/numogram/integration/NumogramBridge.smali << 'EOF'
+.class public Lcom/numogram/integration/NumogramBridge;
+.super Ljava/lang/Object;
 
-    # Step 9: Recompile APK
+.method public static initNumogramBackend()V
+    .locals 1
+    
+    # Initialization logic placeholder
+    const-string v0, "Numogram Backend Initialized"
+    
+    return-void
+.end method
+
+.method public static processZoneTransition(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+    .locals 1
+    .param p0, "currentZone"    # Ljava/lang/String;
+    .param p1, "userInput"      # Ljava/lang/String;
+    
+    # Transition processing placeholder
+    const-string v0, "Transition Result"
+    
+    return-object v0
+.end method
+.end class
+EOF
+        
+    - name: Modify AndroidManifest
+      run: |
+        sed -i '/<\/application>/i \    <uses-permission android:name="android.permission.INTERNET"/>' decompiled_apk/AndroidManifest.xml
+        
     - name: Recompile APK
       run: |
-        java -jar apktool.jar b AI_Friend_decompiled -o AI_Friend_Modified.apk
-
-    # Step 10: Generate keystore for signing
-    - name: Generate keystore
-      run: |
-        keytool -genkey -v -keystore my-release-key.keystore -alias alias_name -keyalg RSA -keysize 2048 -validity 10000 -storepass password -keypass password -dname "CN=Your Name, OU=Your Organizational Unit, O=Your Organization, L=Your City, S=Your State, C=Your Country Code"
-
-    # Step 11: Sign the APK
+        java -jar apktool.jar b decompiled_apk -o AI_Friend_Numogram.apk
+        
     - name: Sign APK
       run: |
-        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore -storepass password -keypass password AI_Friend_Modified.apk alias_name
-
-    # Step 12: Verify the signed APK
-    - name: Verify Signed APK
-      run: |
-        jarsigner -verify -verbose -certs AI_Friend_Modified.apk
-
-    # Step 13: Upload Modified APK as Artifact
+        keytool -genkey -v -keystore release.keystore -alias numogram -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Numogram, OU=Luna Integration, O=AI Research"
+        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release.keystore -storepass android AI_Friend_Numogram.apk numogram
+        
     - name: Upload Modified APK
       uses: actions/upload-artifact@v4
       with:
-        name: modified-apk
-        path: AI_Friend_Modified.apk
+        name: numogram-luna-apk
+        path: AI_Friend_Numogram.apk
+        retention-days: 5
