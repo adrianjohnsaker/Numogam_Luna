@@ -1,0 +1,57 @@
+name: Numogram-Luna APK Integration
+
+on: [push, pull_request]
+
+jobs:
+  check-numogram:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Decompile APK
+      run: |
+        java -jar apktool.jar d AI_Friend_Numogram.apk -o decompiled_apk
+
+    - name: Search for Numogram files
+      run: |
+        if grep -q "numogram_core.py" decompiled_apk/assets/*; then
+          echo "Numogram core found"
+        else
+          echo "Numogram core missing"
+          exit 1
+        fi
+        if grep -q "numogram_api.py" decompiled_apk/assets/*; then
+          echo "Numogram API found"
+        else
+          echo "Numogram API missing"
+          exit 1
+        fi
+        if grep -q "zones.json" decompiled_apk/assets/*; then
+          echo "Zones JSON found"
+        else
+          echo "Zones JSON missing"
+          exit 1
+        fi
+
+    - name: Validate Smali Integration
+      run: |
+        if grep -q "NumogramBridge.smali" decompiled_apk/smali/com/numogram/integration/*; then
+          echo "NumogramBridge found"
+        else
+          echo "NumogramBridge missing"
+          exit 1
+        fi
+        if grep -q "initNumogramBackend" decompiled_apk/smali/com/numogram/integration/NumogramBridge.smali; then
+          echo "initNumogramBackend method found"
+        else
+          echo "initNumogramBackend method missing"
+          exit 1
+        fi
+        if grep -q "processZoneTransition" decompiled_apk/smali/com/numogram/integration/NumogramBridge.smali; then
+          echo "processZoneTransition method found"
+        else
+          echo "processZoneTransition method missing"
+          exit 1
+        fi
