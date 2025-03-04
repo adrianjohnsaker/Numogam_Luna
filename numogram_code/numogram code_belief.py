@@ -7,8 +7,8 @@ with open("numogram_code/zones.json") as f:
 
 # Belief model for evolving Amelia’s personality
 belief_model = {
-    "curiosity": 0.7,
-    "creativity": 0.6,
+    "curiosity": 0.8,
+    "creativity": 0.8,
     "logic": 0.8
 }
 
