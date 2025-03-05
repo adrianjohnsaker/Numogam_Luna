@@ -46,9 +46,9 @@ jobs:
         
         # Create robust Numogram algorithm
         cat > numogram_integration/numogram_core.py << 'EOF'
-import json
 from typing import List, Dict, Optional
 import numpy as np
+import json
 
 class NumogramEngine:
     def __init__(self, zones_config: str = 'zones.json'):
@@ -83,6 +83,7 @@ EOF
         cat > numogram_integration/numogram_api.py << 'EOF'
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from typing import List, Dict, Optional
 from numogram_core import NumogramEngine
 import uvicorn
 
