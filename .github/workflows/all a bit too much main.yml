@@ -48,7 +48,6 @@ jobs:
         cat > numogram_integration/numogram_core.py << 'EOF'
 import json
 from typing import List, Dict, Optional
-import numpy as np
 
 class NumogramEngine:
     def __init__(self, zones_config: str = 'zones.json'):
@@ -138,6 +137,7 @@ EOF
       run: |
         wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool.jar
         chmod +x apktool.jar
+        ls -la apktool.jar  # Check if apktool.jar is present
         
     - name: Decompile APK
       run: |
