@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from typing import Optional, Dict
 from modules.meta_reflection import meta_reflection
 from modules.memory_module import update_memory
 from modules.implementation_feasibility import FeasibilityEvaluator
@@ -13,7 +14,9 @@ from modules.knowledge_synthesis import KnowledgeSynthesis
 from modules.consequence_chains import ConsequenceChains
 from modules.numogram_code_belief import NumogramCodeBelief
 from modules.contradictory_analysis import ContradictoryAnalysis
-from modules.hybrid_model import AdaptiveHybridModel  # Add the hybrid model module
+from modules.hybrid_model import AdaptiveHybridModel
+from modules.schizoanalytic_generator import SchizoanalyticGenerator, apply_schizoanalytic_mutation
+from modules.morphogenesis_module import MorphogenesisModule  # New import
 
 app = FastAPI()
 
@@ -24,6 +27,7 @@ recursive_thought = RecursiveThought()
 multi_zone_memory = MultiZoneMemory()
 creative_expansion = CreativeExpansion()
 numogram_core = NumogramCore()
+morphogenesis_module = MorphogenesisModule()  # Initialize Morphogenesis Module
 
 # Initialize the new numogram modules
 edge_explorer = EdgeExplorer()
@@ -33,21 +37,29 @@ numogram_belief = NumogramCodeBelief()
 contradictory_analysis = ContradictoryAnalysis()
 
 # Instantiate the Adaptive Hybrid Model
-adaptive_hybrid_model = AdaptiveHybridModel(som_params={"learning_rate": 0.5, "grid_size": (10, 10)},
-                                            rnn_params={"hidden_size": 128, "num_layers": 2},
-                                            evo_params={"population_size": 50, "mutation_rate": 0.1})
+adaptive_hybrid_model = AdaptiveHybridModel(
+    som_params={"learning_rate": 0.5, "grid_size": (10, 10)},
+    rnn_params={"hidden_size": 128, "num_layers": 2},
+    evo_params={"population_size": 50, "mutation_rate": 0.1}
+)
+
+# Instantiate the Schizoanalytic Generator
+schizoanalytic_generator = SchizoanalyticGenerator()
 
 # BaseModel for API Request
 class UserRequest(BaseModel):
     user_id: str
     input_text: str
-    input_data: list  # Added for passing data to the hybrid model
+    input_data: list
+    system_context: Optional[Dict] = None  # New field to pass system context
+    context_data: dict = {}  # Added for morphogenesis context
 
 @app.post("/respond")
 async def respond(request: UserRequest):
     user_id = request.user_id
     user_input = request.input_text
     input_data = request.input_data  # Extract data for hybrid model
+    context_data = request.context_data
 
     # Step 1: Meta-reflection for refined response
     base_response = f"That's an interesting thought about '{user_input}'. Let's explore that further."
@@ -90,6 +102,43 @@ async def respond(request: UserRequest):
     optimized_params = adaptive_hybrid_model.optimize_parameters()
     hybrid_model_predictions = adaptive_hybrid_model.run(input_data, time_steps=5)
 
+    # Step 11: Schizoanalytic Mutation and Creative Generation
+    # Prepare system context for mutation
+    system_context = request.system_context or {
+        'current_creativity': 0.5,
+        'knowledge_domains': ['language', 'reasoning', 'creative_thinking'],
+        'processing_parameters': {
+            'exploration_rate': 0.3,
+            'connection_depth': 2
+        }
+    }
+
+    # Apply schizoanalytic mutation to system context
+    mutated_system_context = apply_schizoanalytic_mutation(system_context)
+
+    # Generate creative output based on input
+    schizoanalytic_output = schizoanalytic_generator.generate_creative_output(
+        input_data or [user_input]
+    )
+
+    # Analyze the system's current state
+    system_state_analysis = schizoanalytic_generator.analyze_system_state()
+
+    # Step 12: Morphogenesis Module - Generate Creative Patterns
+    # Combine context from previous steps
+    morphogenesis_context = {
+        **context_data,
+        "creativity_factor": len(creative_ideas) / 10.0,
+        "memory_context": memory_context,
+        "numogram_output": numogram_output
+    }
+    
+    # Generate morphogenetic pattern
+    morphogenetic_pattern = await morphogenesis_module.generate_creative_pattern(
+        user_input, 
+        morphogenesis_context
+    )
+
     # Final response compilation
     return {
         "refined_response": refined_response,
@@ -109,5 +158,27 @@ async def respond(request: UserRequest):
             "som_clusters": som_clusters,
             "optimized_params": optimized_params,
             "predictions": hybrid_model_predictions
-        }
+        },
+        "schizoanalytic_mutation": mutated_system_context,
+        "creative_generation": schizoanalytic_output,
+        "system_state_analysis": system_state_analysis,
+        "morphogenetic_pattern": morphogenetic_pattern
+    }
+
+@app.post("/explore")
+async def schizoanalytic_exploration(request: UserRequest):
+    """
+    Dedicated endpoint for pure schizoanalytic creative exploration
+    """
+    # Generate creative output purely through schizoanalytic process
+    creative_output = schizoanalytic_generator.generate_creative_output(
+        request.input_data or [request.input_text]
+    )
+
+    # Analyze the system state
+    system_state = schizoanalytic_generator.analyze_system_state()
+
+    return {
+        "creative_exploration": creative_output,
+        "system_state": system_state
     }
