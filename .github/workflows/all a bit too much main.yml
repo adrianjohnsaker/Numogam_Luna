@@ -160,16 +160,43 @@ EOF
         echo "Created Numogram integration files:"
         ls -la numogram_integration/
         
-    - name: Install Latest APKTool
+    - name: Install Multiple Decompiler Tools
       run: |
-        # Download the latest stable release
-        mkdir -p ~/bin
-        wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O ~/bin/apktool
-        wget -q https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.7.0.jar -O ~/bin/apktool.jar
-        chmod +x ~/bin/apktool ~/bin/apktool.jar
-        export PATH=~/bin:$PATH
-        echo "Using APKTool version:"
-        ~/bin/apktool --version
+        # Create tools directory
+        mkdir -p ~/tools
+        cd ~/tools
+        
+        # Install multiple versions of APKTool for fallback
+        echo "Installing APKTool versions..."
+        wget -q https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool_2.6.1.jar
+        wget -q https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.7.0.jar -O apktool_2.7.0.jar
+        wget -q https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.5.0.jar -O apktool_2.5.0.jar
+        
+        # Download the wrapper script
+        wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O apktool
+        chmod +x apktool apktool_*.jar
+        
+        # Install dex2jar for fallback
+        echo "Installing dex2jar..."
+        wget -q https://github.com/pxb1988/dex2jar/releases/download/v2.1/dex-tools-2.1.zip
+        unzip -q dex-tools-2.1.zip
+        chmod +x dex2jar-2.1/*.sh
+        
+        # Install jadx for fallback
+        echo "Installing jadx..."
+        wget -q https://github.com/skylot/jadx/releases/download/v1.4.7/jadx-1.4.7.zip
+        unzip -q jadx-1.4.7.zip
+        chmod +x jadx/bin/jadx
+        
+        # Add all tools to PATH
+        export PATH=~/tools:~/tools/dex2jar-2.1:~/tools/jadx/bin:$PATH
+        echo "PATH=$PATH" >> $GITHUB_ENV
+        
+        # Create symlinks for specific APKTool versions
+        ln -sf ~/tools/apktool_2.6.1.jar ~/tools/apktool.jar
+        
+        echo "Installed decompiler tools:"
+        ls -la ~/tools/
         
     - name: Download Target APK
       run: |
