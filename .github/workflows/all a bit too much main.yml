@@ -51,7 +51,7 @@ from typing import List, Dict, Optional
 import numpy as np
 
 class NumogramEngine:
-    def __init__(, zones_config: str = 'zones.json'):
+    def __init__(self, zones_config: str = 'zones.json'):
         with open(zones_config, 'r') as f:
             self.zones_config = json.load(f)
         
@@ -71,11 +71,11 @@ class NumogramEngine:
         
         return transition_map.get(current_zone, ["1"])
     
-    def calculate zone_probability(self, transitions: List[str]) -> Dict[str, float]:
-        total_transitions = len(transitions)
+    def calculate_zone_probability(self, transitions: List[str]) -> Dict[str, float]:
+        total transitions = len(transitions)
         return {
             zone: transitions.count(zone) / total transitions 
-            for zone in set(transitions)
+            for zone in set transitions
         }
 EOF
         
@@ -90,11 +90,11 @@ app = FastAPI(title="Numogram Luna Integration")
 numogram = NumogramEngine()
 
 class TransitionRequest(BaseModel):
-    current_zone: str
-    user_input: str
+    current zone: str
+    user input: str
 
-class Transition Response(BaseModel):
-    current_zone: str
+class TransitionResponse(BaseModel):
+    current zone: str
     possible transitions: List[str]
     transition probabilities: Dict[str, float]
 
@@ -105,12 +105,12 @@ async def zone transition(request: TransitionRequest):
         probabilities = numogram.calculate_zone_probability(transitions)
         
         return TransitionResponse(
-            current_zone=request.current_zone,
-            possible_transitions=transitions,
-            transition_probabilities=probabilities
+            current zone=request.current zone,
+            possible transitions=transitions,
+            transition probabilities=probabilities
         )
     except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status code=400, detail=str(e))
 
 if __name__ == "__main__":
     uvicorn run(app, host="0.0.0.0", port=8000)
