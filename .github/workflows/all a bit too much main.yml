@@ -74,7 +74,7 @@ class NumogramEngine:
     def calculate_zone_probability(self, transitions: List[str]) -> Dict[str, float]:
         total_transitions = len(transitions)
         return {
-            zone: transitions.count(zone) / total_transitions 
+            zone: transitions.count(zone) / total transitions 
             for zone in set(transitions)
         }
 EOF
@@ -94,14 +94,14 @@ class TransitionRequest(BaseModel):
     user_input: str
 
 class TransitionResponse(BaseModel):
-    current_zone: str
-    possible_transitions: List[str]
-    transition_probabilities: Dict[str, float]
+    current zone: str
+    possible transitions: List[str]
+    transition probabilities: Dict[str, float]
 
-@app.post("/transition", response_model=TransitionResponse)
-async def zone_transition(request: TransitionRequest):
+@app.post("/transition", response model=TransitionResponse)
+async def zone transition(request: TransitionRequest):
     try:
-        transitions = numogram.zone_transition(request.current_zone, request.user_input)
+        transitions = numogram.zone transition(request.current_zone, request.user_input)
         probabilities = numogram.calculate_zone_probability(transitions)
         
         return TransitionResponse(
@@ -110,10 +110,10 @@ async def zone_transition(request: TransitionRequest):
             transition_probabilities=probabilities
         )
     except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status code=400, detail=str(e))
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn run(app, host="0.0.0.0", port=8000)
 EOF
         
         # Create zones configuration
@@ -139,7 +139,7 @@ EOF
         wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool.jar
         chmod +x apktool.jar
         
-    - name: Force Decompile APK with Retry
+    - name: Force Decompile APK with Retry and Logging
       run: |
         max_attempts=5
         attempt_num=1
@@ -147,6 +147,9 @@ EOF
         do
           java -jar apktool.jar d --force AI_Friend.apk -o AI_Friend_decompiled && break
           echo "Decompilation attempt $attempt_num failed! Retrying..."
+          echo "Log details for attempt $attempt_num:"
+          ls -la
+          cat apktool.jar
           attempt_num=$((attempt_num+1))
           if [ $attempt_num -gt $max_attempts ]; then
             echo "Decompilation failed after $max_attempts attempts."
@@ -198,4 +201,12 @@ EOF
         
     - name: Sign APK
       run: |
-        keytool -genkey -v -keystore release.keystore -alias numogram
+        keytool -genkey -v -keystore release.keystore -alias numogram -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Numogram, OU=Luna Integration, O=AI Research"
+        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release.keystore -storepass android AI_Friend_Numogram.apk numogram
+        
+    - name: Upload Modified APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: numogram-luna-apk
+        path: AI_Friend_Numogram.apk
+        retention-days: 5
