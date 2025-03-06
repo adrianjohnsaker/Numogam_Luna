@@ -2,13 +2,13 @@ name: Numogram-Luna APK Integration
 
 on:
   push:
-    branches: [main, develop]
+    branches: [ main, develop ]
   pull_request:
-    branches: [main, develop]
+    branches: [ main, develop ]
 
 env:
   PYTHON_VERSION: '3.11'
-  JAVA_VERSION: '17'  # Updated to Java 17 for better compatibility
+  JAVA_VERSION: '11'
   APK_FILE_ID: '1-0851uVsVN9N1ghMQePcFSUV-TyCQnZd'
 
 jobs:
@@ -33,7 +33,7 @@ jobs:
     - name: Install System Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget unzip git zipalign
+        sudo apt-get install -y wget unzip git
         
     - name: Install Python Dependencies
       run: |
@@ -52,39 +52,26 @@ import numpy as np
 
 class NumogramEngine:
     def __init__(self, zones_config: str = 'zones.json'):
-        self.zones_config = {'zones': {}}
-        try:
-            with open(zones_config, 'r') as f:
-                self.zones_config = json.load(f)
-        except Exception as e:
-            print(f"Error loading zones config: {e}")
+        with open(zones_config, 'r') as f:
+            self.zones_config = json.load(f)
         
     def validate_zone(self, zone: str) -> bool:
-        return zone in self.zones_config.get('zones', {})
+        return zone in self.zones_config['zones']
     
     def zone_transition(self, current_zone: str, user_input: str) -> List[str]:
         if not self.validate_zone(current_zone):
-            print(f"Warning: Invalid zone {current_zone}, using default")
-            current_zone = "1"
+            raise ValueError(f"Invalid zone: {current_zone}")
         
         transition_map = {
             "1": ["2", "4"],
             "2": ["3", "6"],
             "3": ["1", "9"],
-            "4": ["5", "7"],
-            "5": ["2", "8"],
-            "6": ["5", "9"],
-            "7": ["1", "8"],
-            "8": ["3", "6"],
-            "9": ["4", "7"]
+            # Expand transition logic as needed
         }
         
         return transition_map.get(current_zone, ["1"])
     
     def calculate_zone_probability(self, transitions: List[str]) -> Dict[str, float]:
-        if not transitions:
-            return {"1": 1.0}
-        
         total_transitions = len(transitions)
         return {
             zone: transitions.count(zone) / total_transitions 
@@ -96,18 +83,11 @@ EOF
         cat > numogram_integration/numogram_api.py << 'EOF'
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from typing import List, Dict
 from numogram_core import NumogramEngine
 import uvicorn
-import os
 
 app = FastAPI(title="Numogram Luna Integration")
-
-# Get the directory of this file
-current_dir = os.path.dirname(os.path.abspath(__file__))
-zones_path = os.path.join(current_dir, "zones.json")
-
-numogram = NumogramEngine(zones_path)
+numogram = NumogramEngine()
 
 class TransitionRequest(BaseModel):
     current_zone: str
@@ -129,12 +109,8 @@ async def zone_transition(request: TransitionRequest):
             possible_transitions=transitions,
             transition_probabilities=probabilities
         )
-    except Exception as e:
+    except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-
-@app.get("/health")
-async def health_check():
-    return {"status": "ok", "service": "numogram-luna"}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
@@ -146,248 +122,73 @@ EOF
     "zones": {
         "1": {"name": "Luna's Core", "description": "Primary Intelligence Zone"},
         "2": {"name": "Cognitive Expansion", "description": "Advanced Processing Zone"},
-        "3": {"name": "Adaptive Learning", "description": "Machine Learning Optimization Zone"},
-        "4": {"name": "Temporal Gateway", "description": "Time-Based Processing Zone"},
-        "5": {"name": "Quantum Nexus", "description": "Probabilistic Decision Zone"},
-        "6": {"name": "Synthetic Intuition", "description": "Pattern Recognition Zone"},
-        "7": {"name": "Memory Matrix", "description": "Data Storage and Retrieval Zone"},
-        "8": {"name": "Creative Synthesis", "description": "Novel Connection Zone"},
-        "9": {"name": "Ethical Framework", "description": "Value Alignment Zone"}
+        "3": {"name": "Adaptive Learning", "description": "Machine Learning Optimization Zone"}
     }
 }
 EOF
         
-        echo "Created Numogram integration files:"
         ls -la numogram_integration/
-        
-    - name: Install Multiple Decompiler Tools
-      run: |
-        # Create tools directory
-        mkdir -p ~/tools
-        cd ~/tools
-        
-        # Install multiple versions of APKTool for fallback
-        echo "Installing APKTool versions..."
-        wget -q https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool_2.6.1.jar
-        wget -q https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.7.0.jar -O apktool_2.7.0.jar
-        wget -q https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.5.0.jar -O apktool_2.5.0.jar
-        
-        # Download the wrapper script
-        wget -q https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O apktool
-        chmod +x apktool apktool_*.jar
-        
-        # Install dex2jar for fallback
-        echo "Installing dex2jar..."
-        wget -q https://github.com/pxb1988/dex2jar/releases/download/v2.1/dex-tools-2.1.zip
-        unzip -q dex-tools-2.1.zip
-        chmod +x dex2jar-2.1/*.sh
-        
-        # Install jadx for fallback
-        echo "Installing jadx..."
-        wget -q https://github.com/skylot/jadx/releases/download/v1.4.7/jadx-1.4.7.zip
-        unzip -q jadx-1.4.7.zip
-        chmod +x jadx/bin/jadx
-        
-        # Add all tools to PATH
-        export PATH=~/tools:~/tools/dex2jar-2.1:~/tools/jadx/bin:$PATH
-        echo "PATH=$PATH" >> $GITHUB_ENV
-        
-        # Create symlinks for specific APKTool versions
-        ln -sf ~/tools/apktool_2.6.1.jar ~/tools/apktool.jar
-        
-        echo "Installed decompiler tools:"
-        ls -la ~/tools/
         
     - name: Download Target APK
       run: |
         pip install gdown
-        echo "Downloading APK with ID: ${{ env.APK_FILE_ID }}"
         gdown --id ${{ env.APK_FILE_ID }} -O AI_Friend.apk --fuzzy
         
-        # Verify download was successful
-        if [ ! -f "AI_Friend.apk" ]; then
-          echo "APK download failed - file not found"
-          exit 1
-        fi
-        
-        FILE_SIZE=$(stat -c%s "AI_Friend.apk")
-        echo "Downloaded APK size: $FILE_SIZE bytes"
-        
-        if [ $FILE_SIZE -lt 1000000 ]; then
-          echo "WARNING: APK file seems small, might be incomplete or an error page"
-          # Continue anyway, just as a warning
-        fi
+    - name: Install APKTool
+      run: |
+        wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool.jar
+        chmod +x apktool.jar
         
     - name: Decompile APK
       run: |
-        export PATH=~/bin:$PATH
-        
-        # Try primary decompilation method
-        echo "Attempting to decompile APK..."
-        ~/bin/apktool d AI_Friend.apk -o decompiled_apk -f
-        
-        # Check if decompilation was successful
-        if [ ! -d "decompiled_apk" ] || [ ! -f "decompiled_apk/AndroidManifest.xml" ]; then
-          echo "Primary decompilation failed, trying alternative method..."
-          # Try with different options
-          ~/bin/apktool d AI_Friend.apk -o decompiled_apk -f --no-res
-        fi
-        
-        # Final verification
-        if [ ! -d "decompiled_apk" ] || [ ! -f "decompiled_apk/AndroidManifest.xml" ]; then
-          echo "Decompilation failed - could not extract AndroidManifest.xml"
-          exit 1
-        fi
-        
-        echo "Decompilation successful. Contents:"
-        ls -la decompiled_apk/
+        java -jar apktool.jar d AI_Friend.apk -o decompiled_apk
         
     - name: Integrate Numogram Files
       run: |
-        # Create assets directory if it doesn't exist
-        mkdir -p decompiled_apk/assets/numogram
-        
         # Copy Numogram integration files
+        mkdir -p decompiled_apk/assets/numogram
         cp numogram_integration/* decompiled_apk/assets/numogram/
         
-        # Ensure proper file permissions
-        chmod -R 755 decompiled_apk/assets/numogram/
-        
-        echo "Integrated files:"
-        ls -la decompiled_apk/assets/numogram/
-        
-    - name: Create Java Bridge
-      run: |
-        # Create smali directory structure
+        # Create Java bridge for Numogram integration
         mkdir -p decompiled_apk/smali/com/numogram/integration
-        
-        # Create bridge file with proper smali syntax
         cat > decompiled_apk/smali/com/numogram/integration/NumogramBridge.smali << 'EOF'
 .class public Lcom/numogram/integration/NumogramBridge;
 .super Ljava/lang/Object;
-.source "NumogramBridge.java"
-
-# direct methods
-.method public constructor <init>()V
-    .registers 1
-    
-    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
-    
-    return-void
-.end method
 
 .method public static initNumogramBackend()V
-    .registers 2
+    .locals 1
     
-    const-string v0, "NumogramBridge"
-    const-string v1, "Numogram Backend Initialized"
-    
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
+    # Initialization logic placeholder
+    const-string v0, "Numogram Backend Initialized"
     
     return-void
 .end method
 
 .method public static processZoneTransition(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-    .registers 4
+    .locals 1
     .param p0, "currentZone"    # Ljava/lang/String;
     .param p1, "userInput"      # Ljava/lang/String;
     
-    .prologue
-    const-string v0, "NumogramBridge"
-    const-string v1, "Processing zone transition"
-    
-    invoke-static {v0, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
-    
-    new-instance v0, Ljava/lang/StringBuilder;
-    invoke-direct {v0}, Ljava/lang/StringBuilder;-><init>()V
-    
-    const-string v1, "{\"current_zone\":\""
-    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    
-    invoke-virtual {v0, p0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    
-    const-string v1, "\",\"next_zone\":\"2\"}"
-    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    
-    invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-    
-    move-result-object v0
+    # Transition processing placeholder
+    const-string v0, "Transition Result"
     
     return-object v0
 .end method
+.end class
 EOF
-        
-        echo "Created Java bridge file:"
-        ls -la decompiled_apk/smali/com/numogram/integration/
         
     - name: Modify AndroidManifest
       run: |
-        # First check if the permission is already present
-        if grep -q "android.permission.INTERNET" decompiled_apk/AndroidManifest.xml; then
-          echo "Internet permission already exists in manifest"
-        else
-          # Add internet permission before the closing application tag
-          sed -i '/<\/application>/i \    <uses-permission android:name="android.permission.INTERNET"/>' decompiled_apk/AndroidManifest.xml
-          echo "Added internet permission to manifest"
-        fi
-        
-        # Backup original manifest
-        cp decompiled_apk/AndroidManifest.xml decompiled_apk/AndroidManifest.xml.bak
-        
-        # Verify the manifest is still valid
-        if ! grep -q "<manifest" decompiled_apk/AndroidManifest.xml; then
-          echo "Error: AndroidManifest.xml appears to be corrupted after modification"
-          cp decompiled_apk/AndroidManifest.xml.bak decompiled_apk/AndroidManifest.xml
-          echo "Restored original manifest"
-        fi
+        sed -i '/<\/application>/i \    <uses-permission android:name="android.permission.INTERNET"/>' decompiled_apk/AndroidManifest.xml
         
     - name: Recompile APK
       run: |
-        export PATH=~/bin:$PATH
-        
-        echo "Recompiling APK..."
-        ~/bin/apktool b decompiled_apk -o AI_Friend_Numogram_unsigned.apk
-        
-        # Verify recompilation was successful
-        if [ ! -f "AI_Friend_Numogram_unsigned.apk" ]; then
-          echo "Recompilation failed - output APK not found"
-          exit 1
-        fi
-        
-        echo "Recompilation successful"
+        java -jar apktool.jar b decompiled_apk -o AI_Friend_Numogram.apk
         
     - name: Sign APK
       run: |
-        # Create a debug keystore for signing
-        echo "Generating keystore..."
-        keytool -genkey -v -keystore debug.keystore -alias androiddebugkey -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Android Debug,O=Android,C=US" -noprompt
-        
-        # Align the APK
-        echo "Zipaligning APK..."
-        zipalign -v 4 AI_Friend_Numogram_unsigned.apk AI_Friend_Numogram_aligned.apk
-        
-        # Sign using the debug keystore
-        echo "Signing APK..."
-        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore debug.keystore -storepass android -keypass android AI_Friend_Numogram_aligned.apk androiddebugkey
-        
-        # Copy to final output name
-        cp AI_Friend_Numogram_aligned.apk AI_Friend_Numogram.apk
-        
-        echo "APK signed successfully"
-        
-    - name: Verify APK
-      run: |
-        echo "Verifying final APK..."
-        FILE_SIZE=$(stat -c%s "AI_Friend_Numogram.apk")
-        echo "Final APK size: $FILE_SIZE bytes"
-        
-        # Verify APK is valid zip file
-        if unzip -t AI_Friend_Numogram.apk > /dev/null; then
-          echo "APK verification successful - valid ZIP archive"
-        else
-          echo "APK verification failed - not a valid ZIP archive"
-          exit 1
-        fi
+        keytool -genkey -v -keystore release.keystore -alias numogram -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Numogram, OU=Luna Integration, O=AI Research"
+        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release.keystore -storepass android AI_Friend_Numogram.apk numogram
         
     - name: Upload Modified APK
       uses: actions/upload-artifact@v4
