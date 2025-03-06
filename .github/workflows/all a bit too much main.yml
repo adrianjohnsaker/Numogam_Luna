@@ -9,7 +9,7 @@ on:
 env:
   PYTHON_VERSION: '3.11'
   JAVA_VERSION: '11'
-  APK_FILE_ID: '1-0851uVsVN9N1ghMQePcFSUV-TyCQnZd'
+  APK_FILE_ID:'1-0851uVsVN9N1ghMQePcFSUV-TyCQnZd'
 
 jobs:
   build-and-integrate:
@@ -143,7 +143,9 @@ EOF
       run: |
         java -jar apktool.jar d AI_Friend.apk -o decompiled_apk
         
-    - name: Integrate Numogram Files # Copy Numogram integration files
+    - name: Integrate Numogram Files
+      run: |
+        # Copy Numogram integration files
         mkdir -p decompiled_apk/assets/numogram
         cp numogram_integration/* decompiled_apk/assets/numogram/
         
@@ -194,3 +196,4 @@ EOF
         name: numogram-luna-apk
         path: AI_Friend_Numogram.apk
         retention-days: 5
+Use this workflow and code link to Google drive where the APK is located now and then run
