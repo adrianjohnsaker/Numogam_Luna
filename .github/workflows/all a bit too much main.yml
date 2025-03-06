@@ -2,9 +2,9 @@ name: Numogram-Luna APK Integration
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 env:
   PYTHON_VERSION: '3.11'
@@ -14,49 +14,47 @@ env:
 jobs:
   build-and-integrate:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
-      
-    - name: Set up Python ${{ env.PYTHON_VERSION }}
-      uses: actions/setup-python@v4
-      with:
-        python-version: ${{ env.PYTHON_VERSION }}
-        
-    - name: Set up Java ${{ env.JAVA_VERSION }}
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: ${{ env.JAVA_VERSION }}
-        
-    - name: Install System Dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget unzip git
-        
-    - name: Install Python Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install fastapi uvicorn pydantic numpy requests gdown
-        
-    - name: Prepare Numogram Integration Files
-      run: |
-        mkdir -p numogram_integration
-        
-        # Create robust Numogram algorithm
-        cat > numogram_integration/numogram_core.py << 'EOF'
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip git
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install fastapi uvicorn pydantic numpy requests gdown
+
+      - name: Prepare Numogram Integration Files
+        run: |
+          mkdir -p numogram_integration
+          cat > numogram_integration/numogram_core.py << 'EOF'
 import json
-from typing import List, Dict, Optional
+from typing import List, Dict
 
 class NumogramEngine:
     def __init__(self, zones_config: str = 'zones.json'):
         with open(zones_config, 'r') as f:
             self.zones_config = json.load(f)
-        
+
     def validate_zone(self, zone: str) -> bool:
         return zone in self.zones_config['zones']
-    
+
     def zone_transition(self, current_zone: str, user_input: str) -> List[str]:
         if not self.validate_zone(current_zone):
             raise ValueError(f"Invalid zone: {current_zone}")
@@ -65,21 +63,15 @@ class NumogramEngine:
             "1": ["2", "4"],
             "2": ["3", "6"],
             "3": ["1", "9"],
-            # Expand transition logic as needed
         }
-        
         return transition_map.get(current_zone, ["1"])
-    
+
     def calculate_zone_probability(self, transitions: List[str]) -> Dict[str, float]:
         total_transitions = len(transitions)
-        return {
-            zone: transitions.count(zone) / total_transitions 
-            for zone in set(transitions)
-        }
+        return {zone: transitions.count(zone) / total_transitions for zone in set(transitions)}
 EOF
-        
-        # Create FastAPI backend
-        cat > numogram_integration/numogram_api.py << 'EOF'
+
+          cat > numogram_integration/numogram_api.py << 'EOF'
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from numogram_core import NumogramEngine
@@ -94,8 +86,8 @@ class TransitionRequest(BaseModel):
 
 class TransitionResponse(BaseModel):
     current_zone: str
-    possible_transitions: List[str]
-    transition_probabilities: Dict[str, float]
+    possible_transitions: list
+    transition_probabilities: dict
 
 @app.post("/transition", response_model=TransitionResponse)
 async def zone_transition(request: TransitionRequest):
@@ -114,9 +106,8 @@ async def zone_transition(request: TransitionRequest):
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
 EOF
-        
-        # Create zones configuration
-        cat > numogram_integration/zones.json << 'EOF'
+
+          cat > numogram_integration/zones.json << 'EOF'
 {
     "zones": {
         "1": {"name": "Luna's Core", "description": "Primary Intelligence Zone"},
@@ -125,74 +116,63 @@ EOF
     }
 }
 EOF
-        
-        ls -la numogram_integration/
-        
-    - name: Download Target APK
-      run: |
-        pip install gdown
-        gdown --id ${{ env.APK_FILE_ID }} -O AI_Friend.apk --fuzzy
-        
-    - name: Install APKTool
-      run: |
-        wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool.jar
-        chmod +x apktool.jar
-        ls -la apktool.jar  # Check if apktool.jar is present
-        
-    - name: Decompile APK
-      run: |
-        java -jar apktool.jar d AI_Friend.apk -o decompiled_apk
-        
-    - name: Integrate Numogram Files
-      run: |
-        # Copy Numogram integration files
-        mkdir -p decompiled_apk/assets/numogram
-        cp numogram_integration/* decompiled_apk/assets/numogram/
-        
-        # Create Java bridge for Numogram integration
-        mkdir -p decompiled_apk/smali/com/numogram/integration
-        cat > decompiled_apk/smali/com/numogram/integration/NumogramBridge.smali << 'EOF'
+
+      - name: Download Target APK
+        run: |
+          pip install gdown
+          gdown --id ${{ env.APK_FILE_ID }} -O AI_Friend.apk --fuzzy
+
+      - name: Install APKTool
+        run: |
+          wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool.jar
+          chmod +x apktool.jar
+
+      - name: Decompile APK
+        run: |
+          java -jar apktool.jar d AI_Friend.apk -o decompiled_apk
+
+      - name: Integrate Numogram Files
+        run: |
+          mkdir -p decompiled_apk/assets/numogram
+          cp numogram_integration/* decompiled_apk/assets/numogram/
+
+          mkdir -p decompiled_apk/smali/com/numogram/integration
+          cat > decompiled_apk/smali/com/numogram/integration/NumogramBridge.smali << 'EOF'
 .class public Lcom/numogram/integration/NumogramBridge;
 .super Ljava/lang/Object;
 
 .method public static initNumogramBackend()V
     .locals 1
-    
-    # Initialization logic placeholder
     const-string v0, "Numogram Backend Initialized"
-    
     return-void
 .end method
 
 .method public static processZoneTransition(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
     .locals 1
-    .param p0, "currentZone"    # Ljava/lang/String;
-    .param p1, "userInput"      # Ljava/lang/String;
-    
-    # Transition processing placeholder
     const-string v0, "Transition Result"
-    
     return-object v0
 .end method
-.end class
 EOF
-        
-    - name: Modify AndroidManifest
-      run: |
-        sed -i '/<\/application>/i \    <uses-permission android:name="android.permission.INTERNET"/>' decompiled_apk/AndroidManifest.xml
-        
-    - name: Recompile APK
-      run: |
-        java -jar apktool.jar b decompiled_apk -o AI_Friend_Numogram.apk
-        
-    - name: Sign APK
-      run: |
-        keytool -genkey -v -keystore release.keystore -alias numogram -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Numogram, OU=Luna Integration, O=AI Research"
-        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release.keystore -storepass android AI_Friend_Numogram.apk numogram
-        
-    - name: Upload Modified APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: numogram-luna-apk
-        path: AI_Friend_Numogram.apk
-        retention-days: 5
+
+      - name: Modify AndroidManifest
+        run: |
+          sed -i '/<\/application>/i \    <uses-permission android:name="android.permission.INTERNET"/>' decompiled_apk/AndroidManifest.xml
+
+      - name: Recompile APK
+        run: |
+          java -jar apktool.jar b decompiled_apk -o AI_Friend_Numogram.apk
+
+      - name: Sign APK
+        run: |
+          keytool -genkey -v -keystore release.keystore -alias numogram \
+            -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android \
+            -dname "CN=Numogram, OU=Luna Integration, O=AI Research"
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
+            -keystore release.keystore -storepass android AI_Friend_Numogram.apk numogram
+
+      - name: Upload Modified APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: numogram-luna-apk
+          path: AI_Friend_Numogram.apk
+          retention-days: 5
