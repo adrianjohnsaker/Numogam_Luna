@@ -58,16 +58,18 @@ jobs:
           # Move back to working directory
           cd ..
 
-      - name: Download APK from Google Drive
+      - name: Use Local APK
         run: |
-          # Using gdown to download from Google Drive
+          # Create directory if it doesn't exist
           mkdir -p apk
-          python -c "import gdown; gdown.download(id='${{ env.APK_FILE_ID }}', output='apk/AI_Friend.apk', quiet=False)"
           
-          # Verify file was downloaded and has content
+          # Copy the APK from the repository
+          cp assets/apks/AI_Friend.apk apk/
+          
+          # Verify file was copied and has content
           ls -la apk/
           if [ ! -s apk/AI_Friend.apk ]; then
-            echo "Error: APK file is empty or wasn't downloaded properly."
+            echo "Error: APK file is empty or wasn't copied properly."
             exit 1
           fi
 
