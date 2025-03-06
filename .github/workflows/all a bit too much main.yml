@@ -33,7 +33,7 @@ jobs:
     - name: Install System Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget unzip git
+        sudo apt-get install -y wget unzip git zip
         
     - name: Install Python Dependencies
       run: |
@@ -71,7 +71,7 @@ class NumogramEngine:
         
         return transition_map.get(current_zone, ["1"])
     
-    def calculate_zone_probability(self, transitions: List[str]) -> Dict[str, float]:
+    def calculate zone_probability(self, transitions: List[str]) -> Dict[str, float]:
         total_transitions = len(transitions)
         return {
             zone: transitions.count(zone) / total transitions 
@@ -93,12 +93,12 @@ class TransitionRequest(BaseModel):
     current_zone: str
     user_input: str
 
-class TransitionResponse(BaseModel):
-    current zone: str
+class Transition Response(BaseModel):
+    current_zone: str
     possible transitions: List[str]
     transition probabilities: Dict[str, float]
 
-@app.post("/transition", response model=TransitionResponse)
+@app.post("/transition", response_model=TransitionResponse)
 async def zone transition(request: TransitionRequest):
     try:
         transitions = numogram.zone transition(request.current_zone, request.user_input)
@@ -110,7 +110,7 @@ async def zone transition(request: TransitionRequest):
             transition_probabilities=probabilities
         )
     except ValueError as e:
-        raise HTTPException(status code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
 if __name__ == "__main__":
     uvicorn run(app, host="0.0.0.0", port=8000)
@@ -134,6 +134,11 @@ EOF
         pip install gdown
         gdown --id ${{ env.APK_FILE_ID }} -O AI_Friend.apk --fuzzy
         
+    - name: Verify Downloaded APK
+      run: |
+        file AI_Friend.apk
+        apksigner verify AI_Friend.apk
+        
     - name: Install APKTool
       run: |
         wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool.jar
@@ -145,17 +150,21 @@ EOF
         attempt_num=1
         until [ $attempt_num -gt $max_attempts ]
         do
+          echo "Attempt $attempt_num: Decompiling AI_Friend.apk"
           java -jar apktool.jar d --force AI_Friend.apk -o AI_Friend_decompiled && break
           echo "Decompilation attempt $attempt_num failed! Retrying..."
-          echo "Log details for attempt $attempt_num:"
           ls -la
-          cat apktool.jar
           attempt_num=$((attempt_num+1))
           if [ $attempt_num -gt $max_attempts ]; then
             echo "Decompilation failed after $max_attempts attempts."
             exit 1
           fi
         done
+        
+    - name: Check Disk Space and Permissions
+      run: |
+        df -h
+        sudo chmod -R 755 AI_Friend_decompiled
         
     - name: Integrate Numogram Files
       run: |
