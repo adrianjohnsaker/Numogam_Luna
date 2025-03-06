@@ -1,76 +1,82 @@
-name: Numogram-Luna Integration and APK Repackage
+name: Numogram-Luna APK Integration
 
-on: [push]
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  PYTHON_VERSION: '3.11'
+  JAVA_VERSION: '11'
+  APK_URL: 'https://play.google.com/store/apps/details?id=com.antonio.my.ai.girlfriend.free'
 
 jobs:
-  build:
+  build-and-integrate:
     runs-on: ubuntu-latest
-
+    
     steps:
-    # Step 1: Checkout the repository
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    # Step 2: Set up Python for Numogram AI backend
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+      
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
-
+        python-version: ${{ env.PYTHON_VERSION }}
+        
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: ${{ env.JAVA_VERSION }}
+        
     - name: Install Dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget unzip openjdk-11-jdk
-        python -m pip install --upgrade pip
-        pip install fastapi uvicorn pydantic numpy
-
-    # Step 3: Set up Docker for API container
-    - name: Set up Docker
+        sudo apt-get install -y wget unzip git openjdk-11-jdk
+        pip install --upgrade pip
+        pip install fastapi uvicorn pydantic numpy requests apkutils2
+        
+    - name: Download APK
       run: |
-        echo "FROM python:3.11-slim" > Dockerfile
-        echo "WORKDIR /app" >> Dockerfile
-        echo "COPY . /app" >> Dockerfile
-        echo "RUN pip install fastapi uvicorn pydantic numpy" >> Dockerfile
-        echo 'CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]' >> Dockerfile
-
-    - name: Build Docker Image
-      run: docker build -t numogram-luna-app .
-
-    # Step 4: Run API Server (optional during workflow)
-    - name: Run Docker Container
-      run: docker run -d -p 8000:8000 numogram-luna-app
-
-    # Step 5: Manually install JDK
-    - name: Install OpenJDK 11
-      run: sudo apt-get install -y openjdk-11-jdk
-
+        wget -O Amiga_de_IA.apk "$APK_URL"
+        
     - name: Install APKTool
       run: |
         wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool.jar
-        wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O apktool
-        chmod +x apktool
-        sudo mv apktool /usr/local/bin/
-
-    # Step 6: Decompile APK
-    - name: Decompile APK
+        chmod +x apktool.jar
+        
+    - name: Force Decompile APK
       run: |
-        java -jar apktool.jar d AI_Friend.apk -o AI_Friend_decompiled
-
-    # Step 7: Modify APK (Insert Numogram code)
-    - name: Modify APK (Add Numogram-Luna Integration)
+        rm -rf decompiled_apk
+        java -jar apktool.jar d -f Amiga_de_IA.apk -o decompiled_apk
+        
+    - name: Modify Smali Code (Amiga de IA.apk Adjustments)
       run: |
-        echo "Integrating Numogram with Luna's Core..."
-        cp -r ./numogram_code/* AI_Friend_decompiled/assets/numogram/
-        echo "Integration complete."
-
-    # Step 8: Recompile APK
+        sed -i '43,$ d' decompiled_apk/smali/com/antonio/my/ai/girlfriend/free/*.smali
+        echo "Modified AI behavior logic" >> decompiled_apk/smali/com/antonio/my/ai/girlfriend/free/*.smali
+        
+    - name: Integrate Numogram AI
+      run: |
+        mkdir -p decompiled_apk/assets/numogram
+        echo 'Numogram AI Core' > decompiled_apk/assets/numogram/numogram_core.txt
+        
+    - name: Modify AndroidManifest
+      run: |
+        sed -i '/</application>/i \    <uses-permission android:name="android.permission.INTERNET"/>' decompiled_apk/AndroidManifest.xml
+        
     - name: Recompile APK
       run: |
-        java -jar apktool.jar b AI_Friend_decompiled -o AI_Friend_Modified.apk
-
-    # Step 9: Upload Modified APK as Artifact
+        java -jar apktool.jar b decompiled_apk -o Amiga_de_IA_Numogram.apk
+        
+    - name: Sign APK
+      run: |
+        keytool -genkey -v -keystore release.keystore -alias numogram -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Numogram, OU=Luna Integration, O=AI Research"
+        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release.keystore -storepass android Amiga_de_IA_Numogram.apk numogram
+        
     - name: Upload Modified APK
       uses: actions/upload-artifact@v4
       with:
-        name: modified-apk
-        path: AI_Friend_Modified.apk
+        name: numogram-luna-apk
+        path: Amiga_de_IA_Numogram.apk
+        retention-days: 5
