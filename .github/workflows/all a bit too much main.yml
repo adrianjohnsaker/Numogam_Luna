@@ -2,9 +2,9 @@ name: Numogram-Luna APK Integration
 
 on:
   push:
-    branches: [main, develop]
+    branches: [ main, develop ]
   pull_request:
-    branches: [main, develop]
+    branches: [ main, develop ]
 
 env:
   PYTHON_VERSION: '3.11'
@@ -34,7 +34,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip git
-
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
