@@ -51,7 +51,7 @@ from typing import List, Dict, Optional
 import numpy as np
 
 class NumogramEngine:
-    def __init__(self, zones_config: str = 'zones.json'):
+    def __init__(, zones_config: str = 'zones.json'):
         with open(zones_config, 'r') as f:
             self.zones_config = json.load(f)
         
@@ -139,19 +139,30 @@ EOF
         wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.6.1.jar -O apktool.jar
         chmod +x apktool.jar
         
-    - name: Decompile APK
+    - name: Force Decompile APK with Retry
       run: |
-        java -jar apktool.jar d AI_Friend.apk -o decompiled_apk
+        max_attempts=5
+        attempt_num=1
+        until [ $attempt_num -gt $max_attempts ]
+        do
+          java -jar apktool.jar d --force AI_Friend.apk -o AI_Friend_decompiled && break
+          echo "Decompilation attempt $attempt_num failed! Retrying..."
+          attempt_num=$((attempt_num+1))
+          if [ $attempt_num -gt $max_attempts ]; then
+            echo "Decompilation failed after $max_attempts attempts."
+            exit 1
+          fi
+        done
         
     - name: Integrate Numogram Files
       run: |
         # Copy Numogram integration files
-        mkdir -p decompiled_apk/assets/numogram
-        cp numogram_integration/* decompiled_apk/assets/numogram/
+        mkdir -p AI_Friend_decompiled/assets/numogram
+        cp numogram_integration/* AI_Friend_decompiled/assets/numogram/
         
         # Create Java bridge for Numogram integration
-        mkdir -p decompiled_apk/smali/com/numogram/integration
-        cat > decompiled_apk/smali/com/numogram/integration/NumogramBridge.smali << 'EOF'
+        mkdir -p AI_Friend_decompiled/smali/com/numogram/integration
+        cat > AI_Friend_decompiled/smali/com/numogram/integration/NumogramBridge.smali << 'EOF'
 .class public Lcom/numogram/integration/NumogramBridge;
 .super Ljava/lang/Object;
 
@@ -179,20 +190,12 @@ EOF
         
     - name: Modify AndroidManifest
       run: |
-        sed -i '/<\/application>/i \    <uses-permission android:name="android.permission.INTERNET"/>' decompiled_apk/AndroidManifest.xml
+        sed -i '/<\/application>/i \    <uses-permission android:name="android.permission.INTERNET"/>' AI_Friend_decompiled/AndroidManifest.xml
         
     - name: Recompile APK
       run: |
-        java -jar apktool.jar b decompiled_apk -o AI_Friend_Numogram.apk
+        java -jar apktool.jar b AI_Friend_decompiled -o AI_Friend_Numogram.apk
         
     - name: Sign APK
       run: |
-        keytool -genkey -v -keystore release.keystore -alias numogram -keyalg RSA -keysize 2048 -validity 10000 -storepass android -keypass android -dname "CN=Numogram, OU=Luna Integration, O=AI Research"
-        jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore release.keystore -storepass android AI_Friend_Numogram.apk numogram
-        
-    - name: Upload Modified APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: numogram-luna-apk
-        path: AI_Friend_Numogram.apk
-        retention-days: 5
+        keytool -genkey -v -keystore release.keystore -alias numogram
