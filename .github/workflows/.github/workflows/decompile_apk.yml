@@ -1,0 +1,49 @@
+name: APK Decompilation Workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  decompile-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛠️ Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: 🔽 Download APK from Repository
+        run: |
+          mkdir -p apk
+          wget -O apk/AI_Friend.apk.zip "https://github.com/adrianjohnsaker/Numogam_Luna/raw/main/AI_Friend.apk.zip"
+
+      - name: 📦 Unzip APK
+        run: |
+          sudo apt install unzip -y
+          unzip apk/AI_Friend.apk.zip -d apk/
+          mv apk/*.apk apk/AI_Friend.apk
+
+      - name: ☕ Install Java (JDK 8)
+        run: |
+          sudo apt update
+          sudo apt install openjdk-8-jdk -y
+          java -version
+
+      - name: ⚙️ Install Bytecode Viewer
+        run: |
+          wget -O Bytecode-Viewer.jar "https://github.com/Konloch/bytecode-viewer/releases/latest/download/Bytecode-Viewer.jar"
+          echo "Bytecode Viewer installed successfully."
+
+      - name: 🔍 Run Bytecode Viewer to Decompile APK
+        run: |
+          mkdir -p decompiled_output
+          java -jar Bytecode-Viewer.jar -apk apk/AI_Friend.apk -output decompiled_output/
+          echo "Decompilation complete."
+
+      - name: 📤 Upload Decompiled Code as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: decompiled_output
+          path: decompiled_output/
