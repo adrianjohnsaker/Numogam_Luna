@@ -34,26 +34,118 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y wget unzip git
+
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install fastapi uvicorn pydantic numpy requests gdown
 
+      - name: Download and Setup APKTool
+        run: |
+          # Create tools directory
+          mkdir -p tools
+          cd tools
+          
+          # Download latest APKTool
+          wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_2.7.0.jar -O apktool.jar
+          
+          # Download APKTool script
+          wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O apktool
+          
+          # Make script executable
+          chmod +x apktool
+          
+          # Move back to working directory
+          cd ..
+
+      - name: Download APK from Google Drive
+        run: |
+          # Using gdown to download from Google Drive
+          mkdir -p apk
+          python -c "import gdown; gdown.download(id='${{ env.APK_FILE_ID }}', output='apk/AI_Friend.apk', quiet=False)"
+          
+          # Verify file was downloaded and has content
+          ls -la apk/
+          if [ ! -s apk/AI_Friend.apk ]; then
+            echo "Error: APK file is empty or wasn't downloaded properly."
+            exit 1
+          fi
+
+      - name: Verify APK Integrity
+        run: |
+          # Check if the file is a valid ZIP (APKs are ZIP files)
+          if unzip -t apk/AI_Friend.apk > /dev/null; then
+            echo "APK file integrity check passed."
+          else
+            echo "APK file is corrupted. Try re-downloading or fixing the file."
+            exit 1
+          fi
+
+      - name: Decompile APK
+        run: |
+          # Create output directory
+          mkdir -p AI_Friend_decompiled
+          
+          # Use the local APKTool for decompilation
+          java -jar tools/apktool.jar d apk/AI_Friend.apk -o AI_Friend_decompiled -f
+          
+          # Check if decompilation was successful
+          if [ -d "AI_Friend_decompiled/smali" ] || [ -d "AI_Friend_decompiled/res" ]; then
+            echo "APK decompiled successfully."
+          else
+            echo "Decompilation failed. Check the APK file."
+            exit 1
+          fi
+
       - name: Prepare Numogram Integration Files
         run: |
           mkdir -p numogram_integration
           cat > numogram_integration/numogram_core.py << 'EOF'
-import json
-from typing import List, Dict
+          import json
+          from typing import List, Dict
+          
+          class NumogramEngine:
+              def __init__(self, zones_config: str = 'zones.json'):
+                  with open(zones_config, 'r') as f:
+                      self.zones_config = json.load(f)
+          
+              def validate_zone(self, zone: str) -> bool:
+                  return zone in self.zones_config['zones']
+          
+              def zone_transition(self, current_zone: str, user_input: str) -> List[str]:
+                  if not self.validate_zone(current_zone):
+                      raise ValueError(f"Invalid zone: {current_zone}")
+                  
+                  # Implement transition logic here
+                  return self.zones_config['transitions'].get(current_zone, [])
+          EOF
 
-class NumogramEngine:
-    def __init__(self, zones_config: str = 'zones.json'):
-        with open(zones_config, 'r') as f:
-            self.zones_config = json.load(f)
+      - name: Integrate Numogram with Decompiled APK
+        run: |
+          # Create integration directory
+          mkdir -p integration
+          
+          # Copy necessary files from decompiled APK
+          if [ -d "AI_Friend_decompiled/smali" ]; then
+            cp -r AI_Friend_decompiled/smali integration/
+          fi
+          
+          if [ -d "AI_Friend_decompiled/res" ]; then
+            cp -r AI_Friend_decompiled/res integration/
+          fi
+          
+          # Copy Numogram files
+          cp -r numogram_integration/* integration/
+          
+          # Create integration report
+          echo "Integration Report" > integration/report.txt
+          echo "==================" >> integration/report.txt
+          echo "Date: $(date)" >> integration/report.txt
+          echo "APK Components: $(ls -la AI_Friend_decompiled | wc -l) items" >> integration/report.txt
+          echo "Numogram Components: $(ls -la numogram_integration | wc -l) items" >> integration/report.txt
 
-    def validate_zone(self, zone: str) -> bool:
-        return zone in self.zones_config['zones']
-
-    def zone_transition(self, current_zone: str, user_input: str) -> List[str]:
-        if not self.validate_zone(current_zone):
-            raise ValueError(f"Invalid
+      - name: Upload Integration Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: integration-files
+          path: integration/
