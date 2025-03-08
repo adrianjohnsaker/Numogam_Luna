@@ -1,0 +1,149 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+
+class SystemVisualizer:
+    def __init__(self, system_level):
+        self.system_level = system_level
+        self.metrics = system_level.metrics if hasattr(system_level, 'metrics') else {}
+
+    def draw_feedback_graph(self):
+        """Visualize the feedback loops in the system using a directed graph."""
+        if not hasattr(self.system_level, 'feedback_loops') or not self.system_level.feedback_loops:
+            print("No feedback loops available for visualization.")
+            return
+
+        G = nx.DiGraph()
+        edge_weights = []
+        edge_colors = []
+
+        for loop in self.system_level.feedback_loops:
+            G.add_edge(loop['source'], loop['target'])
+            edge_weights.append(loop['strength'])
+            edge_colors.append('red' if loop['type'] == 'system_observer' else 'purple')
+
+        plt.figure(figsize=(10, 7))
+        pos = nx.spring_layout(G, seed=42)
+        nx.draw(G, pos, with_labels=True, node_color='lightgray', node_size=3000,
+                width=edge_weights, edge_color=edge_colors, connectionstyle='arc3,rad=0.2', arrows=True)
+
+        strongest = max(self.system_level.feedback_loops, key=lambda x: x['strength'])
+        plt.title(f"Strongest Loop: {strongest['type']} (Strength: {strongest['strength']:.2f})")
+        plt.show()
+
+    def plot_metrics(self):
+        """Plot system metrics over time."""
+        if not self.metrics:
+            print("No metrics available for visualization.")
+            return
+
+        df = pd.DataFrame(self.metrics)
+        plt.figure(figsize=(14, 10))
+
+        plots = [
+            ('occasion_count', 'Active Occasions Over Time', 'b'),
+            ('avg_satisfaction', 'Average Satisfaction Over Time', 'g'),
+            ('cluster_count', 'Emergent Clusters Over Time', 'r'),
+            ('loop_strength', 'Feedback Loop Dynamics', 'c')
+        ]
+
+        for i, (key, title, color) in enumerate(plots, start=1):
+            plt.subplot(2, 2, i)
+            plt.plot(df['time'], df[key], f'{color}-', linewidth=2)
+            plt.title(title)
+            plt.xlabel('Time')
+            plt.ylabel(title.split()[0])
+            plt.grid(True, alpha=0.3)
+
+        # Plot observer influence in the same graph as loop strength
+        plt.subplot(2, 2, 4)
+        plt.plot(df['time'], df['loop_strength'], 'c-', linewidth=2, label='Loop Strength')
+        plt.plot(df['time'], df['observer_influence'], 'm-', linewidth=2, label='Observer Influence')
+        plt.title('Feedback Loop Dynamics')
+        plt.xlabel('Time')
+        plt.ylabel('Strength')
+        plt.legend()
+        plt.grid(True, alpha=0.3)
+
+        plt.tight_layout()
+        plt.show()
+
+    def visualize_system_state(self):
+        """Create a detailed visualization of the current system state."""
+        if not hasattr(self.system_level, 'history') or not self.system_level.history:
+            print("No system history available for visualization.")
+            return
+
+        df = pd.DataFrame(self.system_level.history)
+        plt.figure(figsize=(16, 12))
+
+        # Normalize for better visualization
+        normalized_df = df.copy()
+        for col in df.columns:
+            if col != 'time' and df[col].max() > 0:
+                normalized_df[col] /= df[col].max()
+
+        numeric_cols = ['occasion_count', 'historic_count', 'avg_satisfaction', 'cluster_count', 'loop_count', 'strongest_loop']
+        heatmap_data = normalized_df[numeric_cols].T
+
+        plt.subplot(2, 2, 1)
+        sns.heatmap(heatmap_data, cmap='viridis', cbar_kws={'label': 'Normalized Value'})
+        plt.title('System State Evolution')
+        plt.xlabel('Time Step')
+        plt.ylabel('Metric')
+
+        plt.subplot(2, 2, 2)
+        self._plot_strange_loop_dynamics()
+
+        plt.subplot(2, 2, 3)
+        self._plot_qbism_influence()
+
+        plt.subplot(2, 2, 4)
+        self._plot_system_complexity()
+
+        plt.tight_layout()
+        plt.show()
+
+    def _plot_strange_loop_dynamics(self):
+        """Visualize the self-reference dynamics (strange loop)."""
+        if len(self.metrics.get('time', [])) < 10:
+            plt.text(0.5, 0.5, "Not enough data for strange loop analysis", ha='center', va='center')
+            return
+
+        times = self.metrics['time'][:-5]
+        complexity_t = self.metrics['cluster_count'][:-5]
+        influence_t_plus_5 = self.metrics['observer_influence'][5:]
+
+        plt.scatter(complexity_t, influence_t_plus_5, c=times, cmap='plasma', alpha=0.7)
+        plt.colorbar(label='Time')
+        plt.title('Strange Loop: How System Complexity Affects Future Observer Influence')
+        plt.xlabel('System Complexity at t')
+        plt.ylabel('Observer Influence at t+5')
+        plt.grid(True, alpha=0.3)
+
+    def _plot_qbism_influence(self):
+        """Visualize the influence of QBism principles on system evolution."""
+        if 'qbism_influence' not in self.metrics:
+            plt.text(0.5, 0.5, "QBism influence data unavailable", ha='center', va='center')
+            return
+
+        df = pd.DataFrame(self.metrics)
+        plt.plot(df['time'], df['qbism_influence'], 'm-', linewidth=2)
+        plt.title("QBism Influence Over Time")
+        plt.xlabel("Time")
+        plt.ylabel("Influence Level")
+        plt.grid(True, alpha=0.3)
+
+    def _plot_system_complexity(self):
+        """Plot system complexity over time."""
+        if 'complexity' not in self.metrics:
+            plt.text(0.5, 0.5, "Complexity data unavailable", ha='center', va='center')
+            return
+
+        df = pd.DataFrame(self.metrics)
+        plt.plot(df['time'], df['complexity'], 'k-', linewidth=2)
+        plt.title("System Complexity Over Time")
+        plt.xlabel("Time")
+        plt.ylabel("Complexity Level")
+        plt.grid(True, alpha=0.3)
