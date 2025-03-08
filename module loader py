@@ -2,7 +2,7 @@ import os
 import importlib
 import sys
 
-MODULES_PATH = "/assets/"
+MODULES_PATH = "/storage/emulated/0/Android/data/com.yourapp.luna/assets/"  # Adjust the path to your app's assets folder
 
 def load_modules():
     """
@@ -20,7 +20,7 @@ def load_modules():
         for filename in files:
             if filename.endswith(".py") and filename != "module_loader.py":
                 module_path = os.path.relpath(os.path.join(root, filename), MODULES_PATH)
-                module_name = module_path.replace("/", ".")[:-3]  # Convert path to module name
+                module_name = module_path.replace(os.sep, ".")[:-3]  # Convert path to module name
 
                 try:
                     module = importlib.import_module(module_name)
