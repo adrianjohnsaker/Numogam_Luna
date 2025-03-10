@@ -1,4 +1,28 @@
 import os
+import subprocess
+
+class JavaBridge:
+    def __init__(self):
+        self.bridge_path = "assets/python_bridge.jar"  # Ensure correct path
+
+    def send_message(self, message):
+        try:
+            # Call the Java JAR with the message
+            result = subprocess.run(
+                ["java", "-jar", self.bridge_path, message], 
+                capture_output=True, text=True
+            )
+            return result.stdout.strip()  # Return Java's response
+        except Exception as e:
+            return f"Error: {e}"
+
+# Example usage
+if __name__ == "__main__":
+    bridge = JavaBridge()
+    response = bridge.send_message("Hello from Python!")
+    print("Java response:", response)
+
+import os
 import requests
 import json
 
