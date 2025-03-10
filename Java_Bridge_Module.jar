@@ -1,0 +1,15 @@
+package com.yourpackage;  // Change this to match the main app's package
+
+public class PythonBridge {
+    static {
+        System.loadLibrary("python"); // Ensure Python is loaded if needed
+    }
+
+    // Function to receive data from Python
+    public String receiveFromPython(String input) {
+        return "Java Bridge received: " + input;
+    }
+
+    // Function to send data to Python
+    public static native String sendToPython(String input);
+}
