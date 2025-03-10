@@ -15,7 +15,6 @@ class JavaBridge:
             return result.stdout.strip()  # Return Java's response
         except Exception as e:
             return f"Error: {e}"
-
 # Example usage
 if __name__ == "__main__":
     bridge = JavaBridge()
