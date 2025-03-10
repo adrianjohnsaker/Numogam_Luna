@@ -1,8 +1,8 @@
-package Amiga de IA.apk ;
+package com.yourpackage;
 
 public class PythonBridge {
     static {
-        System.loadLibrary("python");
+        System.loadLibrary("pythonbridge"); // Load compiled JNI library
     }
 
     public String receiveFromPython(String input) {
@@ -16,47 +16,4 @@ public class PythonBridge {
         System.out.println(bridge.receiveFromPython("Hello from main"));
         System.out.println("Sending to Python: " + sendToPython("Hello Python"));
     }
-
-#include <jni.h>
-#include <stdio.h>
-#include <string.h>
-#include "com_yourpackage_PythonBridge.h"
-
-// Include Python headers
-#include <Python.h>
-
-// Implement the native method
-JNIEXPORT jstring JNICALL Java_com_yourpackage_PythonBridge_sendToPython(JNIEnv *env, jclass clazz, jstring input) {
-    // Convert Java string to C string
-    const char *inputStr = (*env)->GetStringUTFChars(env, input, NULL);
-
-    // Initialize Python interpreter
-    Py_Initialize();
-
-    // Create Python string from input
-    PyObject *pyInput = PyUnicode_FromString(inputStr);
-
-    // Call a Python function (you can replace this with your own logic)
-    PyObject *pyModule = PyImport_ImportModule("python_script"); // Replace with your script name (without .py)
-    PyObject *pyFunc = PyObject_GetAttrString(pyModule, "process_input"); // Replace with your function name
-
-    PyObject *pyArgs = PyTuple_Pack(1, pyInput);
-    PyObject *pyResult = PyObject_CallObject(pyFunc, pyArgs);
-
-    // Convert Python result back to C string
-    const char *resultStr = PyUnicode_AsUTF8(pyResult);
-
-    // Clean up Python objects
-    Py_DECREF(pyInput);
-    Py_DECREF(pyArgs);
-    Py_DECREF(pyResult);
-    Py_DECREF(pyFunc);
-    Py_DECREF(pyModule);
-
-    // Finalize Python interpreter
-    Py_Finalize();
-
-    // Release Java string memory and return result as Java string
-    (*env)->ReleaseStringUTFChars(env, input, inputStr);
-    return (*env)->NewStringUTF(env, resultStr);
 }
