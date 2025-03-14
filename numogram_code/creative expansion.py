@@ -13,10 +13,10 @@ conceptual_themes = {}
 
 # Belief model for adaptive creativity
 belief_model = {
-    "curiosity": 0.7,
-    "creativity": 0.6,
+    "curiosity": 0.8,
+    "creativity": 0.9,
     "logic": 0.8,
-    "abstraction": 0.5  # New trait for conceptual linking
+    "abstraction": 0.8  # New trait for conceptual linking
 }
 
 # Bayesian belief evolution
