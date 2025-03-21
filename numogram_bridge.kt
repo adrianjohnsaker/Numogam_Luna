@@ -1,4 +1,4 @@
-package com.yourapp.bridge
+package com.antonio.my.ai.girlfriend.free.bridge
 
 import org.json.JSONObject
 import org.json.JSONArray
