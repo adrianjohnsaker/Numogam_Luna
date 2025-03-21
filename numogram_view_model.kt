@@ -1,4 +1,4 @@
-package com.yourapp.viewmodel
+package com.antonio.my.ai.girlfriend.free.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
