@@ -3,7 +3,9 @@
 import random
 import numpy as np
 from typing import Dict, Any, List
-
+from memory_clusterer import MemoryClusterer
+from zone_linker import link_clusters_to_zones
+from hybrid_archetype_generator import generate_hybrid_archetype
 
 class GenerativeImaginationModule:
     def __init__(self):
