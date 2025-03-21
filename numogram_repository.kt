@@ -1,4 +1,4 @@
-package com.yourapp.repository
+package com.antonio.my.ai.girlfriend.free.repository
 
 import com.yourapp.bridge.NumogramBridge
 import org.json.JSONObject
