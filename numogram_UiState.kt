@@ -1,4 +1,4 @@
-package com.yourapp.ui.state
+package com.antonio.my.ai.girlfriend.free.ui.state
 
 import org.json.JSONObject
 
