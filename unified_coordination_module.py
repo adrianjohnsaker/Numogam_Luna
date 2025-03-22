@@ -116,6 +116,7 @@ def coordinate_modules(input_data: Dict[str, Any]) -> Dict[str, Any]:
     emotional_tone = input_data.get("emotional_tone", "curiosity")
     tags = input_data.get("tags", [])
     reinforcement = input_data.get("reinforcement", {})
+
 def coordinate_modules(payload: dict) -> dict:
     user_input = payload.get("user_input", "")
     memory_elements = payload.get("memory_elements", [])
@@ -144,6 +145,11 @@ def coordinate_modules(payload: dict) -> dict:
         "hybrid_archetype": hybrid_profile
     }
 
-    return response
+    from memory_module import update_memory  # Make sure this is imported
+
+# Store hybrid archetype into long-term memory
+update_memory(user_id="default", key="current_hybrid_archetype", content=hybrid_profile)
+    
+    return response 
     coordinator = UnifiedCoordinator()
     return coordinator.process_interaction(user_input, memory_elements, emotional_tone, tags, reinforcement)
