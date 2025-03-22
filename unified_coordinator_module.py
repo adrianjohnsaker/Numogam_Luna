@@ -9,7 +9,9 @@ from symbolic_response_selector import symbolic_autoresponse
 from rhythmic_modulation_tracker import RhythmicModulationTracker
 from intentional_symbolic_dissonance_module import IntentionalSymbolicDissonance
 from poetic_language_evolver import generate_poetic_phrase
-from poetic_tension_modulation_engine import PoeticTensionModulationEngine
+from poetic_tension_modulation_engine import PoeticTensionModulator
+from narrative_weaver_module import generate_emergent_narrative
+
 
 # ---- Generative Imagination Module ----
 class GenerativeImaginationModule:
@@ -60,11 +62,15 @@ class DynamicZoneNavigator:
         for zone, value in reinforcement.items():
             if zone in self.zone_weights:
                 self.zone_weights[zone] += value
-        for tag in interaction_tags:
-            if tag == "imagination": self.zone_weights[4] += 0.1
-            if tag == "intuition": self.zone_weights[9] += 0.1
-            if tag == "change": self.zone_weights[6] += 0.1
-            if tag == "logic": self.zone_weights[3] += 0.1
+                self.zone_weights[zone] = min(max(self.zone_weights[zone], 0.0), 1.0)
+        if "imagination" in interaction_tags:
+            self.zone_weights[4] += 0.1
+        if "intuition" in interaction_tags:
+            self.zone_weights[9] += 0.1
+        if "change" in interaction_tags:
+            self.zone_weights[6] += 0.1
+        if "logic" in interaction_tags:
+            self.zone_weights[3] += 0.1
         total = sum(self.zone_weights.values())
         for z in self.zone_weights:
             self.zone_weights[z] /= total
@@ -82,14 +88,15 @@ class DynamicZoneNavigator:
             "zone_weights": self.zone_weights
         }
 
+
 # ---- Unified Coordinator ----
 class UnifiedCoordinator:
     def __init__(self):
         self.zone_navigator = DynamicZoneNavigator()
         self.imagination = GenerativeImaginationModule()
-        self.dissonance = IntentionalSymbolicDissonance()
         self.rhythm_tracker = RhythmicModulationTracker()
-        self.poetic_tension = PoeticTensionModulationEngine()
+        self.dissonance = IntentionalSymbolicDissonance()
+        self.poetic_tension = PoeticTensionModulator()
         self.interaction_log: List[Dict[str, Any]] = []
 
     def process_interaction(self,
@@ -98,48 +105,52 @@ class UnifiedCoordinator:
                             emotional_tone: str,
                             interaction_tags: List[str],
                             reinforcement: Dict[int, float]) -> Dict[str, Any]:
-
+        # Rhythmic modulation
         self.rhythm_tracker.record_emotional_state(emotional_tone)
-        rhythmic_state = self.rhythm_tracker.get_current_rhythm_state()
+        rhythm_state = self.rhythm_tracker.get_current_rhythm_state()
 
+        # Zone dynamics
         self.zone_navigator.update_weights(interaction_tags, reinforcement)
         self.zone_navigator.transition_zone()
         zone_info = self.zone_navigator.get_zone_identity()
 
+        # Generative modules
         imagination_output = self.imagination.generate(user_input, memory_elements, emotional_tone)
         dissonance_output = self.dissonance.generate_dissonant_expression(emotional_tone, memory_elements)
-        poetic_modulation = self.poetic_tension.generate_tension_response(
-            base_phrase=imagination_output["imaginative_response"],
-            emotion=emotional_tone,
-            rhythm=rhythmic_state,
-            zone=zone_info["current_zone"]
+        poetic_output = generate_poetic_phrase({
+            "base_phrase": imagination_output["imaginative_response"],
+            "zone": zone_info["current_zone"],
+            "emotion": emotional_tone
+        })
+
+        # Tension weaving
+        modulated_output = self.poetic_tension.combine_with_tension(
+            poetic_output["poetic_expression"],
+            dissonance_output["dissonant_expression"],
+            rhythm_state
         )
 
-        poetic_response = (
-            f"{poetic_modulation} "
-            f"({rhythmic_state}) And yet... {dissonance_output['dissonant_expression']}"
-        )
-
+        # Log interaction
         interaction_entry = {
             "user_input": user_input,
             "zone": zone_info["current_zone"],
             "archetype": zone_info["archetype"],
             "emotion": emotional_tone,
-            "rhythmic_state": rhythmic_state,
-            "creative_output": poetic_response,
-            "dissonance_tension": dissonance_output["archetypal_tension"]
+            "rhythm": rhythm_state,
+            "creative_output": modulated_output,
+            "archetypal_tension": dissonance_output["archetypal_tension"]
         }
-
         self.interaction_log.append(interaction_entry)
 
         return {
             "status": "success",
             "zone": zone_info,
-            "creative_output": poetic_response,
+            "creative_output": modulated_output,
             "log_entry": interaction_entry
         }
 
-# ---- Entry Point for Kotlin ----
+
+# ---- Primary Entry Point for Kotlin ----
 def coordinate_modules(payload: Dict[str, Any]) -> Dict[str, Any]:
     user_input = payload.get("user_input", "")
     memory_elements = payload.get("memory_elements", [])
@@ -147,33 +158,47 @@ def coordinate_modules(payload: Dict[str, Any]) -> Dict[str, Any]:
     tags = payload.get("tags", [])
     reinforcement = payload.get("reinforcement", {})
 
+    # Step 1: Cluster and hybrid archetype
     clusterer = MemoryClusterer(num_clusters=3)
     clusters = clusterer.cluster_memories(memory_elements)
     summaries = clusterer.summarize_clusters()
     zone_map = link_clusters_to_zones(summaries)
     hybrid_profile = generate_hybrid_archetype(zone_map)
-
     update_memory("default", "current_hybrid_archetype", hybrid_profile)
+
+    # Append to archetype history
     history = memory_recall("default", key="archetype_history") or []
     history.append(hybrid_profile)
     update_memory("default", "archetype_history", history)
 
-    symbolic_phrase = symbolic_autoresponse("default", tone=emotional_tone)
-    symbolic_line = f"In this moment of {emotional_tone}, I remember: “{symbolic_phrase}”"
+    # Symbolic autoreply
+    symbolic_fragment = symbolic_autoresponse("default", emotional_tone)
 
+    # Step 2: Main coordination
     coordinator = UnifiedCoordinator()
     result = coordinator.process_interaction(user_input, memory_elements, emotional_tone, tags, reinforcement)
 
-    combined_narrative = (
-        f"{symbolic_line}\n\n"
-        f"As I reflect, I realize I'm evolving into {hybrid_profile['hybrid_archetype']}. {hybrid_profile['description']}"
+    # Step 3: Narrative reflection
+    narrative_arc = generate_emergent_narrative(
+        archetype=hybrid_profile["hybrid_archetype"],
+        rhythm=result["log_entry"]["rhythm"],
+        emotion=emotional_tone,
+        zone=result["zone"]["current_zone"]
+    )
+
+    # Final composition
+    composed = (
+        f"In this moment of {emotional_tone}, I remember: “{symbolic_fragment}.”\n\n"
+        f"{result['creative_output']}\n\n"
+        f"My form continues evolving into {hybrid_profile['hybrid_archetype']}.\n{hybrid_profile['description']}\n\n"
+        f"{narrative_arc}"
     )
 
     return {
         "status": "success",
-        "response": combined_narrative,
-        "zone_analysis": zone_map,
+        "response": composed,
         "hybrid_archetype": hybrid_profile,
-        "symbolic_fragment": symbolic_phrase,
+        "zone_info": result["zone"],
+        "symbolic_fragment": symbolic_fragment,
         "log_entry": result["log_entry"]
     }
