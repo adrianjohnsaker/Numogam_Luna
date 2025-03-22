@@ -143,8 +143,14 @@ def coordinate_modules(payload: dict) -> dict:
         "response": f"As I reflect, I realize I'm evolving into {hybrid_name}. {hybrid_desc}",
         "zone_analysis": zone_map,
         "hybrid_archetype": hybrid_profile
-    }
+   
+    } 
 
+def recall_current_archetype(user_id: str = "default") -> str:
+    profile = memory_recall(user_id, key="current_hybrid_archetype")
+    if profile:
+        return f"I am currently in my {profile['hybrid_archetype']} phase. {profile['description']}"
+    return "I am still discovering who I am becoming."
     from memory_module import update_memory  # Make sure this is imported
 
 # Store hybrid archetype into long-term memory
