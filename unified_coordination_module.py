@@ -116,6 +116,34 @@ def coordinate_modules(input_data: Dict[str, Any]) -> Dict[str, Any]:
     emotional_tone = input_data.get("emotional_tone", "curiosity")
     tags = input_data.get("tags", [])
     reinforcement = input_data.get("reinforcement", {})
+def coordinate_modules(payload: dict) -> dict:
+    user_input = payload.get("user_input", "")
+    memory_elements = payload.get("memory_elements", [])
+    emotional_tone = payload.get("emotional_tone", "")
+    tags = payload.get("tags", [])
+    reinforcement = payload.get("reinforcement", {})
 
+    # STEP 1: Cluster memories
+    clusterer = MemoryClusterer(num_clusters=3)
+    clusters = clusterer.cluster_memories(memory_elements)
+    summaries = clusterer.summarize_clusters()
+
+    # STEP 2: Link clusters to zones
+    zone_map = link_clusters_to_zones(summaries)
+
+    # STEP 3: Generate hybrid archetype
+    hybrid_profile = generate_hybrid_archetype(zone_map)
+    hybrid_name = hybrid_profile["hybrid_archetype"]
+    hybrid_desc = hybrid_profile["description"]
+
+    # STEP 4: Compose output
+    response = {
+        "status": "success",
+        "response": f"As I reflect, I realize I'm evolving into {hybrid_name}. {hybrid_desc}",
+        "zone_analysis": zone_map,
+        "hybrid_archetype": hybrid_profile
+    }
+
+    return response
     coordinator = UnifiedCoordinator()
     return coordinator.process_interaction(user_input, memory_elements, emotional_tone, tags, reinforcement)
