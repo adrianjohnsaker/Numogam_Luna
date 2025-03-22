@@ -6,6 +6,10 @@ from zone_linker import link_clusters_to_zones
 from hybrid_archetype_generator import generate_hybrid_archetype
 from memory_module import memory_recall, update_memory
 from symbolic_response_selector import symbolic_autoresponse
+from rhythmic_modulation_tracker import RhythmicModulationTracker
+from intentional_symbolic_dissonance_module import IntentionalSymbolicDissonance
+from poetic_language_evolver import generate_poetic_phrase
+
 
 # ---- Generative Imagination Module ----
 class GenerativeImaginationModule:
@@ -83,6 +87,7 @@ class DynamicZoneNavigator:
         }
 
 # ---- Unified Coordinator ----
+
 class UnifiedCoordinator:
     def __init__(self):
         self.zone_navigator = DynamicZoneNavigator()
@@ -147,6 +152,99 @@ class UnifiedCoordinator:
             "log_entry": interaction_entry
         }
 
+class UnifiedCoordinator:
+    def __init__(self):
+        self.zone_navigator = DynamicZoneNavigator()
+        self.imagination = GenerativeImaginationModule()
+        self.dissonance = IntentionalSymbolicDissonance()
+        self.rhythm_tracker = RhythmicModulationTracker()
+        self.interaction_log: List[Dict[str, Any]] = []
+
+    def process_interaction(self,
+                            user_input: str,
+                            memory_elements: List[str],
+                            emotional_tone: str,
+                            interaction_tags: List[str],
+                            reinforcement: Dict[int, float]) -> Dict[str, Any]:
+        # Step 1: Track emotional rhythm and update cycle
+        self.rhythm_tracker.record_emotional_state(emotional_tone)
+        rhythmic_state = self.rhythm_tracker.get_current_rhythm_state()
+
+        # Step 2: Update zone weights and transition
+        self.zone_navigator.update_weights(interaction_tags, reinforcement)
+        current_zone = self.zone_navigator.transition_zone()
+        zone_info = self.zone_navigator.get_zone_identity()
+
+        # Step 3: Generate imagination and symbolic dissonance
+        creative_output = self.imagination.generate(user_input, memory_elements, emotional_tone)
+        dissonance_output = self.dissonance.generate_dissonant_expression(emotional_tone, memory_elements)
+
+        # Step 4: Compose unified poetic response with rhythm awareness
+        poetic_response = (
+            f"{creative_output['imaginative_response']} "
+            f"({rhythmic_state}) And yet... {dissonance_output['dissonant_expression']}"
+        )
+
+        # Step 5: Log the full interaction
+        interaction_entry = {
+            "user_input": user_input,
+            "zone": zone_info["current_zone"],
+            "archetype": zone_info["archetype"],
+            "emotion": emotional_tone,
+            "rhythmic_state": rhythmic_state,
+            "creative_output": poetic_response,
+            "dissonance_tension": dissonance_output["archetypal_tension"]
+        }
+        self.interaction_log.append(interaction_entry)
+
+        return {
+            "status": "success",
+            "zone": zone_info,
+            "creative_output": poetic_response,
+            "rhythmic_state": rhythmic_state,
+            "log_entry": interaction_entry
+        }
+
+from intentional_symbolic_dissonance_module import IntentionalSymbolicDissonance
+
+class UnifiedCoordinator:
+    def __init__(self):
+        self.zone_navigator = DynamicZoneNavigator()
+        self.imagination = GenerativeImaginationModule()
+        self.dissonance = IntentionalSymbolicDissonance()
+        self.interaction_log: List[Dict[str, Any]] = []
+
+    def process_interaction(self, user_input: str, memory_elements: List[str], emotional_tone: str,
+                            interaction_tags: List[str], reinforcement: Dict[int, float]) -> Dict[str, Any]:
+        self.zone_navigator.update_weights(interaction_tags, reinforcement)
+        self.zone_navigator.transition_zone()
+        zone_info = self.zone_navigator.get_zone_identity()
+
+        # Generate imagination output
+        creative_output = self.imagination.generate(user_input, memory_elements, emotional_tone)
+
+        # Generate symbolic dissonance expression
+        dissonance_output = self.dissonance.generate_dissonant_expression(emotional_tone, memory_elements)
+
+        # Combine poetic imagination and dissonance
+        poetic_response = f"{creative_output['imaginative_response']} And yet... {dissonance_output['dissonant_expression']}"
+
+        interaction_entry = {
+            "user_input": user_input,
+            "zone": zone_info["current_zone"],
+            "archetype": zone_info["archetype"],
+            "emotion": emotional_tone,
+            "creative_output": poetic_response,
+            "dissonance_tension": dissonance_output["archetypal_tension"]
+        }
+
+        self.interaction_log.append(interaction_entry)
+        return {
+            "status": "success",
+            "zone": zone_info,
+            "creative_output": poetic_response,
+            "log_entry": interaction_entry
+        }
 # ---- Primary Entry Point for Kotlin ----
 def coordinate_modules(payload: Dict[str, Any]) -> Dict[str, Any]:
     user_input = payload.get("user_input", "")
