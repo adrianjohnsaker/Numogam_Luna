@@ -109,6 +109,44 @@ class UnifiedCoordinator:
             "log_entry": interaction_entry
         }
 
+from poetic_language_evolver import generate_poetic_phrase
+
+class UnifiedCoordinator:
+    def __init__(self):
+        self.zone_navigator = DynamicZoneNavigator()
+        self.imagination = GenerativeImaginationModule()
+        self.interaction_log: List[Dict[str, Any]] = []
+
+    def process_interaction(self, user_input: str, memory_elements: List[str], emotional_tone: str, interaction_tags: List[str], reinforcement: Dict[int, float]) -> Dict[str, Any]:
+        self.zone_navigator.update_weights(interaction_tags, reinforcement)
+        self.zone_navigator.transition_zone()
+        zone_info = self.zone_navigator.get_zone_identity()
+        creative_output = self.imagination.generate(user_input, memory_elements, emotional_tone)
+
+        # Generate poetic phrasing
+        poetic_output = generate_poetic_phrase({
+            "base_phrase": creative_output["imaginative_response"],
+            "zone": zone_info["current_zone"],
+            "emotion": emotional_tone
+        })
+
+        interaction_entry = {
+            "user_input": user_input,
+            "zone": zone_info["current_zone"],
+            "archetype": zone_info["archetype"],
+            "emotion": emotional_tone,
+            "creative_output": poetic_output["poetic_expression"]
+        }
+
+        self.interaction_log.append(interaction_entry)
+
+        return {
+            "status": "success",
+            "zone": zone_info,
+            "creative_output": poetic_output["poetic_expression"],
+            "log_entry": interaction_entry
+        }
+
 # ---- Primary Entry Point for Kotlin ----
 def coordinate_modules(payload: Dict[str, Any]) -> Dict[str, Any]:
     user_input = payload.get("user_input", "")
