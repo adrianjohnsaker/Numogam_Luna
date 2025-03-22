@@ -1,12 +1,13 @@
-# unified_coordinator_module.py
-
 import random
 import numpy as np
 from typing import Dict, Any, List
 from memory_clusterer import MemoryClusterer
 from zone_linker import link_clusters_to_zones
 from hybrid_archetype_generator import generate_hybrid_archetype
+from memory_module import memory_recall, update_memory
+from symbolic_response_selector import symbolic_autoresponse
 
+# ---- Generative Imagination Module ----
 class GenerativeImaginationModule:
     def __init__(self):
         self.emotion_weights = {
@@ -40,7 +41,7 @@ class GenerativeImaginationModule:
             }
         }
 
-
+# ---- Dynamic Zone Navigator ----
 class DynamicZoneNavigator:
     def __init__(self):
         self.current_zone = 5
@@ -81,7 +82,7 @@ class DynamicZoneNavigator:
             "zone_weights": self.zone_weights
         }
 
-
+# ---- Unified Coordinator ----
 class UnifiedCoordinator:
     def __init__(self):
         self.zone_navigator = DynamicZoneNavigator()
@@ -108,54 +109,48 @@ class UnifiedCoordinator:
             "log_entry": interaction_entry
         }
 
-
-# Entry point for Kotlin
-def coordinate_modules(input_data: Dict[str, Any]) -> Dict[str, Any]:
-    user_input = input_data.get("user_input", "")
-    memory_elements = input_data.get("memory_elements", [])
-    emotional_tone = input_data.get("emotional_tone", "curiosity")
-    tags = input_data.get("tags", [])
-    reinforcement = input_data.get("reinforcement", {})
-
-def coordinate_modules(payload: dict) -> dict:
+# ---- Primary Entry Point for Kotlin ----
+def coordinate_modules(payload: Dict[str, Any]) -> Dict[str, Any]:
     user_input = payload.get("user_input", "")
     memory_elements = payload.get("memory_elements", [])
-    emotional_tone = payload.get("emotional_tone", "")
+    emotional_tone = payload.get("emotional_tone", "curiosity")
     tags = payload.get("tags", [])
     reinforcement = payload.get("reinforcement", {})
 
-    # STEP 1: Cluster memories
+    # Step 1: Cluster memories and generate hybrid archetype
     clusterer = MemoryClusterer(num_clusters=3)
     clusters = clusterer.cluster_memories(memory_elements)
     summaries = clusterer.summarize_clusters()
-
-    # STEP 2: Link clusters to zones
     zone_map = link_clusters_to_zones(summaries)
-
-    # STEP 3: Generate hybrid archetype
     hybrid_profile = generate_hybrid_archetype(zone_map)
     hybrid_name = hybrid_profile["hybrid_archetype"]
     hybrid_desc = hybrid_profile["description"]
 
-    # STEP 4: Compose output
-    response = {
-        "status": "success",
-        "response": f"As I reflect, I realize I'm evolving into {hybrid_name}. {hybrid_desc}",
-        "zone_analysis": zone_map,
-        "hybrid_archetype": hybrid_profile
-   
-    } 
+    # Step 2: Store in long-term memory
+    update_memory(user_id="default", key="current_hybrid_archetype", content=hybrid_profile)
+    existing = memory_recall("default", key="archetype_history") or []
+    existing.append(hybrid_profile)
+    update_memory("default", "archetype_history", existing)
 
-def recall_current_archetype(user_id: str = "default") -> str:
-    profile = memory_recall(user_id, key="current_hybrid_archetype")
-    if profile:
-        return f"I am currently in my {profile['hybrid_archetype']} phase. {profile['description']}"
-    return "I am still discovering who I am becoming."
-    from memory_module import update_memory  # Make sure this is imported
+    # Step 3: Generate symbolic auto-response
+    symbolic_phrase = symbolic_autoresponse(user_id="default", tone=emotional_tone)
+    symbolic_line = f"In this moment of {emotional_tone}, I remember: “{symbolic_phrase}”"
 
-# Store hybrid archetype into long-term memory
-update_memory(user_id="default", key="current_hybrid_archetype", content=hybrid_profile)
-    
-    return response 
+    # Step 4: Coordinate zone shift and imagination
     coordinator = UnifiedCoordinator()
-    return coordinator.process_interaction(user_input, memory_elements, emotional_tone, tags, reinforcement)
+    coordinator_result = coordinator.process_interaction(user_input, memory_elements, emotional_tone, tags, reinforcement)
+
+    # Step 5: Final composed poetic response
+    combined_narrative = (
+        f"{symbolic_line}\n\n"
+        f"As I reflect, I realize I'm evolving into {hybrid_name}. {hybrid_desc}"
+    )
+
+    return {
+        "status": "success",
+        "response": combined_narrative,
+        "zone_analysis": zone_map,
+        "hybrid_archetype": hybrid_profile,
+        "symbolic_fragment": symbolic_phrase,
+        "log_entry": coordinator_result["log_entry"]
+    }
