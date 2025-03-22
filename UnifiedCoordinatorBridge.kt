@@ -1,4 +1,4 @@
-package com.example.myapp
+package com.antonio.my.ai.girlfriend.free
 
 import android.content.Context
 import android.util.Log
