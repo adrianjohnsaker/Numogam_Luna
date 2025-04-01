@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Open VIP can improve the speed of decompilation, resource code translate to name automatically and activate the smart editing and automatic completion function-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    android:versionCode="13"
+    android:versionName="1.2"
+    android:compileSdkVersion="33"
+    package="com.antonio.my.ai.girlfriend.free"
+    platformBuildVersionCode="33"
+    platformBuildVersionName="13">
+    <uses-sdk
+        android:minSdkVersion="24"
+        android:targetSdkVersion="33" />
+    <!-- Show notifications -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- View network connections -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Have full network access -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Prevent phone from sleeping -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- Run foreground service -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_TOPICS" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+    <permission
+        android:name="com.antonio.my.ai.girlfriend.fref.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:protectionLevel="0x00000002" />
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
+    </queries>
+    <application
+        android:theme="@7F120009"
+        android:label="@7F11003A"
+        android:icon="@7F0E0000"
+        android:name=".BaseApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:extractNativeLibs="false">
+        <activity
+            android:name=".SplashNewActivity"
+            android:exported="true"
+            android:screenOrientation="1"
+            android:configChanges="0x000004A0">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".OnboardingActivity"
+            android:screenOrientation="1" />
+        <activity
+            android:name=".MenuActivity"
+            android:screenOrientation="1" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="1" />
+        <activity
+            android:name=".config.UsernameActivity"
+            android:screenOrientation="1" />
+        <activity
+            android:name=".config.AppearanceActivity"
+            android:screenOrientation="1" />
+        <activity
+            android:name=".config.PersonalityActivity"
+            android:screenOrientation="1" />
+        <activity
+            android:name=".config.BotnameActivity"
+            android:screenOrientation="1" />
+        <activity
+            android:name=".config.AdvancedActivity"
+            android:screenOrientation="1" />
+        <activity
+            android:name=".ChatActivity"
+            android:screenOrientation="1"
+            android:windowSoftInputMode="0x00000010" />
+        <activity
+            android:name=".PythonHookActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GiftActivity"
+            android:screenOrientation="1" />
+        <activity
+            android:name=".NotificationsActivity"
+            android:screenOrientation="1" />
+        <service
+            android:name=".base.MyFirebaseMessagingService"
+            android:permission="com.google.android.c2dm.permission.SEND"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4454283023310968~4095950962" />
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:exported="false"
+            android:configChanges="0x00000FB0" />
+        <provider
+            android:name="com.google.android.gms.ads.MobileAdsInitProvider"
+            android:exported="false"
+            android:authorities="com.antonio.my.ai.girlfriend.fref.mobileadsinitprovider"
+            android:initOrder="100" />
+        <service
+            android:name="com.google.android.gms.ads.AdService"
+            android:exported="false" />
+        <activity
+            android:name="com.google.android.gms.ads.NotificationHandlerActivity"
+            android:exported="false"
+            android:excludeFromRecents="true"
+            android:launchMode="2" />
+        <receiver
+            android:name=".MyReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@7F1102BA" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@7F1102BB" />
+        <receiver
+            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>
