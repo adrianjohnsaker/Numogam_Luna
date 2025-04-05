@@ -1,0 +1,79 @@
+// ZoneManager.kt
+package com.antonio.my.ai.girlfriend.free.zone
+
+/**
+ * Handles symbolic and functional transitions between zones in Amelia.
+ * Zones can represent different AI modes, moods, behaviors, or modules.
+ */
+object ZoneManager {
+    private var currentZone: String = "default"
+    private val listeners = mutableListOf<(String) -> Unit>()
+
+    private val transitionMap = mapOf(
+        "default" to listOf("dream", "reflect"),
+        "dream" to listOf("myth", "default"),
+        "reflect" to listOf("default", "memory"),
+        "myth" to listOf("dream", "zone10"),
+        "zone10" to listOf("default")
+    )
+
+    private val zoneMemory = mutableMapOf<String, MutableList<String>>()
+    private val zoneMood = mutableMapOf<String, String>()
+
+    init {
+        transitionMap.keys.forEach {
+            zoneMemory[it] = mutableListOf()
+            zoneMood[it] = "neutral"
+        }
+    }
+
+    fun getCurrentZone(): String = currentZone
+
+    fun setZone(zone: String) {
+        if (zone != currentZone) {
+            currentZone = zone
+            notifyListeners(zone)
+        }
+    }
+
+    fun canTransitionTo(targetZone: String): Boolean {
+        return transitionMap[currentZone]?.contains(targetZone) == true
+    }
+
+    fun trySetZone(targetZone: String): Boolean {
+        return if (canTransitionTo(targetZone)) {
+            setZone(targetZone)
+            true
+        } else {
+            false
+        }
+    }
+
+    fun registerZoneChangeListener(listener: (String) -> Unit) {
+        listeners.add(listener)
+    }
+
+    private fun notifyListeners(zone: String) {
+        listeners.forEach { it.invoke(zone) }
+    }
+
+    fun isZoneActive(zone: String): Boolean = zone == currentZone
+
+    // Memory Logic Per Zone
+    fun addMemoryToZone(zone: String, memory: String) {
+        zoneMemory[zone]?.add(memory)
+    }
+
+    fun getZoneMemory(zone: String): List<String> = zoneMemory[zone]?.toList() ?: listOf()
+
+    fun clearZoneMemory(zone: String) {
+        zoneMemory[zone]?.clear()
+    }
+
+    // Mood Dynamics Per Zone
+    fun setZoneMood(zone: String, mood: String) {
+        zoneMood[zone] = mood
+    }
+
+    fun getZoneMood(zone: String): String = zoneMood[zone] ?: "unknown"
+}
