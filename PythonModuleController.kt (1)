@@ -5,10 +5,13 @@ import android.content.Context
 import android.util.Log
 import com.chaquo.python.PyObject
 import com.chaquo.python.Python
+import com.antonio.my.ai.girlfriend.free.zone.ZoneManager
+
 import java.io.File
 
 /**
  * Handles dynamic loading and caching of Python modules, with version control.
+ * Also auto-reloads logic based on zone transitions.
  */
 object PythonModuleController {
     private const val TAG = "PythonModuleController"
@@ -16,6 +19,7 @@ object PythonModuleController {
     private const val VERSION_FILE_NAME = "version.txt"
 
     private var cachedModules = mutableMapOf<String, PyObject>()
+    private var currentLogicModule: PyObject? = null
 
     fun initialize(context: Context, moduleNames: List<String>) {
         val python = Python.getInstance()
@@ -28,6 +32,34 @@ object PythonModuleController {
             versionFile.writeText(MODULE_VERSION)
         } else {
             Log.d(TAG, "Modules are up-to-date.")
+        }
+
+        // Register listener to reload AI logic on zone change
+        ZoneManager.registerZoneChangeListener { newZone ->
+            loadLogicModuleForZone(newZone)
+        }
+
+        // Initial load
+        loadLogicModuleForZone(ZoneManager.getCurrentZone())
+    }
+
+    private fun loadLogicModuleForZone(zone: String) {
+        val logicModuleName = "ai_logic_${zone}"
+        try {
+            val module = Python.getInstance().getModule(logicModuleName)
+            currentLogicModule = module
+            Log.d(TAG, "Loaded logic module for zone '$zone': $logicModuleName")
+        } catch (e: Exception) {
+            Log.e(TAG, "Could not load logic module for zone: $zone", e)
+        }
+    }
+
+    fun callCurrentLogic(functionName: String, vararg args: Any?): Any? {
+        return try {
+            currentLogicModule?.callAttr(functionName, *args)
+        } catch (e: Exception) {
+            Log.e(TAG, "Error calling function $functionName in current logic module", e)
+            null
         }
     }
 
