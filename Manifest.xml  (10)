@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.antonio.my.ai.girlfriend.free"
+    android:versionCode="14"
+    android:versionName="1.2.1"
+    android:compileSdkVersion="33"
+    android:compileSdkVersionCodename="13"
+    platformBuildVersionCode="33"
+    platformBuildVersionName="13">
+
+    <!-- Comprehensive permissions for all potential requirements -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_AD_ID" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_TOPICS" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    
+    <!-- Optional permissions with maxSdkVersion for newer Android versions -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    
+    <!-- Hardware features -->
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+    <uses-feature android:name="android.hardware.faketouch" android:required="false" />
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+    <uses-feature android:name="android.hardware.wifi" android:required="false" />
+    <uses-feature android:name="android.hardware.screen.portrait" android:required="false" />
+    
+    <!-- Screen compatibility -->
+    <supports-screens
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:resizeable="true"
+        android:anyDensity="true" />
+
+    <!-- SDK requirements with fallback support -->
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="33"
+        tools:overrideLibrary="androidx.core, androidx.activity, androidx.fragment" />
+
+    <!-- Split configurations -->
+    <dist:module dist:title="@string/app_name">
+        <dist:delivery>
+            <dist:install-time />
+        </dist:delivery>
+        <dist:fusing dist:include="true" />
+        <dist:requiredSplitTypes dist:requiredSplitTypes="base__density" />
+    </dist:module>
+
+    <!-- Permissions for custom receivers -->
+    <permission
+        android:name="com.antonio.my.ai.girlfriend.fref.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:protectionLevel="signature" />
+        
+    <!-- Package visibility requirements -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService" />
+        </intent>
+        <!-- For Google Play Services -->
+        <package android:name="com.android.vending" />
+        <package android:name="com.google.android.gms" />
+        <!-- For Facebook -->
+        <package android:name="com.facebook.katana" />
+        <package android:name="com.facebook.orca" />
+        <!-- For common browsers -->
+        <package android:name="com.android.chrome" />
+        <package android:name="org.mozilla.firefox" />
+        <package android:name="com.opera.browser" />
+    </queries>
+
+    <application
+        android:name="com.antonio.my.ai.girlfriend.free.BaseApplication"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/AppTheme"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:extractNativeLibs="true"
+        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+        android:isSplitRequired="true"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:preserveLegacyExternalStorage="true"
+        tools:replace="android:appComponentFactory,android:allowBackup,android:fullBackupContent,android:label,android:icon,android:roundIcon,android:theme"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+
+        <!-- Splash Screen Activity -->
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.SplashNewActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.splashScreen"
+                android:resource="@drawable/splash_screen" />
+        </activity>
+
+        <!-- Main Activities -->
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.OnboardingActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme" />
+            
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.MenuActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme" />
+            
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+            
+        <!-- Configuration Activities -->
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.config.UsernameActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme" />
+            
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.config.AppearanceActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme" />
+            
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.config.PersonalityActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme" />
+            
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.config.BotnameActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme" />
+            
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.config.AdvancedActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme" />
+            
+        <!-- Chat Activity -->
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.ChatActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/AppTheme" />
+            
+        <!-- Python Hook Activity -->
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.PythonHookActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+            
+        <!-- Additional Features -->
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.GiftActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme" />
+            
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.NotificationsActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme" />
+            
+        <!-- Firebase Messaging Service -->
+        <service
+            android:name="com.antonio.my.ai.girlfriend.free.base.MyFirebaseMessagingService"
+            android:permission="com.google.android.c2dm.permission.SEND"
+            android:exported="true"
+            android:stopWithTask="false"
+            android:foregroundServiceType="connectedDevice">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </service>
+        
+        <!-- Facebook Integration -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+            
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider${applicationId}"
+            android:exported="true" />
+            
+        <receiver
+            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+            </intent-filter>
+        </receiver>
+        
+        <!-- Google AdMob Integration -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_app_id" />
+            
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+            
+        <provider
+            android:name="com.google.android.gms.ads.MobileAdsInitProvider"
+            android:exported="false"
+            android:authorities="${applicationId}.mobileadsinitprovider"
+            android:initOrder="100" />
+            
+        <service
+            android:name="com.google.android.gms.ads.AdService"
+            android:enabled="true"
+            android:exported="false" />
+            
+        <activity
+            android:name="com.google.android.gms.ads.OutOfContextTestingActivity"
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+            
+        <activity
+            android:name="com.google.android.gms.ads.NotificationHandlerActivity"
+            android:exported="false"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            
+        <!-- AD Services Configuration -->
+        <property
+            android:name="android.adservices.AD_SERVICES_CONFIG"
+            android:resource="@xml/ad_services_config" />
+            
+        <!-- Boot Receiver -->
+        <receiver
+            android:name="com.antonio.my.ai.girlfriend.free.MyReceiver"
+            android:exported="true"
+            android:enabled="true"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
+            <intent-filter android:priority="999">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+        
+        <!-- WorkManager Configuration -->
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            android:exported="false"
+            android:multiprocess="true"
+            tools:targetApi="n" />
+            
+        <!-- Install Referrer Receiver -->
+        <receiver
+            android:name="com.android.installreferrer.api.InstallReferrerBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER" />
+            </intent-filter>
+        </receiver>
+        
+        <!-- Backup Configuration -->
+        <meta-data
+            android:name="com.google.android.backup.api_key"
+            android:value="backup_api_key_placeholder" />
+            
+        <!-- Deep Linking Support -->
+        <activity
+            android:name="com.antonio.my.ai.girlfriend.free.DeepLinkActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" android:host="ai-girlfriend.antonio.com" />
+                <data android:scheme="http" android:host="ai-girlfriend.antonio.com" />
+            </intent-filter>
+        </activity>
+        
+        <!-- App Links Verification -->
+        <meta-data
+            android:name="asset_statements"
+            android:resource="@string/asset_statements" />
+            
+        <!-- App Update Manager -->
+        <service
+            android:name="com.google.android.play.core.appupdate.service.AppUpdateService"
+            android:exported="false" />
+            
+        <service
+            android:name="com.google.android.play.core.assetpacks.AssetPackService"
+            android:exported="false" />
+    </application>
+</manifest>
