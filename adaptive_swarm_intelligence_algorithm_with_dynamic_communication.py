@@ -1,5 +1,3 @@
-Please continue and complete the swarm intelligence algorithm.
-
 """
 Adaptive Swarm Intelligence Algorithm with Dynamic Communication
 
