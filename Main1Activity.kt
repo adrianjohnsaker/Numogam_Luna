@@ -1,4 +1,4 @@
-package com.antonio.my.ai.girlfriend.free
+package com.example.mychatapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
