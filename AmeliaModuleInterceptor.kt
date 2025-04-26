@@ -1,4 +1,4 @@
-// ChatModuleInterceptor.kt
+// AmeliaModuleInterceptor.kt
 import android.content.Context
 import java.util.regex.Pattern
 import kotlinx.coroutines.Dispatchers
