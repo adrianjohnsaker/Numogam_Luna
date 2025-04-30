@@ -1,0 +1,4 @@
+<resources>
+    <string name="py_initializing">Initializing AI Engine…</string>
+    <string name="py_init_failed">AI Initialization Failed\nTap to retry</string>
+</resources>
