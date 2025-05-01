@@ -1,0 +1,15 @@
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tones_array">
+        <item>poetic:fluid</item>
+        <item>recursive:deep</item>
+        <item>mood:contemplative</item>
+        <item>mood:ecstatic</item>
+        <item>mood:melancholic</item>
+        <item>mood:cryptic</item>
+        <item>transglyphic</item>
+    </string-array>
+</resources>
+```
