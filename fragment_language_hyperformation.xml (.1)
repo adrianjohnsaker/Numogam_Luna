@@ -1,0 +1,80 @@
+xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Language Hyperformation"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+    
+    <EditText
+        android:id="@+id/editTextInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter text or glyphs"
+        android:minLines="3"
+        android:inputType="textMultiLine"
+        android:layout_marginBottom="12dp"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Processing Mode:"
+        android:layout_marginBottom="4dp"/>
+    
+    <Spinner
+        android:id="@+id/spinnerTone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"/>
+    
+    <CheckBox
+        android:id="@+id/checkboxMetamood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enable Metamoodulation"
+        android:layout_marginBottom="16dp"/>
+    
+    <Button
+        android:id="@+id/buttonProcess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Process Text"
+        android:layout_marginBottom="16dp"/>
+    
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Output:"
+        android:layout_marginBottom="4dp"/>
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        
+        <TextView
+            android:id="@+id/textViewOutput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="#F0F0F0"
+            android:textIsSelectable="true"/>
+    </ScrollView>
+</LinearLayout>
+```
