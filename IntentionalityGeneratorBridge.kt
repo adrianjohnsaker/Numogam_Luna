@@ -1,6 +1,6 @@
 ```kotlin
 // IntentionalityGeneratorBridge.kt
-package com.deleuzian.ai.assistant
+package com.antonio.my.ai.girlfriend.free
 
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
