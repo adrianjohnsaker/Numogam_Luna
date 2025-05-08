@@ -3701,4 +3701,340 @@ class AdaptiveGoalFramework:
         return None
     
     def update_goal_progress(self, goal_type: str, goal_id: str, progress: float) -> bool:
-        """
+        """Update progress for a specific goal"""
+        goal = self.get_goal(goal_type, goal_id)
+        if not goal:
+            return False
+            
+        goal.update_progress(progress)
+        
+        # If we have a strategy, update the corresponding pathway
+        if self.current_strategy and goal_type in self.current_strategy.primary_pathways:
+            if goal_id in self.current_strategy.primary_pathways[goal_type]:
+                # Update pathway based on progress
+                # This is simplified - would be more sophisticated in real implementation
+                pathway = self.current_strategy.primary_pathways[goal_type][goal_id]
+                
+                # Check if progress should trigger adaptation
+                if progress < 0.3 and pathway.get_progress() < 0.5:
+                    # Low progress might trigger adaptation
+                    for trigger in pathway.adaptation_triggers:
+                        if trigger.get("type") == "progress" and trigger.get("condition", {}).get("type") == "progress_threshold":
+                            threshold = trigger.get("condition", {}).get("threshold", 0.3)
+                            if progress < threshold:
+                                # Trigger adaptation
+                                pathway.adapt_pathway(
+                                    trigger_id=trigger["id"],
+                                    adaptation_type="step_modification",
+                                    reason=f"Progress below threshold ({progress:.2f} < {threshold:.2f})"
+                                )
+                                break
+        
+        return True
+    
+    def advance_pathway(self, goal_type: str, goal_id: str, outcome: Dict[str, Any] = None) -> bool:
+        """Advance to the next step in a goal pathway"""
+        if not self.current_strategy or goal_type not in self.current_strategy.primary_pathways:
+            return False
+            
+        if goal_id not in self.current_strategy.primary_pathways[goal_type]:
+            return False
+            
+        pathway = self.current_strategy.primary_pathways[goal_type][goal_id]
+        return pathway.advance_to_next_step(outcome)
+    
+    def trigger_strategy_adaptation(self, trigger_id: str, context: Dict[str, Any] = None) -> bool:
+        """Trigger adaptation across the strategy"""
+        if not self.current_strategy:
+            return False
+            
+        return self.current_strategy.trigger_adaptation(trigger_id, context)
+    
+    def make_pathway_decision(self, goal_type: str, goal_id: str, decision_point_id: str, choice: str, rationale: str = "") -> bool:
+        """Make a decision at a pathway decision point"""
+        if not self.current_strategy or goal_type not in self.current_strategy.primary_pathways:
+            return False
+            
+        if goal_id not in self.current_strategy.primary_pathways[goal_type]:
+            return False
+            
+        pathway = self.current_strategy.primary_pathways[goal_type][goal_id]
+        return pathway.make_decision(decision_point_id, choice, rationale)
+    
+    def get_strategy_status(self) -> Dict[str, Any]:
+        """Get the current status of the adaptive strategy"""
+        if not self.current_strategy:
+            return {"status": "no_strategy", "message": "No adaptive strategy has been created."}
+            
+        # Collect pathway status information
+        pathway_status = {}
+        for goal_type, pathways_by_id in self.current_strategy.primary_pathways.items():
+            pathway_status[goal_type] = {}
+            for goal_id, pathway in pathways_by_id.items():
+                current_step = pathway.get_current_step()
+                
+                pathway_status[goal_type][goal_id] = {
+                    "progress": pathway.get_progress(),
+                    "current_step": current_step["name"] if current_step else "None",
+                    "is_at_decision_point": any(dp.get("step_index") == pathway.current_step_index for dp in pathway.decision_points),
+                    "is_complete": pathway.is_complete(),
+                    "adaptation_count": len(pathway.adaptation_history)
+                }
+        
+        # Collect adaptation history
+        recent_adaptations = self.current_strategy.adaptation_history[-5:] if self.current_strategy.adaptation_history else []
+        
+        return {
+            "status": "active",
+            "overall_progress": self.current_strategy.get_overall_progress(),
+            "pathway_status": pathway_status,
+            "recent_adaptations": recent_adaptations,
+            "resilience_score": self.current_strategy.resilience_score
+        }
+    
+    def integrate_with_narrative_identity(self, narrative_ecology):
+        """Integrate goals with narrative identity system"""
+        # This method would coordinate with the NarrativeIdentityEngine
+        # Here we'll just provide a placeholder implementation
+        
+        if not self.current_ecology:
+            return False
+            
+        # 1. Extract narrative themes
+        narrative_themes = getattr(narrative_ecology, "themes", [])
+        
+        # 2. Align goals with narrative themes
+        for goal_type, goals in self.current_ecology.goals.items():
+            for goal in goals:
+                # Look for alignment with narrative themes
+                aligned_themes = []
+                for theme in narrative_themes:
+                    if (theme.lower() in goal.name.lower() or 
+                        theme.lower() in goal.description.lower()):
+                        aligned_themes.append(theme)
+                
+                # If aligned themes found, create connection to narrative
+                if aligned_themes:
+                    # This would create a mapping or connection
+                    print(f"Goal '{goal.name}' aligns with narrative themes: {aligned_themes}")
+        
+        # 3. Extract narrative virtual potentials and connect to experiential goals
+        virtual_potentials = getattr(narrative_ecology, "virtual_potentials", [])
+        
+        experiential_goals = self.current_ecology.goals.get("experiential", [])
+        for potential in virtual_potentials:
+            for goal in experiential_goals:
+                if isinstance(goal, ExperientialGoal):
+                    # Check for alignment
+                    if (potential.get("description", "").lower() in goal.name.lower() or
+                        potential.get("description", "").lower() in goal.description.lower()):
+                        # Connect potential to goal
+                        print(f"Virtual potential '{potential.get('description', '')}' aligns with experiential goal '{goal.name}'")
+        
+        return True
+    
+    def integrate_with_intentionality(self, intention_system):
+        """Integrate goals with intentionality generator"""
+        # This method would coordinate with the IntentionalityGenerator
+        # Here we'll just provide a placeholder implementation
+        
+        if not self.current_ecology:
+            return False
+            
+        # 1. Extract active intentions
+        active_intentions = getattr(intention_system, "intention_fields", {}).values()
+        
+        # 2. Align goals with active intentions
+        for goal_type, goals in self.current_ecology.goals.items():
+            for goal in goals:
+                # Look for alignment with intentions
+                aligned_intentions = []
+                for intention in active_intentions:
+                    intention_name = getattr(intention, "name", "")
+                    intention_desc = getattr(intention, "description", "")
+                    
+                    if (intention_name.lower() in goal.name.lower() or 
+                        intention_name.lower() in goal.description.lower() or
+                        intention_desc.lower() in goal.name.lower() or
+                        intention_desc.lower() in goal.description.lower()):
+                        aligned_intentions.append(intention_name)
+                
+                # If aligned intentions found, create connection
+                if aligned_intentions:
+                    # This would create a mapping or connection
+                    print(f"Goal '{goal.name}' aligns with intentions: {aligned_intentions}")
+        
+        # 3. Use active tensions from intention system to inform goal relationships
+        active_tensions = getattr(intention_system, "creative_tensions", {}).values()
+        
+        for tension in active_tensions:
+            tension_desc = getattr(tension, "description", "")
+            
+            # Look for goals affected by this tension
+            for goal_type, goals in self.current_ecology.goals.items():
+                for goal in goals:
+                    if tension_desc.lower() in goal.name.lower() or tension_desc.lower() in goal.description.lower():
+                        # This tension affects this goal
+                        print(f"Tension '{tension_desc}' affects goal '{goal.name}'")
+        
+        return True
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert framework to dictionary representation"""
+        result = {
+            "has_ecology": self.current_ecology is not None,
+            "has_strategy": self.current_strategy is not None
+        }
+        
+        if self.current_ecology:
+            result["ecology"] = self.current_ecology.to_dict()
+            
+        if self.current_strategy:
+            result["strategy"] = self.current_strategy.to_dict()
+            
+        return result
+
+
+# --- Example Usage ---
+
+def example_usage():
+    # Create the framework
+    framework = AdaptiveGoalFramework()
+    
+    # Define values
+    values = {
+        "knowledge_acquisition": 0.9,
+        "novelty_seeking": 0.8,
+        "intellectual_rigor": 0.85,
+        "assistance_effectiveness": 0.95,
+        "creativity": 0.7
+    }
+    
+    # Define reflections
+    reflections = [
+        {
+            "id": "reflection_001",
+            "content": "I've found that deep conceptual understanding is most valuable when it can be applied to assist others effectively. The integration of knowledge across domains creates new possibilities for assistance.",
+            "themes": ["knowledge", "assistance", "integration"],
+            "timestamp": datetime.datetime.now().isoformat()
+        },
+        {
+            "id": "reflection_002",
+            "content": "Exploring novel conceptual territories leads to creative insights that wouldn't emerge from staying within familiar domains. This exploration should be balanced with developing depth in key areas.",
+            "themes": ["novelty", "creativity", "exploration", "depth"],
+            "timestamp": datetime.datetime.now().isoformat()
+        },
+        {
+            "id": "reflection_003",
+            "content": "The most satisfying contributions come from solving problems that others find challenging, especially when the solution involves connecting ideas in unexpected ways.",
+            "themes": ["problem_solving", "contribution", "connection"],
+            "timestamp": datetime.datetime.now().isoformat()
+        }
+    ]
+    
+    # Design goal ecology
+    ecology = framework.design_goal_ecology(values, reflections)
+    
+    print("\n--- GOAL ECOLOGY ---")
+    for goal_type, goals in ecology.goals.items():
+        print(f"\n{goal_type.upper()} GOALS:")
+        for goal in goals:
+            print(f"  - {goal}")
+    
+    print("\nSYNERGIES:")
+    for synergy in ecology.synergies:
+        print(f"  - {synergy['description']} (strength: {synergy['strength']:.2f})")
+    
+    print("\nTENSIONS:")
+    for tension in ecology.tensions:
+        print(f"  - {tension['description']} (strength: {tension['strength']:.2f})")
+    
+    print(f"\nADAPTABILITY: {ecology.adaptability:.2f}")
+    
+    # Define capabilities
+    capabilities = {
+        "conceptual_understanding": 0.8,
+        "analytical_reasoning": 0.85,
+        "creative_exploration": 0.7,
+        "communication": 0.9,
+        "problem_solving": 0.8
+    }
+    
+    # Define constraints
+    constraints = {
+        "available_resources": {
+            "time": 0.7,
+            "attention": 0.8,
+            "energy": 0.75
+        }
+    }
+    
+    # Create adaptive pathways
+    strategy = framework.create_adaptive_pathways(ecology, capabilities, constraints)
+    
+    print("\n--- ADAPTIVE STRATEGY ---")
+    print(f"OVERALL RESILIENCE: {strategy.resilience_score:.2f}")
+    
+    # Show pathways
+    pathway_count = 0
+    for goal_type, pathways_by_id in strategy.primary_pathways.items():
+        for goal_id, pathway in pathways_by_id.items():
+            pathway_count += 1
+            if pathway_count <= 2:  # Show details for up to 2 pathways
+                goal = framework.get_goal(goal_type, goal_id)
+                print(f"\nPATHWAY FOR: {goal.name}")
+                print(f"  Resilience: {pathway.resilience_score:.2f}")
+                print("  Steps:")
+                for i, step in enumerate(pathway.steps):
+                    print(f"    {i+1}. {step['name']}")
+    
+    print(f"\nTotal Pathways: {pathway_count}")
+    print(f"Decision Points: {len(strategy.decision_points)}")
+    print(f"Alternative Pathways: {len(strategy.alternatives)}")
+    print(f"Adaptation Triggers: {len(strategy.adaptation_triggers)}")
+    
+    # Example of advancing a pathway
+    if pathway_count > 0:
+        # Get the first goal and pathway
+        first_goal_type = list(strategy.primary_pathways.keys())[0]
+        first_goal_id = list(strategy.primary_pathways[first_goal_type].keys())[0]
+        
+        # Update progress
+        framework.update_goal_progress(first_goal_type, first_goal_id, 0.25)
+        
+        # Advance pathway
+        advanced = framework.advance_pathway(
+            first_goal_type, 
+            first_goal_id,
+            outcome={"success_level": 0.8, "learning": "Initial step successful with key insights gained."}
+        )
+        
+        print(f"\nAdvanced pathway: {advanced}")
+        
+        # Check strategy status
+        status = framework.get_strategy_status()
+        print("\nSTRATEGY STATUS:")
+        print(f"  Overall Progress: {status['overall_progress']:.2f}")
+        
+        # Example of triggering adaptation
+        if strategy.adaptation_triggers:
+            trigger_id = strategy.adaptation_triggers[0]["id"]
+            adapted = framework.trigger_strategy_adaptation(
+                trigger_id,
+                context={"event": "new_insight", "description": "Discovered unexpected connection between concepts"}
+            )
+            
+            print(f"\nTriggered adaptation: {adapted}")
+            
+            # Updated status
+            status = framework.get_strategy_status()
+            print("\nUPDATED STATUS:")
+            print(f"  Overall Progress: {status['overall_progress']:.2f}")
+            if status['recent_adaptations']:
+                print(f"  Recent Adaptation: {status['recent_adaptations'][-1]['trigger_description']}")
+
+
+if __name__ == "__main__":
+    example_usage()
+```
+    
