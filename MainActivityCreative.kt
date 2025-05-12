@@ -235,3 +235,227 @@ class MainActivity : AppCompatActivity() {
                             elementType = "chapter",
                             content = "Reflections in the mirror pool reveal not what is, but what might be—fractal possibilities unfolding.",
                             symbols = listOf("reflection", "possibility", "fractal")
+                        )
+                        
+                        // Compile the project
+                        val compileResult = creativeProjectsBridge.compileProject(projectId, "symbolic")
+                        
+                        withContext(Dispatchers.Main) {
+                            if (compileResult.optString("status") == "success") {
+                                val compilation = compileResult.optJSONObject("compilation")
+                                
+                                statusText.text = "CREATIVE SYMBOLIC PROJECT\n\n" +
+                                        "Created project 'Symbolic Journey' with 2 elements\n\n" +
+                                        "COMPILED PROJECT (SYMBOLIC FORMAT):\n" +
+                                        compilation?.optString("compiled_content", "No content compiled")
+                            } else {
+                                statusText.text = "Error compiling project: ${compileResult.optString("message")}"
+                            }
+                            setLoading(false)
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            statusText.text = "Error creating project: ${createResult.optString("message")}"
+                            setLoading(false)
+                        }
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        statusText.text = "Error in creative projects operation: ${e.message}"
+                        setLoading(false)
+                    }
+                }
+            }
+        }
+        
+        // Adapt button - Environmental Symbolic Response
+        adaptButton.setOnClickListener {
+            if (!modulesInitialized) {
+                statusText.text = "Modules still initializing. Please wait."
+                return@setOnClickListener
+            }
+            
+            setLoading(true)
+            statusText.text = "Processing environmental symbolic response operation..."
+            
+            lifecycleScope.launch {
+                try {
+                    // Add environmental contexts
+                    val morningContext = environmentalSymbolicBridge.addEnvironmentalContext(
+                        contextType = "time",
+                        name = "Early Morning",
+                        attributes = mapOf("day_period" to "morning", "hour" to 6),
+                        intensity = 0.8f
+                    )
+                    
+                    val rainContext = environmentalSymbolicBridge.addEnvironmentalContext(
+                        contextType = "weather",
+                        name = "Light Rain",
+                        attributes = mapOf("condition" to "rain", "intensity" to "light"),
+                        intensity = 0.7f
+                    )
+                    
+                    // Find all contexts
+                    val contextsResult = environmentalSymbolicBridge.findContexts()
+                    
+                    if (contextsResult.optString("status") == "success") {
+                        val contexts = contextsResult.optJSONArray("contexts")
+                        if (contexts != null && contexts.length() > 0) {
+                            // Extract context IDs
+                            val contextIds = mutableListOf<String>()
+                            for (i in 0 until contexts.length()) {
+                                val context = contexts.optJSONObject(i)
+                                val contextId = context?.optString("id")
+                                if (contextId != null) {
+                                    contextIds.add(contextId)
+                                }
+                            }
+                            
+                            // Generate a symbolic response
+                            val responseResult = environmentalSymbolicBridge.generateSymbolicResponse(contextIds)
+                            
+                            withContext(Dispatchers.Main) {
+                                if (responseResult.optString("status") == "success") {
+                                    val response = responseResult.optJSONObject("response")
+                                    val responseType = response?.optString("response_type", "")
+                                    val content = response?.optString("content", "")
+                                    val symbols = response?.optJSONArray("symbols")
+                                    val symbolsList = if (symbols != null) {
+                                        List(symbols.length()) { i -> symbols.optString(i) }
+                                    } else {
+                                        emptyList()
+                                    }
+                                    
+                                    statusText.text = "ENVIRONMENTAL SYMBOLIC RESPONSE\n\n" +
+                                            "Contexts: Early Morning, Light Rain\n\n" +
+                                            "RESPONSE ($responseType):\n" +
+                                            "$content\n\n" +
+                                            "Symbols: ${symbolsList.joinToString(", ")}"
+                                } else {
+                                    statusText.text = "Error generating response: ${responseResult.optString("message")}"
+                                }
+                                setLoading(false)
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                statusText.text = "No contexts found."
+                                setLoading(false)
+                            }
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            statusText.text = "Error finding contexts: ${contextsResult.optString("message")}"
+                            setLoading(false)
+                        }
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        statusText.text = "Error in environmental symbolic response operation: ${e.message}"
+                        setLoading(false)
+                    }
+                }
+            }
+        }
+        
+        // Ethical button - Integrated Test
+        ethicalButton.setOnClickListener {
+            if (!modulesInitialized) {
+                statusText.text = "Modules still initializing. Please wait."
+                return@setOnClickListener
+            }
+            
+            setLoading(true)
+            statusText.text = "Processing integrated symbolic system test..."
+            
+            lifecycleScope.launch {
+                try {
+                    // Part 1: Create a memory experience
+                    val memoryResult = symbolicMemoryBridge.recordSymbolicExperience(
+                        symbols = listOf("ethics", "responsibility", "reflection"),
+                        context = "ethical consideration",
+                        intensity = 0.9f
+                    )
+                    
+                    // Part 2: Create a symbolic pattern
+                    val patternResult = reflexiveSelfModBridge.addSymbolicPattern(
+                        name = "Ethical Reflection",
+                        components = listOf("ethics", "responsibility", "reflection", "compassion"),
+                        context = "moral consideration"
+                    )
+                    
+                    // Part 3: Create a project
+                    val projectResult = creativeProjectsBridge.createProject(
+                        title = "Ethical Symbolic Journey",
+                        projectType = "philosophy",
+                        description = "An exploration of ethical dimensions through symbolic narrative",
+                        themes = listOf("ethics", "responsibility", "transformation")
+                    )
+                    
+                    // Part 4: Create an environmental context
+                    val contextResult = environmentalSymbolicBridge.addEnvironmentalContext(
+                        contextType = "event",
+                        name = "Ethical Decision Point",
+                        attributes = mapOf("significance" to "high", "domain" to "ethics"),
+                        intensity = 0.95f
+                    )
+                    
+                    // Check all operations succeeded
+                    val memoryStatus = memoryResult.optString("status") == "success"
+                    val patternStatus = patternResult.optString("status") == "success"
+                    val projectStatus = projectResult.optString("status") == "success"
+                    val contextStatus = contextResult.optString("status") == "success"
+                    
+                    val successCount = listOf(memoryStatus, patternStatus, projectStatus, contextStatus).count { it }
+                    
+                    withContext(Dispatchers.Main) {
+                        statusText.text = "INTEGRATED SYMBOLIC SYSTEM TEST\n\n" +
+                                "Operations completed: $successCount/4\n\n" +
+                                "Memory Evolution: ${if (memoryStatus) "SUCCESS" else "FAILED"}\n" +
+                                "Reflexive Self-Modification: ${if (patternStatus) "SUCCESS" else "FAILED"}\n" +
+                                "Creative Projects: ${if (projectStatus) "SUCCESS" else "FAILED"}\n" +
+                                "Environmental Response: ${if (contextStatus) "SUCCESS" else "FAILED"}\n\n" +
+                                "All four modules are now integrated into Amelia's symbolic processing system, " +
+                                "enhancing her ability to evolve memories, reflect on patterns, " +
+                                "engage in creative projects, and respond to environmental contexts."
+                        setLoading(false)
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        statusText.text = "Error in integrated test: ${e.message}"
+                        setLoading(false)
+                    }
+                }
+            }
+        }
+    }
+    
+    private fun getArrayItems(jsonArray: org.json.JSONArray?, key: String? = null): String {
+        if (jsonArray == null || jsonArray.length() == 0) {
+            return "None"
+        }
+        
+        val items = StringBuilder()
+        for (i in 0 until jsonArray.length()) {
+            if (key != null) {
+                val item = jsonArray.optJSONObject(i)
+                items.append("• ").append(item?.optString(key, "")).append("\n")
+            } else {
+                items.append("• ").append(jsonArray.optString(i, "")).append("\n")
+            }
+        }
+        return items.toString()
+    }
+    
+    private fun setLoading(isLoading: Boolean) {
+        loader.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    
+    private fun enableButtons(enabled: Boolean) {
+        processButton.isEnabled = enabled
+        exploreButton.isEnabled = enabled
+        adaptButton.isEnabled = enabled
+        ethicalButton.isEnabled = enabled
+        memoryButton.isEnabled = enabled
+    }
+}
+``
