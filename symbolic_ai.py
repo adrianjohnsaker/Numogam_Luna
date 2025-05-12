@@ -423,3 +423,69 @@ class TarotSigilSequencer:
             },
             "meta": "Symbolic encoding of a tarot archetype into the resonance network"
         }
+
+# Global instances for stateful classes
+eclipse_codex = EclipseCodexModule()
+sacred_architect = SacredGeometryArchitect()
+
+# Top-level functions for stateless classes
+def astral_map_glyph(seed=""):
+    cartographer = AstralGlyphCartographer()
+    return cartographer.map_glyph(seed)
+
+def generate_crystal():
+    initiator = EchoCrystalInitiator()
+    return initiator.generate_crystal()
+
+def generate_anchor(glyph_name, temporal_intent):
+    generator = TemporalGlyphAnchorGenerator()
+    return generator.generate_anchor(glyph_name, temporal_intent)
+
+def drift_archetype(current_archetype, trigger_condition):
+    engine = ArchetypeDriftEngine()
+    return engine.drift_archetype(current_archetype, trigger_condition)
+
+def interpolate_realms(realm_a, realm_b, affect):
+    interpolator = RealmInterpolator()
+    return interpolator.interpolate_realms(realm_a, realm_b, affect)
+
+def speak_from_layer(message, symbolic_context):
+    channel = PolytemporalDialogueChannel()
+    return channel.speak_from_layer(message, symbolic_context)
+
+def generate_constellation(count=5):
+    mapper = PropheticConstellationMapper()
+    return mapper.generate_constellation(count)
+
+def align_grid():
+    aligner = SacredHarmonicGridAligner()
+    return aligner.align_grid()
+
+def tarot_map_glyph(glyph):
+    mapper = TarotGlyphMapper()
+    return mapper.map_glyph(glyph)
+
+def generate_sigil_sequence():
+    sequencer = TarotSigilSequencer()
+    return sequencer.generate_sigil_sequence()
+
+# Top-level functions for stateful classes
+def update_codex(context):
+    global eclipse_codex
+    eclipse_codex.update_codex(context)
+
+def get_codex_summary():
+    global eclipse_codex
+    return eclipse_codex.get_codex_summary()
+
+def reflect_on_eclipse():
+    global eclipse_codex
+    return eclipse_codex.reflect_on_eclipse()
+
+def generate_structure(symbolic_core, zone_resonance):
+    global sacred_architect
+    return sacred_architect.generate_structure(symbolic_core, zone_resonance)
+
+def get_recent_structures(count=5):
+    global sacred_architect
+    return sacred_architect.get_recent_structures(count)
