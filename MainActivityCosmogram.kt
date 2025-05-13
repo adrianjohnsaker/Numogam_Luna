@@ -1,5 +1,5 @@
 ```kotlin
-package com.amelia.cosmogram
+package com.antonio.my.ai.girlfriend.free.cosmogram
 
 import android.os.Bundle
 import android.view.View
