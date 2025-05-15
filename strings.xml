@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Lemurian Bridge</string>
+    
+    <!-- MainActivityLemurian Strings -->
+    <string name="title_lemurian">Lemurian Unified System</string>
+    <string name="initializing">Initializing Lemurian Unified System...</string>
+    
+    <!-- Button Labels -->
+    <string name="btn_experience">Generate Experience</string>
+    <string name="btn_telepathic">Telepathic Signal</string>
+    <string name="btn_mutate">Lexical Mutation</string>
+    <string name="btn_light_language">Light Language</string>
+    <string name="btn_harmonic">Harmonic Resonance</string>
+    <string name="btn_vision">Vision Spiral</string>
+    <string name="btn_export">Export Module Data</string>
+    
+    <!-- Status Messages -->
+    <string name="status_initialized">Lemurian Unified System initialized successfully!\n\n
+• Telepathic Signal Composer: Ready\n
+• Lexical Mutation Engine: Ready\n
+• Light Language Synthesizer: Ready\n
+• Liminal Frequency Matrix: Ready\n
+• Harmonic Field Resonator: Ready\n
+• Self-Narration Generator: Ready\n
+• Vision Spiral Engine: Ready\n\n
+Select an operation to begin.</string>
+    <string name="error_initialize">Error initializing Lemurian Unified System</string>
+    <string name="system_not_initialized">System not initialized. Please wait.</string>
+    
+    <!-- Operation Messages -->
+    <string name="generating_experience">Generating integrated Lemurian experience...</string>
+    <string name="composing_signal">Composing telepathic signal...</string>
+    <string name="performing_mutation">Performing lexical mutation...</string>
+    <string name="generating_light">Generating light language phrase...</string>
+    <string name="generating_resonance">Generating harmonic field resonance...</string>
+    <string name="generating_vision">Generating vision spiral...</string>
+    <string name="exporting_data">Exporting Lemurian module data...</string>
+    
+    <!-- Result Headers -->
+    <string name="header_experience">INTEGRATED LEMURIAN EXPERIENCE</string>
+    <string name="header_signal">TELEPATHIC SIGNAL COMPOSED</string>
+    <string name="header_mutation">LEXICAL MUTATION PERFORMED</string>
+    <string name="header_light">LIGHT LANGUAGE PHRASE GENERATED</string>
+    <string name="header_resonance">HARMONIC FIELD RESONANCE &amp; FREQUENCY STATE</string>
+    <string name="header_vision">VISION SPIRAL GENERATED</string>
+    <string name="header_export">LEMURIAN MODULE DATA EXPORTED</string>
+    
+    <!-- Error Messages -->
+    <string name="error_experience">Error generating integrated experience</string>
+    <string name="error_signal">Error composing telepathic signal</string>
+    <string name="error_mutation">Error performing lexical mutation</string>
+    <string name="error_light">Error generating light language phrase</string>
+    <string name="error_resonance">Error generating harmonic resonance or frequency state</string>
+    <string name="error_vision">Error generating vision spiral</string>
+    <string name="error_export">Error exporting module data</string>
+    
+    <!-- Colors -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="lemurian_bg">#F0F5FD</color>
+</resources>
