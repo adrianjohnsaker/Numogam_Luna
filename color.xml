@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lemurian_primary">#5D4DB8</color>
+    <color name="lemurian_primary_dark">#3C2C96</color>
+    <color name="lemurian_accent">#00B8D4</color>
+    <color name="lemurian_accent_dark">#0088A3</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="lemurian_bg">#F0F5FD</color>
+    <color name="lemurian_text_primary">#212121</color>
+    <color name="lemurian_text_secondary">#757575</color>
+    <color name="lemurian_divider">#BDBDBD</color>
+</resources>
