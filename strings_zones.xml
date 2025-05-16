@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Zone Bridge</string>
+    
+    <!-- MainActivityZone Strings -->
+    <string name="title_zone">Zone Unified System</string>
+    <string name="initializing">Initializing Zone Unified System...</string>
+    
+    <!-- Button Labels -->
+    <string name="btn_experience">Generate Experience</string>
+    <string name="btn_rewrite">Rewrite Zone</string>
+    <string name="btn_drift">Log Zone Drift</string>
+    <string name="btn_resonance">Calculate Resonance</string>
+    <string name="btn_dream">Generate Dream</string>
+    <string name="btn_history">Zone History</string>
+    <string name="btn_export">Export Module Data</string>
+    
+    <!-- Status Messages -->
+    <string name="status_initialized">Zone Unified System initialized successfully!\n\n
+• Zone Drift Ledger: Ready\n
+• Drift Response Generator: Ready\n
+• Zone Resonance Mapper: Ready\n
+• Zone Rewriter: Ready\n
+• Dream Sequence Generator: Ready\n\n
+Select an operation to begin.</string>
+    <string name="error_initialize">Error initializing Zone Unified System</string>
+    <string name="system_not_initialized">System not initialized. Please wait.</string>
+    
+    <!-- Operation Messages -->
+    <string name="generating_experience">Generating integrated zone experience...</string>
+    <string name="rewriting_zone">Rewriting zone definition...</string>
+    <string name="logging_drift">Logging zone drift event...</string>
+    <string name="calculating_resonance">Calculating zone resonance...</string>
+    <string name="generating_dream">Generating zone-tuned dream sequence...</string>
+    <string name="retrieving_history">Retrieving zone drift history...</string>
+    <string name="exporting_data">Exporting Zone module data...</string>
+    
+    <!-- Result Headers -->
+    <string name="header_experience">INTEGRATED ZONE EXPERIENCE</string>
+    <string name="header_rewrite">ZONE REWRITE</string>
+    <string name="header_drift">ZONE DRIFT EVENT</string>
+    <string name="header_resonance">ZONE RESONANCE</string>
+    <string name="header_dream">ZONE-TUNED DREAM</string>
+    <string name="header_history">ZONE DRIFT HISTORY</string>
+    <string name="header_export">ZONE MODULE DATA EXPORTED</string>
+    
+    <!-- Error Messages -->
+    <string name="error_experience">Error generating integrated experience</string>
+    <string name="error_rewrite">Error rewriting zone</string>
+    <string name="error_drift">Error logging zone drift</string>
+    <string name="error_resonance">Error calculating resonance</string>
+    <string name="error_dream">Error generating dream</string>
+    <string name="error_history">Error retrieving zone history</string>
+    <string name="error_export">Error exporting module data</string>
+    
+    <!-- Colors -->
+    <color name="zone_primary">#3A7CA5</color>
+    <color name="zone_primary_dark">#2C5D7C</color>
+    <color name="zone_accent">#D4A36A</color>
+    <color name="zone_accent_dark">#A17A4E</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="zone_bg">#F5F9FA</color>
+</resources>
