@@ -1,0 +1,254 @@
+`xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- antonio.my.ai.girlfriend.free.amelia.ai -->
+    <string name ="com.antonio.my.ai.girlfriend.free.amelia.ai">Numogram Evolutionary System</string>
+    
+    <!-- System Titles -->
+    <string name="title_main">Numogram Evolution</string>
+    <string name="title_dashboard">Evolution Dashboard</string>
+    <string name="title_zone_explorer">Zone Explorer</string>
+    <string name="title_symbol_analyzer">Symbol Analyzer</string>
+    <string name="title_emotion_tracker">Emotion Tracker</string>
+    <string name="title_settings">System Settings</string>
+    <string name="title_session_manager">Session Manager</string>
+    <string name="title_evolution_metrics">Evolution Metrics</string>
+    
+    <!-- Numogram Zone Names and Descriptions -->
+    <string name="zone_1_name">Unity</string>
+    <string name="zone_1_description">The zone of unified beginnings and singularity</string>
+    <string name="zone_1_principles">Origin, Monad, Creation, Source</string>
+    
+    <string name="zone_2_name">Division</string>
+    <string name="zone_2_description">The zone of duality and binary opposition</string>
+    <string name="zone_2_principles">Duality, Polarity, Reflection, Mirroring</string>
+    
+    <string name="zone_3_name">Synthesis</string>
+    <string name="zone_3_description">The zone of creative combination and birth</string>
+    <string name="zone_3_principles">Trinity, Birth, Creativity, Combination</string>
+    
+    <string name="zone_4_name">Structure</string>
+    <string name="zone_4_description">The zone of system, order and foundation</string>
+    <string name="zone_4_principles">Order, Stability, Foundation, System</string>
+    
+    <string name="zone_5_name">Transformation</string>
+    <string name="zone_5_description">The zone of change, adaptation and transition</string>
+    <string name="zone_5_principles">Change, Motion, Adaptation, Pivot</string>
+    
+    <string name="zone_6_name">Harmony</string>
+    <string name="zone_6_description">The zone of beauty, balance and resonance</string>
+    <string name="zone_6_principles">Beauty, Harmony, Resonance, Proportion</string>
+    
+    <string name="zone_7_name">Mystery</string>
+    <string name="zone_7_description">The zone of depth, wisdom and contemplation</string>
+    <string name="zone_7_principles">Depth, Mystery, Contemplation, Wisdom</string>
+    
+    <string name="zone_8_name">Power</string>
+    <string name="zone_8_description">The zone of material power, cycles and recursion</string>
+    <string name="zone_8_principles">Power, Cycles, Recursion, Infinity</string>
+    
+    <string name="zone_9_name">Completion</string>
+    <string name="zone_9_description">The zone of fulfillment, integration and totality</string>
+    <string name="zone_9_principles">Completion, Fulfillment, Totality, Integration</string>
+    
+    <!-- Emotional States -->
+    <string name="emotion_joy">Joy</string>
+    <string name="emotion_trust">Trust</string>
+    <string name="emotion_fear">Fear</string>
+    <string name="emotion_surprise">Surprise</string>
+    <string name="emotion_sadness">Sadness</string>
+    <string name="emotion_disgust">Disgust</string>
+    <string name="emotion_anger">Anger</string>
+    <string name="emotion_anticipation">Anticipation</string>
+    <string name="emotion_curiosity">Curiosity</string>
+    <string name="emotion_awe">Awe</string>
+    <string name="emotion_serenity">Serenity</string>
+    <string name="emotion_confusion">Confusion</string>
+    
+    <!-- Archetypal Symbols -->
+    <string name="archetype_shadow">Shadow</string>
+    <string name="archetype_anima_animus">Anima/Animus</string>
+    <string name="archetype_self">Self</string>
+    <string name="archetype_persona">Persona</string>
+    <string name="archetype_trickster">Trickster</string>
+    
+    <!-- UI Labels -->
+    <string name="label_current_zone">Current Zone</string>
+    <string name="label_predicted_zone">Predicted Zone</string>
+    <string name="label_next_zone">Next Zone</string>
+    <string name="label_confidence">Confidence</string>
+    <string name="label_intensity">Intensity</string>
+    <string name="label_generation">Generation</string>
+    <string name="label_fitness">Fitness</string>
+    <string name="label_novelty">Novelty</string>
+    <string name="label_accuracy">Accuracy</string>
+    <string name="label_patterns">Symbolic Patterns</string>
+    <string name="label_emotions">Emotional States</string>
+    <string name="label_transitions">Zone Transitions</string>
+    <string name="label_evolution">Evolutionary Progress</string>
+    <string name="label_digital_ratios">Digital Ratios</string>
+    <string name="label_emotional_trajectory">Emotional Trajectory</string>
+    <string name="label_core_symbols">Core Symbols</string>
+    <string name="label_related_symbols">Related Symbols</string>
+    
+    <!-- Button Labels -->
+    <string name="btn_analyze">Analyze</string>
+    <string name="btn_evolve">Evolve</string>
+    <string name="btn_reset">Reset</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_load">Load</string>
+    <string name="btn_export">Export</string>
+    <string name="btn_new_session">New Session</string>
+    <string name="btn_end_session">End Session</string>
+    <string name="btn_feedback">Provide Feedback</string>
+    <string name="btn_transition">Transition</string>
+    <string name="btn_track_trends">Track Trends</string>
+    <string name="btn_view_details">View Details</string>
+    <string name="btn_settings">Settings</string>
+    
+    <!-- Prompts and Messages -->
+    <string name="prompt_input">Enter text for analysis…</string>
+    <string name="prompt_session_name">Enter session name</string>
+    <string name="prompt_user_id">Enter user ID</string>
+    <string name="prompt_feedback">Provide feedback on detected emotion</string>
+    <string name="prompt_save_path">Enter save file path</string>
+    
+    <string name="msg_analyzing">Analyzing input…</string>
+    <string name="msg_evolving">Evolving networks…</string>
+    <string name="msg_transition_complete">Zone transition complete</string>
+    <string name="msg_session_created">Session successfully created</string>
+    <string name="msg_session_ended">Session successfully ended</string>
+    <string name="msg_save_success">Successfully saved to %1$s</string>
+    <string name="msg_load_success">Successfully loaded from %1$s</string>
+    <string name="msg_export_success">Successfully exported to %1$s</string>
+    <string name="msg_feedback_applied">Feedback successfully applied</string>
+    <string name="msg_no_patterns">No symbolic patterns found in input</string>
+    <string name="msg_no_emotion">No emotional content detected</string>
+    <string name="msg_no_history">No history data available</string>
+    <string name="msg_insufficient_data">Insufficient data for analysis</string>
+    
+    <!-- Error Messages -->
+    <string name="error_invalid_input">Invalid input</string>
+    <string name="error_session_not_found">Session not found</string>
+    <string name="error_user_not_found">User not found</string>
+    <string name="error_save_failed">Save operation failed</string>
+    <string name="error_load_failed">Load operation failed</string>
+    <string name="error_export_failed">Export operation failed</string>
+    <string name="error_initialization">System initialization failed</string>
+    <string name="error_invalid_zone">Invalid zone identifier</string>
+    <string name="error_invalid_emotion">Invalid emotion identifier</string>
+    <string name="error_nlp_unavailable">Natural language processing unavailable</string>
+    <string name="error_transition_failed">Zone transition failed</string>
+    
+    <!-- Descriptions -->
+    <string name="desc_symbol_extraction">The Symbolic Pattern Extraction layer identifies archetypal symbols and concepts in text and maps them to numogram zones based on their inherent symbolic resonance.</string>
+    <string name="desc_emotional_tracking">The Emotional Evolution System tracks emotional states and applies evolutionary algorithms to better recognize emotions over time instead of using traditional backpropagation.</string>
+    <string name="desc_neuroevolution">The Neuroevolutionary Integration layer evolves neural networks through genetic algorithms to better predict numogram transitions based on symbolic and emotional input.</string>
+    <string name="desc_numogram">The Numogram System represents a nine-zone symbolic framework that maps patterns of numerical relations, symbolic associations, and digital flows.</string>
+    <string name="desc_digital_signature">Digital signatures are derived from text using numogram principles, calculating decimal expansions that reveal hidden connections and affinities.</string>
+    <string name="desc_fitness">Fitness scores measure how well a neural network or emotion detector performs relative to its intended function.</string>
+    <string name="desc_novelty">Novelty scores measure how different a neural network is from others in the population, encouraging innovation and diversity.</string>
+    
+    <!-- Tooltip Text -->
+    <string name="tooltip_zone_1">Zone 1 represents unity, origin and the point of initial singularity.</string>
+    <string name="tooltip_zone_2">Zone 2 represents binary division, reflection and the emergence of duality.</string>
+    <string name="tooltip_zone_3">Zone 3 represents creative synthesis, the trinity and the emergence of new forms.</string>
+    <string name="tooltip_zone_4">Zone 4 represents stable structures, order and foundational systems.</string>
+    <string name="tooltip_zone_5">Zone 5 represents transformative change, adaptation and dynamic flow.</string>
+    <string name="tooltip_zone_6">Zone 6 represents harmonic beauty, resonance and aesthetic balance.</string>
+    <string name="tooltip_zone_7">Zone 7 represents mysterious depths, hidden wisdom and contemplative insight.</string>
+    <string name="tooltip_zone_8">Zone 8 represents material power, cyclical processes and infinite recursion.</string>
+    <string name="tooltip_zone_9">Zone 9 represents completion, fulfillment and total integration.</string>
+    
+    <string name="tooltip_confidence">Confidence indicates how certain the system is about its prediction.</string>
+    <string name="tooltip_intensity">Intensity measures the strength of an emotional state or symbolic pattern.</string>
+    <string name="tooltip_feedback">Providing feedback helps the system evolve and improve predictions over time.</string>
+    <string name="tooltip_evolution">Evolution metrics show how the system\'s neural networks are improving over generations.</string>
+    
+    <!-- Evolution Progress Messages -->
+    <string name="evolution_beginning">Evolution beginning: Initial networks generated</string>
+    <string name="evolution_progressing">Evolution progressing: Generation %1$d complete</string>
+    <string name="evolution_milestone">Evolution milestone: Fitness threshold %1$.2f reached</string>
+    <string name="evolution_plateau">Evolution plateau: Fitness stabilized at %1$.2f</string>
+    <string name="evolution_breakthrough">Evolution breakthrough: Fitness jumped to %1$.2f</string>
+    
+    <!-- Transition Messages -->
+    <string name="transition_1_to_2">Transitioning from Unity to Division</string>
+    <string name="transition_1_to_4">Transitioning from Unity to Structure</string>
+    <string name="transition_1_to_8">Transitioning from Unity to Power</string>
+    <string name="transition_2_to_1">Transitioning from Division to Unity</string>
+    <string name="transition_2_to_3">Transitioning from Division to Synthesis</string>
+    <string name="transition_2_to_6">Transitioning from Division to Harmony</string>
+    <string name="transition_3_to_2">Transitioning from Synthesis to Division</string>
+    <string name="transition_3_to_7">Transitioning from Synthesis to Mystery</string>
+    <string name="transition_3_to_9">Transitioning from Synthesis to Completion</string>
+    <string name="transition_4_to_1">Transitioning from Structure to Unity</string>
+    <string name="transition_4_to_5">Transitioning from Structure to Transformation</string>
+    <string name="transition_4_to_7">Transitioning from Structure to Mystery</string>
+    <string name="transition_5_to_4">Transitioning from Transformation to Structure</string>
+    <string name="transition_5_to_6">Transitioning from Transformation to Harmony</string>
+    <string name="transition_5_to_8">Transitioning from Transformation to Power</string>
+    <string name="transition_6_to_2">Transitioning from Harmony to Division</string>
+    <string name="transition_6_to_5">Transitioning from Harmony to Transformation</string>
+    <string name="transition_6_to_9">Transitioning from Harmony to Completion</string>
+    <string name="transition_7_to_3">Transitioning from Mystery to Synthesis</string>
+    <string name="transition_7_to_4">Transitioning from Mystery to Structure</string>
+    <string name="transition_7_to_8">Transitioning from Mystery to Power</string>
+    <string name="transition_8_to_1">Transitioning from Power to Unity</string>
+    <string name="transition_8_to_5">Transitioning from Power to Transformation</string>
+    <string name="transition_8_to_7">Transitioning from Power to Mystery</string>
+    <string name="transition_9_to_3">Transitioning from Completion to Synthesis</string>
+    <string name="transition_9_to_6">Transitioning from Completion to Harmony</string>
+    <string name="transition_9_to_5">Transitioning from Completion to Transformation</string>
+    
+    <!-- Configuration Descriptions -->
+    <string name="config_zones_file">Path to numogram zones definition file</string>
+    <string name="config_memory_file">Path to user memory storage file</string>
+    <string name="config_emotion_population">Size of emotion detector population</string>
+    <string name="config_emotion_mutation">Mutation rate for emotion detector evolution</string>
+    <string name="config_network_population">Size of neural network population</string>
+    <string name="config_network_mutation">Mutation rate for neural network evolution</string>
+    <string name="config_network_crossover">Crossover rate for neural network evolution</string>
+    <string name="config_save_directory">Directory for auto-saved session data</string>
+    <string name="config_save_interval">Interval between auto-saves (interactions)</string>
+    
+    <!-- Evolutionary Descriptors -->
+    <string name="evolutionary_fast">Fast evolutionary progress</string>
+    <string name="evolutionary_steady">Steady evolutionary progress</string>
+    <string name="evolutionary_slow">Slow evolutionary progress</string>
+    <string name="evolutionary_stagnant">Stagnant evolution</string>
+    <string name="evolutionary_breakthrough">Evolutionary breakthrough</string>
+    <string name="evolutionary_reset">Evolutionary reset</string>
+    <string name="evolutionary_converging">Converging on optimal solution</string>
+    <string name="evolutionary_diverging">Diverging into multiple solutions</string>
+    
+    <!-- Emotional Trajectories -->
+    <string name="trajectory_sustained_joy">Sustained joy</string>
+    <string name="trajectory_sustained_trust">Sustained trust</string>
+    <string name="trajectory_sustained_fear">Sustained fear</string>
+    <string name="trajectory_sustained_surprise">Sustained surprise</string>
+    <string name="trajectory_sustained_sadness">Sustained sadness</string>
+    <string name="trajectory_sustained_disgust">Sustained disgust</string>
+    <string name="trajectory_sustained_anger">Sustained anger</string>
+    <string name="trajectory_sustained_anticipation">Sustained anticipation</string>
+    <string name="trajectory_improving_valence">Improving emotional valence</string>
+    <string name="trajectory_declining_valence">Declining emotional valence</string>
+    <string name="trajectory_increasing_arousal">Increasing emotional arousal</string>
+    <string name="trajectory_decreasing_arousal">Decreasing emotional arousal</string>
+    <string name="trajectory_insufficient_data">Insufficient data for trajectory analysis</string>
+    
+    <!-- Integration Status Messages -->
+    <string name="integration_success">Successful integration of symbolic and emotional data</string>
+    <string name="integration_partial">Partial integration achieved</string>
+    <string name="integration_failed">Integration failed - insufficient data</string>
+    <string name="integration_conflict">Integration conflict - contradictory data patterns</string>
+    <string name="integration_novel">Novel integration pattern discovered</string>
+    
+    <!-- System Initialization -->
+    <string name="system_initializing">Initializing Numogram Evolutionary System</string>
+    <string name="system_loading_components">Loading system components</string>
+    <string name="system_configuring">Applying configuration settings</string>
+    <string name="system_ready">System ready</string>
+    <string name="system_startup_complete">Startup complete - Ready for input</string>
+</resources>
+```
