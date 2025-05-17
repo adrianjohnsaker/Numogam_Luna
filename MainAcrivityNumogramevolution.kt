@@ -330,4 +330,147 @@ class MainActivity : AppCompatActivity() {
                         
                         status_text.text = "SYSTEM INFORMATION\n\n" +
                                 "• Version: $version\n" +
-                                "• Active Sessions
+                                "• Active Sessions: $activeSessions\n" +
+                                "• Total Sessions: $totalSessions\n" +
+                                "• Numogram Users: $numogramUsers\n\n" +
+                                "EVOLUTIONARY STATISTICS\n" +
+                                "• Prediction Accuracy: $accuracyPercent%\n" +
+                                "• Average Generation: ${avgGeneration?.toInt() ?: 0}\n" +
+                                "• Average Fitness: ${String.format("%.2f", avgFitness ?: 0.0)}\n\n" +
+                                "All system components are active and functioning normally."
+                    } else {
+                        status_text.text = "Error retrieving system information"
+                    }
+                    setLoading(false)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    status_text.text = "Error in getting system info: ${e.message}"
+                    setLoading(false)
+                }
+            }
+        }
+    }
+    
+    private fun exportSessionData() {
+        setLoading(true)
+        status_text.text = "Exporting session data..."
+        
+        lifecycleScope.launch {
+            try {
+                val data = numogramBridge.exportSessionData()
+                
+                withContext(Dispatchers.Main) {
+                    if (data != null) {
+                        // Format beginning of data for display
+                        val previewLimit = 1000
+                        val preview = if (data.length > previewLimit) {
+                            data.substring(0, previewLimit) + "...\n[truncated for display]"
+                        } else {
+                            data
+                        }
+                        
+                        status_text.text = "SESSION DATA EXPORTED\n\n" +
+                                "Preview of exported data:\n\n$preview"
+                        
+                        // Here you could also save the data to a file
+                        // or share it via an intent
+                    } else {
+                        status_text.text = "Error exporting session data"
+                    }
+                    setLoading(false)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    status_text.text = "Error in export operation: ${e.message}"
+                    setLoading(false)
+                }
+            }
+        }
+    }
+    
+    private fun updateZoneDisplay(zone: String) {
+        // Update zone indicator
+        zone_indicator.text = zone
+        
+        // Fetch zone information
+        lifecycleScope.launch {
+            try {
+                val zoneInfo = numogramBridge.getZoneInfo(zone)
+                
+                withContext(Dispatchers.Main) {
+                    if (zoneInfo != null) {
+                        val zoneData = zoneInfo.optJSONObject("zone_data")
+                        val theme = zoneData?.optString("theme", "Unknown")
+                        val description = zoneData?.optString("description", "No description available")
+                        
+                        zone_description.text = "$theme: $description"
+                    } else {
+                        zone_description.text = "Zone $zone"
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    zone_description.text = "Zone $zone (info unavailable)"
+                }
+            }
+        }
+    }
+    
+    private fun calculateDuration(startTime: String, endTime: String): String {
+        if (startTime.isEmpty() || endTime.isEmpty()) {
+            return "Unknown duration"
+        }
+        
+        try {
+            val start = parseISODate(startTime)
+            val end = parseISODate(endTime)
+            
+            if (start != null && end != null) {
+                val durationMs = end.time - start.time
+                val seconds = durationMs / 1000
+                val minutes = seconds / 60
+                val remainingSeconds = seconds % 60
+                
+                return "$minutes min, $remainingSeconds sec"
+            }
+        } catch (e: Exception) {
+            // Fallback if date parsing fails
+        }
+        
+        return "Unknown duration"
+    }
+    
+    private fun parseISODate(isoString: String): Date? {
+        return try {
+            val isoFormat = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
+            isoFormat.timeZone = java.util.TimeZone.getTimeZone("UTC")
+            isoFormat.parse(isoString)
+        } catch (e: Exception) {
+            try {
+                // Fallback for different ISO format
+                val altFormat = java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
+                altFormat.timeZone = java.util.TimeZone.getTimeZone("UTC")
+                altFormat.parse(isoString)
+            } catch (e: Exception) {
+                null
+            }
+        }
+    }
+    
+    private fun updateUIState(sessionActive: Boolean) {
+        process_button.isEnabled = sessionActive
+        export_button.isEnabled = sessionActive
+        input_field.isEnabled = sessionActive
+    }
+    
+    private fun setLoading(isLoading: Boolean) {
+        loader.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        numogramBridge.cleanup()
+    }
+}
+
