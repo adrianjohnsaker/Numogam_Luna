@@ -1,0 +1,205 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Strings -->
+    <string name="app_name">Adaptive System Architect</string>
+    <string name="app_title">Adaptive System Architect</string>
+    
+    <!-- System Initialization -->
+    <string name="system_initialization">System Initialization</string>
+    <string name="system_name_hint">Enter system name</string>
+    <string name="initialize_system">Initialize System</string>
+    <string name="system_not_initialized">System not initialized</string>
+    <string name="system_initialized">System initialized: %1$s</string>
+    <string name="initialization_failed">Initialization failed</string>
+    <string name="error_initializing_system">Error initializing system</string>
+    
+    <!-- Status Section -->
+    <string name="system_status">System Status</string>
+    <string name="loading">Loading…</string>
+    <string name="initializing_system">Initializing system…</string>
+    
+    <!-- Scenarios Section -->
+    <string name="scenarios">Scenarios</string>
+    <string name="create_scenario">Create Scenario</string>
+    <string name="analyze_scenario">Analyze Scenario</string>
+    <string name="view_scenario_details">View Scenario Details</string>
+    <string name="select_scenario_first">Please select a scenario first</string>
+    <string name="scenario_name">Scenario Name</string>
+    <string name="scenario_description">Description</string>
+    <string name="domains">Domains (comma-separated)</string>
+    <string name="themes">Themes (comma-separated)</string>
+    <string name="stakeholders">Stakeholders (comma-separated)</string>
+    <string name="scenario_created">Scenario created: %1$s</string>
+    <string name="scenario_created_success">Scenario created successfully</string>
+    <string name="scenario_creation_failed">Failed to create scenario</string>
+    <string name="error_creating_scenario">Error creating scenario</string>
+    <string name="loading_scenarios">Loading scenarios…</string>
+    <string name="scenarios_loaded">Loaded %1$d scenarios</string>
+    <string name="failed_to_load_scenarios">Failed to load scenarios</string>
+    <string name="error_loading_scenarios">Error loading scenarios</string>
+    <string name="name_required">Name is required</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
+    
+    <!-- Analysis -->
+    <string name="analyzing_scenario">Analyzing scenario…</string>
+    <string name="scenario_analyzed">Scenario analyzed successfully</string>
+    <string name="scenario_analysis_failed">Failed to analyze scenario</string>
+    <string name="error_analyzing_scenario">Error analyzing scenario</string>
+    <string name="analysis_failed">Analysis failed</string>
+    <string name="analysis_summary">Analysis Summary</string>
+    <string name="consequence_depth">Consequence Depth</string>
+    <string name="identify_tensions">Identify Tensions</string>
+    <string name="explore_edge_cases">Explore Edge Cases</string>
+    <string name="analyze">Analyze</string>
+    
+    <!-- Neural Network Section -->
+    <string name="neural_network">Neural Network</string>
+    <string name="train_neural_network">Train Neural Network</string>
+    <string name="epochs">Epochs</string>
+    <string name="training_neural_network">Training neural network…</string>
+    <string name="neural_network_trained">Neural network trained successfully</string>
+    <string name="neural_network_training_failed">Failed to train neural network</string>
+    <string name="error_training_neural_network">Error training neural network</string>
+    <string name="training_failed">Training failed</string>
+    <string name="training_results">Training Results</string>
+    <string name="train">Train</string>
+    
+    <!-- Analysis Operations Section -->
+    <string name="analysis_operations">Analysis Operations</string>
+    <string name="generate_insights">Generate Insights</string>
+    <string name="refine_patterns">Refine Patterns</string>
+    <string name="generating_insights">Generating insights…</string>
+    <string name="insights_generated">Insights generated successfully</string>
+    <string name="insights_generation_failed">Failed to generate insights</string>
+    <string name="error_generating_insights">Error generating insights</string>
+    <string name="generation_failed">Generation failed</string>
+    <string name="insights_report_title">Insights Report: %1$s</string>
+    <string name="refining_patterns">Refining patterns…</string>
+    <string name="patterns_refined">Patterns refined successfully</string>
+    <string name="pattern_refinement_failed">Failed to refine patterns</string>
+    <string name="error_refining_patterns">Error refining patterns</string>
+    <string name="refinement_failed">Refinement failed</string>
+    <string name="pattern_refinement_results">Pattern Refinement Results</string>
+    
+    <!-- System Operations Section -->
+    <string name="system_operations">System Operations</string>
+    <string name="generate_system_report">Generate System Report</string>
+    <string name="export_system_data">Export System Data</string>
+    <string name="import_system_data">Import System Data</string>
+    <string name="generating_system_report">Generating system report…</string>
+    <string name="system_report_generated">System report generated successfully</string>
+    <string name="system_report_generation_failed">Failed to generate system report</string>
+    <string name="error_generating_system_report">Error generating system report</string>
+    <string name="system_report_title">System Report: %1$s</string>
+    <string name="exporting_system_data">Exporting system data…</string>
+    <string name="system_data_exported">System data exported successfully</string>
+    <string name="system_data_export_failed">Failed to export system data</string>
+    <string name="error_exporting_system_data">Error exporting system data</string>
+    <string name="export_failed">Export failed</string>
+    <string name="export_successful">Export Successful</string>
+    <string name="export_preview">Data Preview:\n%1$s</string>
+    <string name="json_data">JSON Data</string>
+    <string name="json_data_required">JSON data is required</string>
+    <string name="import_btn">Import</string>
+    <string name="importing_system_data">Importing system data…</string>
+    <string name="system_data_imported">System data imported successfully</string>
+    <string name="system_data_import_failed">Failed to import system data</string>
+    <string name="error_importing_system_data">Error importing system data</string>
+    <string name="import_failed">Import failed</string>
+    <string name="import_successful">Import successful</string>
+    
+    <!-- Scenario Details -->
+    <string name="loading_scenario_details">Loading scenario details…</string>
+    <string name="scenario_details_loaded">Scenario details loaded successfully</string>
+    <string name="scenario_details_loading_failed">Failed to load scenario details</string>
+    <string name="error_loading_scenario_details">Error loading scenario details</string>
+    <string name="loading_failed">Loading failed</string>
+    
+    <!-- Formatting labels -->
+    <string name="scenario_name_label">Scenario: %1$s</string>
+    <string name="analysis_time_label">Analysis Time: %1$s</string>
+    <string name="consequence_chains_header">Consequence Chains:</string>
+    <string name="total_effects_label">Total Effects: %1$d</string>
+    <string name="analysis_depth_label">Analysis Depth: %1$d</string>
+    <string name="feedback_loops_label">Feedback Loops: %1$d</string>
+    <string name="emergent_patterns_label">Emergent Patterns: %1$d</string>
+    <string name="tensions_header">Tensions:</string>
+    <string name="tension_count_label">Tension Count: %1$d</string>
+    <string name="stakeholders_label">Stakeholders: %1$s</string>
+    <string name="principles_label">Principles: %1$s</string>
+    <string name="edge_cases_header">Edge Cases:</string>
+    <string name="case_count_label">Case Count: %1$d</string>
+    <string name="parameters_tested_label">Parameters Tested: %1$s</string>
+    <string name="high_severity_implications_label">High Severity Implications: %1$d</string>
+    <string name="neural_processing_header">Neural Processing:</string>
+    <string name="coherence_label">Coherence: %1$s</string>
+    <string name="current_rhythm_label">Current Rhythm: %1$s</string>
+    <string name="current_mode_label">Current Mode: %1$s</string>
+    <string name="insights_count_label">Insights: %1$d</string>
+    <string name="epochs_label">Epochs: %1$d</string>
+    <string name="final_error_label">Final Error: %1$s</string>
+    <string name="clusters_label">Clusters: %1$d</string>
+    <string name="key_insights_header">Key Insights:</string>
+    <string name="system_insights_header">System Insights:</string>
+    <string name="recommendations_header">Recommendations:</string>
+    <string name="analysis_elements_label">Analysis Elements:</string>
+    <string name="patterns_label">Patterns: %1$d</string>
+    <string name="feedback_loops_count_label">Feedback Loops: %1$d</string>
+    <string name="tensions_label">Tensions: %1$d</string>
+    <string name="edge_cases_label">Edge Cases: %1$d</string>
+    <string name="validated_patterns_header">Validated Patterns:</string>
+    <string name="validated_patterns_count">Validated Pattern Count: %1$d</string>
+    <string name="high_confidence_patterns_label">High Confidence Patterns: %1$d</string>
+    <string name="confidence_label">Confidence: %1$s</string>
+    <string name="neural_support_label">Neural Support: %1$s</string>
+    <string name="feedback_support_label">Feedback Support: %1$s</string>
+    <string name="contradictions_header">Contradictions:</string>
+    <string name="contradictions_count">Contradictions Count: %1$d</string>
+    <string name="contradiction_type_label">Type: %1$s</string>
+    <string name="severity_label">Severity: %1$s</string>
+    <string name="parameters_header">Parameters:</string>
+    <string name="domains_label">Domains: %1$s</string>
+    <string name="themes_label">Themes: %1$s</string>
+    <string name="creation_time_label">Creation Time: %1$s</string>
+    <string name="effects_count_label">Effects: %1$d</string>
+    <string name="patterns_count_label">Patterns: %1$d</string>
+    <string name="has_neural_activations_label">Has Neural Activations: %1$s</string>
+    <string name="cross_domain_patterns_count_label">Cross-Domain Patterns: %1$d</string>
+    <string name="system_id_label">System ID: %1$s</string>
+    <string name="last_modified_label">Last Modified: %1$s</string>
+    <string name="metrics_header">Metrics:</string>
+    <string name="scenario_count_label">Scenarios: %1$d</string>
+    <string name="effect_count_label">Effects: %1$d</string>
+    <string name="pattern_count_label">Patterns: %1$d</string>
+    <string name="feedback_loop_count_label">Feedback Loops: %1$d</string>
+    <string name="tension_count_label">Tensions: %1$d</string>
+    <string name="edge_case_count_label">Edge Cases: %1$d</string>
+    <string name="cross_domain_pattern_count_label">Cross-Domain Patterns: %1$d</string>
+    <string name="system_coherence_label">System Coherence: %1$s</string>
+    <string name="most_active_scenarios_header">Most Active Scenarios:</string>
+    <string name="top_pattern_scenarios_header">Top Pattern Scenarios:</string>
+    <string name="neural_network_status_header">Neural Network Status:</string>
+    <string name="total_training_epochs_label">Total Training Epochs: %1$d</string>
+    
+    <!-- Dialog strings -->
+    <string name="import_data">Import Data</string>
+    <string name="enter_json_data">Enter JSON Data</string>
+    <string name="epochs_value">%1$d epochs</string>
+    <string name="depth_value">Depth: %1$d</string>
+    
+    <!-- Misc -->
+    <string name="ok">OK</string>
+    <string name="unknown_error">An unknown error occurred</string>
+    <string name="creation_failed">Creation failed</string>
+    
+    <!-- Colors -->
+    <color name="primary">#1565C0</color>
+    <color name="primary_dark">#0D47A1</color>
+    <color name="accent">#03A9F4</color>
+    <color name="background">#FFFFFF</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+</resources>
+```
