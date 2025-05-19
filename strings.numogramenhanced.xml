@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Strings -->
+    <string name="app_name">Numogram Evolutionary System</string>
+    <string name="numogram_title">Numogram Evolutionary System</string>
+    
+    <!-- Status and Labels -->
+    <string name="current_zone">Current Zone: %1$s</string>
+    <string name="current_emotion">Current Emotion: %1$s (%2$s)</string>
+    <string name="status_header">Status</string>
+    <string name="system_not_initialized">System not initialized</string>
+    <string name="system_initialized">System initialized successfully</string>
+    <string name="session_created">Session created: %1$s</string>
+    <string name="mode_set">Integration mode set to %1$s</string>
+    
+    <!-- Input Section -->
+    <string name="text_input">Text Input</string>
+    <string name="enter_text_hint">Enter text to process…</string>
+    <string name="integration_mode">Integration Mode:</string>
+    <string name="process_text">Process Text</string>
+    <string name="enter_text_first">Please enter text first</string>
+    
+    <!-- Output Section -->
+    <string name="output_header">Output</string>
+    <string name="symbolic_patterns_header">Symbolic Patterns:</string>
+    <string name="integration_header">Integration Results:</string>
+    <string name="no_results_yet">No results yet</string>
+    <string name="no_patterns_found">No symbolic patterns found</string>
+    <string name="integration_result">Final Zone: %1$s (%2$s confidence)\nPrimary Mode: %3$s\n\nZone Votes:\n%4$s</string>
+    
+    <!-- System Operations -->
+    <string name="system_operations">System Operations</string>
+    <string name="zone_info">Zone Info</string>
+    <string name="system_status">System Status</string>
+    <string name="visualize">Visualize</string>
+    <string name="trajectory">Trajectory</string>
+    
+    <!-- Processing Messages -->
+    <string name="initializing_system">Initializing system…</string>
+    <string name="initialization_failed">Initialization failed</string>
+    <string name="error_initializing_system">Error initializing system</string>
+    <string name="creating_session">Creating session…</string>
+    <string name="session_creation_failed">Session creation failed</string>
+    <string name="error_creating_session">Error creating session</string>
+    <string name="creation_failed">Creation failed</string>
+    <string name="mode_set_failed">Failed to set integration mode</string>
+    <string name="processing_text">Processing text…</string>
+    <string name="processing_complete">Processing complete</string>
+    <string name="processing_failed">Processing failed</string>
+    <string name="error_processing_text">Error processing text</string>
+    <string name="no_active_session">No active session</string>
+    
+    <!-- Zone Info -->
+    <string name="loading_zone_info">Loading zone information…</string>
+    <string name="zone_info_loaded">Zone information loaded</string>
+    <string name="zone_info_loading_failed">Failed to load zone information</string>
+    <string name="error_loading_zone_info">Error loading zone information</string>
+    <string name="zone_info_title">Zone %1$s Information</string>
+    <string name="zone_name_formatted">Zone Name: %1$s</string>
+    <string name="symbolic_associations">Symbolic Associations:</string>
+    <string name="emotional_associations">Emotional Associations:</string>
+    <string name="active_hyperedges">Active Hyperedges:</string>
+    
+    <!-- System Status -->
+    <string name="loading_system_status">Loading system status…</string>
+    <string name="system_status_loaded">System status loaded</string>
+    <string name="system_status_loading_failed">Failed to load system status</string>
+    <string name="error_loading_system_status">Error loading system status</string>
+    <string name="system_status_title">System Status</string>
+    <string name="version_label">Version: %1$s</string>
+    <string name="active_sessions_label">Active Sessions: %1$d</string>
+    <string name="users_label">Users: %1$d</string>
+    <string name="memories_label">Emotional Memories: %1$d</string>
+    <string name="primary_mode_label">Primary Mode: %1$s</string>
+    <string name="tensor_dimension_label">Tensor Dimension: %1$d</string>
+    <string name="attention_model_label">Attention Model: %1$s</string>
+    <string name="component_status_header">Component Status:</string>
+    
+    <!-- Visualization -->
+    <string name="loading_visualization">Loading visualization data…</string>
+    <string name="visualization_loaded">Visualization data loaded</string>
+    <string name="visualization_loading_failed">Failed to load visualization data</string>
+    <string name="error_loading_visualization">Error loading visualization data</string>
+    <string name="visualization_title">Visualization Data</string>
+    <string name="visualization_available">Visualization data is available for the following components:</string>
+    <string name="tensor_space_available">Tensor Space: %1$s</string>
+    <string name="emotional_landscape_available">Emotional Landscape: %1$s</string>
+    <string name="neural_evolution_available">Neural Evolution: %1$s</string>
+    <string name="attention_system_available">Attention System: %1$s</string>
+    <string name="tesseract_available">Tesseract: %1$s</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    
+    <!-- Trajectory -->
+    <string name="loading_trajectory">Loading zone trajectory…</string>
+    <string name="trajectory_loaded">Zone trajectory loaded</string>
+    <string name="trajectory_loading_failed">Failed to load zone trajectory</string>
+    <string name="error_loading_trajectory">Error loading zone trajectory</string>
+    <string name="trajectory_title">Zone Trajectory</string>
+    <string name="current_zone_label">Current Zone: %1$s</string>
+    <string name="zone_sequence_header">Zone Sequence:</string>
+    <string name="signature_path_header">Signature Path:</string>
+    <string name="predicted_trajectory_header">Predicted Trajectory:</string>
+    
+    <!-- Dialog Buttons -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    
+    <!-- Error Messages -->
+    <string name="loading_failed">Loading failed</string>
+    <string name="unknown_error">Unknown error</string>
+</resources>
