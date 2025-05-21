@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Python Bridge</string>
+    
+    <!-- ChaquopyBridgeActivity Strings -->
+    <string name="title_chaquopy_bridge">Python-Kotlin Bridge System</string>
+    <string name="initializing">Initializing Python-Kotlin Bridge System...</string>
+    
+    <!-- Button Labels -->
+    <string name="btn_module_info">Module Info</string>
+    <string name="btn_create_instance">Create Instance</string>
+    <string name="btn_call_method">Call Method</string>
+    <string name="btn_exec_code">Execute Code</string>
+    <string name="btn_json_convert">JSON Convert</string>
+    <string name="btn_kotlin_convert">Kotlin Convert</string>
+    <string name="btn_clear_cache">Clear Cache</string>
+    
+    <!-- Status Messages -->
+    <string name="status_initialized">Python-Kotlin Bridge System initialized successfully!\n\n
+• Python Runtime: Ready\n
+• Module Caching: Active\n
+• Instance Caching: Active\n
+• Type Conversion: Ready\n
+• JSON Conversion: Ready\n
+• Async Operations: Ready\n
+• Error Handling: Ready\n
+• Timeout Protection: Ready\n\n
+Select an operation to begin.</string>
+    <string name="error_initialize">Error initializing Python-Kotlin Bridge System</string>
+    <string name="system_not_initialized">System not initialized. Please wait.</string>
+    
+    <!-- Operation Messages -->
+    <string name="getting_module_info">Getting Python module information...</string>
+    <string name="creating_instance">Creating Python class instance...</string>
+    <string name="calling_method">Calling Python method...</string>
+    <string name="executing_code">Executing Python code...</string>
+    <string name="converting_json">Converting between Python and JSON...</string>
+    <string name="converting_kotlin">Converting between Python and Kotlin...</string>
+    <string name="clearing_cache">Clearing module and instance cache...</string>
+    
+    <!-- Result Headers -->
+    <string name="header_module_info">PYTHON MODULE INFORMATION</string>
+    <string name="header_create_instance">PYTHON INSTANCE CREATED</string>
+    <string name="header_call_method">PYTHON METHOD RESULTS</string>
+    <string name="header_exec_code">PYTHON CODE EXECUTION RESULTS</string>
+    <string name="header_json_convert">JSON CONVERSION RESULTS</string>
+    <string name="header_kotlin_convert">KOTLIN CONVERSION RESULTS</string>
+    <string name="header_clear_cache">CACHE CLEARED</string>
+    
+    <!-- Error Messages -->
+    <string name="error_module_info">Error retrieving module information</string>
+    <string name="error_create_instance">Error creating Python instance</string>
+    <string name="error_call_method">Error calling Python method</string>
+    <string name="error_exec_code">Error executing Python code</string>
+    <string name="error_json_convert">Error during JSON conversion</string>
+    <string name="error_kotlin_convert">Error during Kotlin conversion</string>
+    <string name="error_clear_cache">Error clearing cache</string>
+    
+    <!-- Colors -->
+    <color name="python_primary">#3572A5</color>
+    <color name="python_primary_dark">#2B5B87</color>
+    <color name="python_accent">#FFD43B</color>
+    <color name="python_accent_dark">#FFC107</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="python_bg">#F5F8FD</color>
+</resources>
