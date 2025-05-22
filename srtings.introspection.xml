@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name_introspection">Amelia Introspection</string>
+    
+    <!-- MainActivityIntrospection Strings -->
+    <string name="title_system_introspection">Amelia System Introspection</string>
+    <string name="initializing_introspection">Initializing System Introspection Module...</string>
+    
+    <!-- Input Fields -->
+    <string name="hint_search_query">Enter concept, implementation, or capability name</string>
+    
+    <!-- Button Labels -->
+    <string name="btn_query_concept">Query Concept</string>
+    <string name="btn_find_implementation">Find Implementation</string>
+    <string name="btn_explain_implementation">Explain Implementation</string>
+    <string name="btn_search_concepts">Search Concepts</string>
+    <string name="btn_capability_analysis">Capability Analysis</string>
+    <string name="btn_runtime_object">Runtime Object</string>
+    <string name="btn_full_introspection">Full Introspection</string>
+    
+    <!-- Status Messages -->
+    <string name="status_initialized">System Introspection Module initialized successfully!\n\n
+• Concept Knowledge Base: Active\n
+• Implementation Mapping: Ready\n
+• Code Analysis Engine: Ready\n
+• Runtime Object Tracker: Ready\n
+• Metacognitive Capabilities: Ready\n
+• Boundary Detection Systems: Ready\n
+• Confidence Assessment: Ready\n
+• Self-Modification Tracking: Ready\n\n
+Amelia\'s introspective capabilities are now available.\n
+Enter a query above and select an operation to begin self-analysis.</string>
+    <string name="error_initialize_introspection">Error initializing System Introspection Module</string>
+    <string name="system_not_initialized_introspection">Introspection system not initialized. Please wait.</string>
+    <string name="no_query_entered">Please enter a search query in the text field above.</string>
+    
+    <!-- Operation Messages -->
+    <string name="querying_concept">Analyzing concept knowledge and implementation...</string>
+    <string name="finding_implementation">Searching for implementation details...</string>
+    <string name="explaining_implementation">Generating detailed implementation explanation...</string>
+    <string name="searching_concepts">Searching concept knowledge base...</string>
+    <string name="analyzing_capability">Performing metacognitive capability analysis...</string>
+    <string name="getting_runtime_object">Retrieving runtime object information...</string>
+    <string name="performing_full_introspection">Performing comprehensive system introspection...</string>
+    
+    <!-- Result Headers -->
+    <string name="header_concept_query">CONCEPT ANALYSIS RESULTS</string>
+    <string name="header_implementation_search">IMPLEMENTATION SEARCH RESULTS</string>
+    <string name="header_implementation_explanation">IMPLEMENTATION EXPLANATION</string>
+    <string name="header_concept_search">CONCEPT SEARCH RESULTS</string>
+    <string name="header_capability_analysis">METACOGNITIVE CAPABILITY ANALYSIS</string>
+    <string name="header_runtime_object">RUNTIME OBJECT ANALYSIS</string>
+    <string name="header_full_introspection">COMPREHENSIVE SYSTEM INTROSPECTION</string>
+    
+    <!-- Error Messages -->
+    <string name="error_concept_query">Error querying concept information</string>
+    <string name="error_implementation_search">Error searching for implementations</string>
+    <string name="error_implementation_explanation">Error generating implementation explanation</string>
+    <string name="error_concept_search">Error searching concepts</string>
+    <string name="error_capability_analysis">Error performing capability analysis</string>
+    <string name="error_runtime_object">Error retrieving runtime object</string>
+    <string name="error_full_introspection">Error performing full introspection</string>
+    
+    <!-- Sample Queries -->
+    <string name="sample_concept_queries">Sample concept queries:\n• BoundaryDetection\n• Confidence\n• SelfModification\n• MetacognitiveBias\n• EmotionalState</string>
+    <string name="sample_implementation_queries">Sample implementation queries:\n• EmotionProcessor\n• ConfidenceCalculator\n• BoundaryValidator\n• SelfReflectionEngine</string>
+    <string name="sample_capability_queries">Sample capability queries:\n• boundary detection\n• confidence assessment\n• emotional processing\n• metacognitive awareness</string>
+    
+    <!-- Colors -->
+    <color name="introspection_primary">#6A1B9A</color>
+    <color name="introspection_primary_dark">#4A148C</color>
+    <color name="introspection_accent">#00BCD4</color>
+    <color name="introspection_accent_dark">#0097A7</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="introspection_bg">#F3E5F5</color>
+    <color name="concept_highlight">#E1BEE7</color>
+    <color name="implementation_highlight">#B2EBF2</color>
+    <color name="error_color">#F44336</color>
+    <color name="success_color">#4CAF50</color>
+</resources>
