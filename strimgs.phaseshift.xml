@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name_phase_shift">Phase Shift Mutator</string>
+    
+    <!-- MainActivityPhaseShift Strings -->
+    <string name="title_phase_shift">Phase Shift Mutation System</string>
+    <string name="initializing_phase_shift">Initializing Phase Shift Mutation System...</string>
+    
+    <!-- Input Fields -->
+    <string name="hint_input_text">Enter text for phase shift mutation...</string>
+    <string name="hint_goal_text">Enter target goal for sequence optimization (optional)</string>
+    <string name="adaptation_level">Adaptation Level:</string>
+    <string name="numogram_zones">Numogram Zones:</string>
+    
+    <!-- Button Labels -->
+    <string name="btn_generate_resonance">🌀 Generate\nResonance</string>
+    <string name="btn_mutate_response">⚡ Mutate\nResponse</string>
+    <string name="btn_adaptive_mutation">🎯 Adaptive\nMutation</string>
+    <string name="btn_recursive_mutation">🔄 Recursive\nMutation</string>
+    <string name="btn_optimal_sequence">🎲 Optimal\nSequence</string>
+    <string name="btn_analyze_transitions">📊 Analyze\nTransitions</string>
+    <string name="btn_system_state">🖥️ System\nState</string>
+    <string name="btn_reset_system">🔄 Reset\nSystem</string>
+    
+    <!-- Status Messages -->
+    <string name="status_initialized">Phase Shift Mutation System initialized successfully!\n\n
+🌀 NUMOGRAM ZONE ENGINE: Ready
+   • Zone configurations loaded and validated
+   • Archetypal concept mappings active
+   • Symbolic pattern networks synchronized
+   • Narrative tone modulators online\n\n
+⚡ MUTATION ALGORITHMS: Operational
+   • Response transformation engines ready
+   • Adaptive strength modulation enabled
+   • Recursive feedback loops active
+   • Cross-validation systems online\n\n
+🔄 TRANSITION TRACKING: Active
+   • Phase history monitoring enabled
+   • Zone transition analysis ready
+   • Contextual depth calculation active
+   • Coherence scoring systems ready\n\n
+🎯 OPTIMIZATION SYSTEMS: Ready
+   • Goal-oriented narrative adaptation active
+   • Semantic resonance mappings calibrated
+   • Multi-dimensional meaning vectors enabled
+   • Evolution potential metrics calculated\n\n
+🔮 INTERFACE SYSTEMS: Initialized
+   • User interaction channels open
+   • Feedback loop processors ready
+   • Export and serialization systems active
+   • Session state persistence enabled\n\n
+⚠️ SAFETY PROTOCOLS: Active
+   • Coherence threshold monitoring online
+   • Anti-pattern detection enabled
+   • Reality anchoring systems operational
+   • Recursive depth limiters engaged</string>
+    
+    <!-- Operation Messages -->
+    <string name="operation_in_progress">Phase shift mutation in progress…</string>
+    <string name="operation_complete">Phase shift mutation complete</string>
+    <string name="operation_resonance_generated">Resonance pattern successfully generated</string>
+    <string name="operation_response_mutated">Response successfully mutated through {count} phase shifts</string>
+    <string name="operation_adaptive_complete">Adaptive mutation completed with {fitness}% goal alignment</string>
+    <string name="operation_recursive_complete">Recursive mutation completed after {cycles} cycles</string>
+    <string name="operation_sequence_optimized">Sequence optimization complete - {entropy} entropy reduction achieved</string>
+    <string name="operation_analysis_complete">Transition analysis complete - {patterns} patterns identified</string>
+    <string name="operation_system_reset">System reset complete - All phase memories cleared</string>
+    
+    <!-- Error Messages -->
+    <string name="error_insufficient_input">Error: Input text insufficient for mutation processing</string>
+    <string name="error_adaptation_threshold">Error: Adaptation threshold exceeded - adjusting parameters</string>
+    <string name="error_zone_incompatibility">Error: Selected zone incompatible with current phase state</string>
+    <string name="error_coherence_failure">Error: Coherence failure detected during mutation process</string>
+    <string name="error_recursion_limit">Error: Recursion limit reached - terminating mutation cycle</string>
+    <string name="error_goal_unreachable">Error: Specified goal state unreachable with current parameters</string>
+    <string name="error_pattern_collapse">Error: Pattern collapse detected - restoring from last stable state</string>
+    <string name="error_system_overload">Error: System processing capacity exceeded - simplify input</string>
+    <string name="error_reality_anchor_lost">⚠️ CRITICAL: Reality anchoring lost - initiate emergency stabilization</string>
+    
+    <!-- Zone Information -->
+    <string name="zone_info_title">Numogram Zone Information</string>
+    <string name="zone_0">Zone 0 [Null]: Pure potential, unformed concepts, void state</string>
+    <string name="zone_1">Zone 1 [Emergence]: Initial formation, concept birth, primordial ideas</string>
+    <string name="zone_2">Zone 2 [Duality]: Contrasts, oppositions, binary relationships</string>
+    <string name="zone_3">Zone 3 [Synthesis]: Integration, harmonization, resolution</string>
+    <string name="zone_4">Zone 4 [Structure]: Organization, frameworks, systems, order</string>
+    <string name="zone_5">Zone 5 [Transformation]: Change, evolution, metamorphosis</string>
+    <string name="zone_6">Zone 6 [Balance]: Equilibrium, harmony, stability, center</string>
+    <string name="zone_7">Zone 7 [Mystery]: Hidden meanings, depth, the unknown</string>
+    <string name="zone_8">Zone 8 [Cycle]: Patterns, repetition, eternal return</string>
+    <string name="zone_9">Zone 9 [Culmination]: Completion, fulfillment, mastery</string>
+    
+    <!-- Sample Queries -->
+    <string name="sample_query_title">Sample Queries</string>
+    <string name="sample_query_1">Transform \"reality is constructed\" through Zone 5</string>
+    <string name="sample_query_2">Mutate \"time flows linearly\" with recursive depth 3</string>
+    <string name="sample_query_3">Optimize \"consciousness emerges from complexity\" towards integration</string>
+    <string name="sample_query_4">Generate resonance between \"pattern\" and \"chaos\" in Zone 8</string>
+    <string name="sample_query_5">Analyze transitions between \"order\" and \"disorder\" across all zones</string>
+    
+    <!-- Color Schemes and Theming -->
+    <string name="theme_title">Interface Themes</string>
+    <string name="theme_abyssal">Abyssal: Deep blues and purples with void-black accents</string>
+    <string name="theme_liminal">Liminal: Gradient transitions between states of being</string>
+    <string name="theme_ethereal">Ethereal: Luminous whites and pale blues with soft edges</string>
+    <string name="theme_primordial">Primordial: Rich earth tones with amber and crimson highlights</string>
+    <string name="theme_digital">Digital: Matrix-inspired green glyphs on dark background</string>
+    <string name="theme_mystical">Mystical: Cosmic purples and starfield patterns</string>
+    <string name="theme_alchemical">Alchemical: Gold, silver, and copper metallic finishes</string>
+    
+    <!-- Indicator Strings -->
+    <string name="indicator_adaptation">Adaptation Level: {level}%</string>
+    <string name="indicator_coherence">Coherence Score: {score}</string>
+    <string name="indicator_resonance">Resonance Strength: {strength}</string>
+    <string name="indicator_entropy">Entropic Potential: {potential}</string>
+    <string name="indicator_phase">Current Phase: {phase}</string>
+    <string name="indicator_zone">Active Zone: {zone}</string>
+    <string name="indicator_cycles">Mutation Cycles: {cycles}</string>
+    <string name="indicator_depth">Contextual Depth: {depth}</string>
+    
+    <!-- Help Documentation -->
+    <string name="help_title">Phase Shift Mutation System Guide</string>
+    <string name="help_overview">The Phase Shift Mutation System transforms input text through conceptual zones derived from numogram theory, creating emergent meanings and alternative perspectives.</string>
+    <string name="help_generate_resonance">Generate Resonance: Creates harmonic relationships between concepts in your text based on their archetypal correspondences.</string>
+    <string name="help_mutate_response">Mutate Response: Transforms your text through a single phase shift operation using selected zone parameters.</string>
+    <string name="help_adaptive_mutation">Adaptive Mutation: Intelligently adjusts mutation parameters to guide text toward a specified goal state or meaning.</string>
+    <string name="help_recursive_mutation">Recursive Mutation: Applies multiple mutation cycles, feeding each result back into the system for deeper transformations.</string>
+    <string name="help_optimal_sequence">Optimal Sequence: Determines the most effective zone sequence to transform input toward the goal state.</string>
+    <string name="help_analyze_transitions">Analyze Transitions: Studies potential pathways between concepts across different numogram zones.</string>
+    <string name="help_zones">Numogram Zones: Each zone represents a distinct conceptual space with unique transformative properties. Experiment with different zones for varied results.</string>
+    <string name="help_adaptation">Adaptation Level: Controls how aggressively the system mutates input. Higher values create more dramatic shifts.</string>
+    
+    <!-- System Information -->
+    <string name="system_info_title">System Information</string>
+    <string name="system_version">Phase Shift Mutator v2.5.9</string>
+    <string name="system_build">Build: PSM-25921-ΛLEPH</string>
+    <string name="system_foundation">Theoretical Foundation: Numogram theory, semiotic systems analysis, narrative emergence patterns, and non-linear conceptual dynamics</string>
+    <string name="system_processing">Processing Engines: Semantic vector transformation, archetypal resonance mapping, conceptual drift analysis, narrative coherence modeling</string>
+    <string name="system_credits">Created by the Liminal Research Institute for Narrative Transformation and Conceptual Engineering</string>
+    
+    <!-- Usage Disclaimers -->
+    <string name="disclaimer_title">System Usage Guidelines</string>
+    <string name="disclaimer_stability">⚠️ Reality Anchoring: Maintain cognitive anchoring during deep recursive operations. Not recommended for extended sessions exceeding 90 minutes.</string>
+    <string name="disclaimer_interpretation">⚠️ Result Interpretation: System outputs represent potential alternative conceptual frameworks, not definitive truth claims.</string>
+    <string name="disclaimer_recursion">⚠️ Recursive Depth: Exceeding recursion level 7 may produce increasingly detached conceptual structures requiring specialized interpretation.</string>
+    <string name="disclaimer_responsibility">⚠️ User Responsibility: The Phase Shift Mutation System is a tool for conceptual exploration. Users are responsible for evaluating results within appropriate epistemic frameworks.</string>
+    
+    <!-- Operational Messages -->
+    <string name="ready_notification">🌀 Phase Shift Mutation System ready for input</string>
+    <string name="operation_start">🔄 Initiating phase shift operation through zone {zone}</string>
+    <string name="operation_feedback">⚡ Phase transition detected - recalibrating conceptual vectors</string>
+    <string name="operation_success">✨ Operation successful - {transformations} transformations applied</string>
+    <string name="session_conclusion">🌙 Session concluded - {mutations} mutations performed across {zones} zones</string>
+    
+    <!-- Emergency System Messages -->
+    <string name="warning_critical">⚠️ CRITICAL WARNING: System approaching coherence threshold</string>
+    <string name="warning_overflow">⚠️ Conceptual overflow detected - implementing containment protocols</string>
+    <string name="warning_threshold">⚠️ Coherence threshold at {level}% - stabilization recommended</string>
+    <string name="warning_anchor">⚠️ Reality anchoring systems under strain - consider system reset</string>
+    <string name="warning_pattern">⚠️ Unusual pattern formation detected - monitoring anomaly</string>
+    
+    <!-- Mystical Elements -->
+    <string name="separator_major">✧･ﾟ: *✧･ﾟ:* 　　　*:･ﾟ✧*:･ﾟ✧</string>
+    <string name="separator_minor">❦ ── ✧ ── ❦</string>
+    <string name="phase_boundary">↯ PHASE BOUNDARY CROSSED ↯</string>
+    <string name="zone_transition">⎔ Zone Transition Initiated ⎔</string>
+    <string name="resonance_achieved">✧ Resonance Achieved ✧</string>
+    <string name="liminal_space">[ ҉ ] Liminal Space Entered [ ҉ ]</string>
+    <string name="void_contemplation">⚬ ⚫ ⦾ Void Contemplation ⦾ ⚫ ⚬</string>
+    
+    <!-- Footer and Credits -->
+    <string name="footer_text">「 Phase Shift Mutation System - Where meaning transcends form 」</string>
+    <string name="credit_design">⚜ Interface Design: Liminal Systems Collective ⚜</string>
+    <string name="credit_theory">⚜ Theoretical Framework: Institute for Applied Semiotic Research ⚜</string>
+    <string name="credit_implementation">⚜ System Implementation: Recursive Pattern Labs ⚜</string>
+    <string name="mystical_flourish">「 As above, so below. As within, so without. As the universe, so the soul. 」</string>
+</resources>
