@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/introspection_background"
+    tools:context=".MainActivitySystemIntrospection">
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="🔍 System Introspection Module 🔍"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/introspection_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/loader"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_text" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Enter concept name, implementation, or file path..."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loader">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:minLines="2"
+            android:maxLines="4" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/operation_chips"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:singleSelection="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_layout" />
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/introspection_scroll_background"
+        android:padding="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/operation_chips">
+
+        <TextView
+            android:id="@+id/status_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="Initializing System Introspection Module..."
+            android:textColor="@color/introspection_text"
+            android:textIsSelectable="true"
+            android:textSize="12sp" />
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- First Row - Core Concept Operations -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/query_concept_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/concept_color"
+                android:enabled="false"
+                android:text="🔍 Query\nConcept"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/search_concepts_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/search_color"
+                android:enabled="false"
+                android:text="🔎 Search\nConcepts"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Second Row - Implementation Operations -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/query_implementation_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/implementation_color"
+                android:enabled="false"
+                android:text="🔧 Query\nImplementation"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/explain_implementation_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/explanation_color"
+                android:enabled="false"
+                android:text="📖 Explain\nImplementation"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Third Row - Code Analysis & Memory -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/analyze_code_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/code_analysis_color"
+                android:enabled="false"
+                android:text="📄 Analyze\nCode"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/memory_access_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/memory_color"
+                android:enabled="false"
+                android:text="💾 Memory\nAccess"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Fourth Row - Diagnostics & System -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/run_diagnostics_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/diagnostics_color"
+                android:enabled="false"
+                android:text="🏥 Run\nDiagnostics"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/system_status_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/status_color"
+                android:enabled="false"
+                android:text="📊 System\nStatus"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Fifth Row - Advanced Operations -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/comprehensive_analysis_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/comprehensive_color"
+                android:enabled="false"
+                android:text="🌟 Comprehensive\nAnalysis"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/generate_samples_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/sample_color"
+                android:enabled="false"
+                android:text="📝 Generate\nSamples"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+And here's the corresponding colors.xml additions for the introspection theme:
+
+```xml
+<!-- colors.xml - Add these to your existing colors file -->
+
+<!-- System Introspection Theme Colors -->
+<color name="introspection_background">#0D1117</color>
+<color name="introspection_scroll_background">#161B22</color>
+<color name="introspection_primary">#58A6FF</color>
+<color name="introspection_text">#C9D1D9</color>
+
+<!-- Button Colors for System Introspection -->
+<color name="concept_color">#238636</color>           <!-- Green for concept operations -->
+<color name="search_color">#1F6FEB</color>            <!-- Blue for search operations -->
+<color name="implementation_color">#FB8500</color>    <!-- Orange for implementation -->
+<color name="explanation_color">#8957E5</color>       <!-- Purple for explanations -->
+<color name="code_analysis_color">#DA3633</color>     <!-- Red for code analysis -->
+<color name="memory_color">#E3B341</color>            <!-- Yellow for memory operations -->
+<color name="diagnostics_color">#F85149</color>       <!-- Light red for diagnostics -->
+<color name="status_color">#3FB950</color>            <!-- Light green for status -->
+<color name="comprehensive_color">#A5A5A5</color>     <!-- Gray for comprehensive -->
+<color name="sample_color">#79C0FF</color>            <!-- Light blue for samples -->
+
+<!-- Highlight Colors -->
+<color name="highlight_color">#FFA657</color>
+<color name="button_normal">#21262D</color>
+```
+
+And here's the menu file for the options menu (introspection_menu.xml):
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/menu/introspection_menu.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_clear_cache"
+        android:title="Clear Cache"
+        android:icon="@drawable/ic_clear_cache"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_export_config"
+        android:title="Export Configuration"
+        android:icon="@drawable/ic_export"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_validate_connectivity"
+        android:title="Validate Connectivity"
+        android:icon="@drawable/ic_connectivity"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_performance_metrics"
+        android:title="Performance Metrics"
+        android:icon="@drawable/ic_performance"
+        app:showAsAction="never" />
+
+</menu>
+```
