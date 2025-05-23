@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Information -->
+    <string name="app_name_introspection">System Introspection</string>
+    <string name="app_version_introspection">1.0.0</string>
+    <string name="app_tagline_introspection">Self-Knowledge Through Code</string>
+    
+    <!-- System Introspection Titles -->
+    <string name="introspection_system_title">🔍 System Introspection Module 🔍</string>
+    <string name="introspection_system_subtitle">Self-Analysis &amp; Code Intelligence Platform</string>
+    
+    <!-- Navigation -->
+    <string name="nav_introspection_home">Home</string>
+    <string name="nav_concept_library">Concept Library</string>
+    <string name="nav_implementation_map">Implementation Map</string>
+    <string name="nav_code_analysis">Code Analysis</string>
+    <string name="nav_memory_explorer">Memory Explorer</string>
+    <string name="nav_diagnostics">Diagnostics</string>
+    <string name="nav_system_monitor">System Monitor</string>
+    <string name="nav_introspection_tools">Introspection Tools</string>
+    <string name="nav_concept_mapping">Concept Mapping</string>
+    <string name="nav_implementation_query">Implementation Query</string>
+    <string name="nav_self_reference">Self-Reference Framework</string>
+    <string name="nav_memory_access">Memory Access Layer</string>
+    
+    <!-- Authentication -->
+    <string name="introspection_login">Access System</string>
+    <string name="introspection_logout">Exit System</string>
+    <string name="system_id">System ID</string>
+    <string name="access_token">Access Token</string>
+    <string name="authentication_introspection_error">System Access Error</string>
+    <string name="authentication_introspection_success">System Access Granted</string>
+    
+    <!-- Home Screen -->
+    <string name="welcome_message_introspection">Welcome to the System Introspection Module</string>
+    <string name="recent_analyses">Recent Analyses</string>
+    <string name="recommended_explorations">Recommended Explorations</string>
+    <string name="system_health">System Health</string>
+    <string name="component_status">Component Status</string>
+    <string name="introspection_system_status">Introspection System Status</string>
+    <string name="recent_operations">Recent Operations</string>
+    
+    <!-- Concept Library Section -->
+    <string name="concept_library_title">Concept Library</string>
+    <string name="concept_search">Search Concepts</string>
+    <string name="concept_categories">Categories</string>
+    <string name="concept_favorites">Favorites</string>
+    <string name="concept_recent">Recently Accessed</string>
+    <string name="concept_add">Add New Concept</string>
+    <string name="concept_boundary_detection">Boundary Detection</string>
+    <string name="concept_confidence_models">Confidence Models</string>
+    <string name="concept_stability_analysis">Stability Analysis</string>
+    
+    <!-- Implementation Map Section -->
+    <string name="implementation_title">Implementation Map</string>
+    <string name="implementation_classes">Classes</string>
+    <string name="implementation_methods">Methods</string>
+    <string name="implementation_functions">Functions</string>
+    <string name="implementation_modules">Modules</string>
+    <string name="implementation_create">Create Implementation</string>
+    <string name="implementation_history">Implementation History</string>
+    <string name="implementation_complexity">Complexity Rating</string>
+    <string name="implementation_hierarchy">Class Hierarchy</string>
+    <string name="implementation_dependencies">Dependencies</string>
+    
+    <!-- Code Analysis Section -->
+    <string name="code_analysis_title">Code Analysis Engine</string>
+    <string name="code_parser">Parser</string>
+    <string name="code_structure">Structure</string>
+    <string name="code_metrics">Metrics</string>
+    <string name="code_analyze">Analyze Code</string>
+    <string name="code_extract">Extract Definitions</string>
+    <string name="code_ast_analysis">AST Analysis</string>
+    <string name="code_complexity_map">Complexity Map</string>
+    
+    <!-- Memory Explorer Section -->
+    <string name="memory_title">Memory Explorer</string>
+    <string name="memory_objects">Runtime Objects</string>
+    <string name="memory_states">Object States</string>
+    <string name="memory_access">Access Methods</string>
+    <string name="memory_register">Register Object</string>
+    <string name="memory_query">Query State</string>
+    <string name="memory_runtime">Runtime Analysis</string>
+    <string name="memory_object_monitor">Object Monitor</string>
+    
+    <!-- Diagnostics Section -->
+    <string name="diagnostics_title">System Diagnostics</string>
+    <string name="diagnostics_health_check">Health Check</string>
+    <string name="diagnostics_performance">Performance</string>
+    <string name="diagnostics_connectivity">Connectivity</string>
+    <string name="diagnostics_run_tests">Run Tests</string>
+    <string name="diagnostics_component_test">Component Test</string>
+    <string name="diagnostics_integration_test">Integration Test</string>
+    <string name="diagnostics_validation">System Validation</string>
+    <string name="diagnostics_monitoring">Health Monitoring</string>
+    <string name="diagnostics_report">Generate Report</string>
+    
+    <!-- System Monitor Section -->
+    <string name="monitor_title">System Monitor</string>
+    <string name="monitor_status">Status Dashboard</string>
+    <string name="monitor_metrics">Performance Metrics</string>
+    <string name="monitor_alerts">System Alerts</string>
+    <string name="monitor_cache">Cache Status</string>
+    <string name="monitor_memory_usage">Memory Usage</string>
+    <string name="monitor_operation_log">Operation Log</string>
+    <string name="monitor_error_tracking">Error Tracking</string>
+    
+    <!-- Operation Types -->
+    <string name="concept_operations">Concept Operations</string>
+    <string name="implementation_operations">Implementation Operations</string>
+    <string name="code_operations">Code Operations</string>
+    <string name="memory_operations">Memory Operations</string>
+    <string name="diagnostic_operations">Diagnostic Operations</string>
+    <string name="system_operations">System Operations</string>
+    
+    <!-- Concept Analysis System -->
+    <string name="concept_analysis_title">Concept Analysis Framework</string>
+    <string name="concept_query">Concept Query</string>
+    <string name="concept_mapping">Concept Mapping</string>
+    <string name="knowledge_comparison">Knowledge Comparison</string>
+    <string name="general_knowledge">General Knowledge</string>
+    <string name="specific_implementation">Specific Implementation</string>
+    <string name="alignment_analysis">Alignment Analysis</string>
+    <string name="knowledge_gaps">Knowledge Gaps</string>
+    <string name="conceptual_coverage">Conceptual Coverage</string>
+    <string name="implementation_completeness">Implementation Completeness</string>
+    
+    <!-- Implementation Analysis System -->
+    <string name="implementation_analysis_title">Implementation Analysis Engine</string>
+    <string name="class_definition">Class Definition</string>
+    <string name="method_definition">Method Definition</string>
+    <string name="function_definition">Function Definition</string>
+    <string name="implementation_query">Implementation Query</string>
+    <string name="implementation_explanation">Implementation Explanation</string>
+    <string name="code_structure_analysis">Code Structure Analysis</string>
+    <string name="dependency_mapping">Dependency Mapping</string>
+    <string name="complexity_metrics">Complexity Metrics</string>
+    <string name="inheritance_hierarchy">Inheritance Hierarchy</string>
+    <string name="method_signature">Method Signature</string>
+    <string name="parameter_analysis">Parameter Analysis</string>
+    
+    <!-- Code Analysis Engine -->
+    <string name="code_analysis_engine_title">Code Analysis Engine</string>
+    <string name="ast_parsing">AST Parsing</string>
+    <string name="file_analysis">File Analysis</string>
+    <string name="module_discovery">Module Discovery</string>
+    <string name="definition_extraction">Definition Extraction</string>
+    <string name="docstring_analysis">Docstring Analysis</string>
+    <string name="import_analysis">Import Analysis</string>
+    <string name="lines_of_code">Lines of Code</string>
+    <string name="cyclomatic_complexity">Cyclomatic Complexity</string>
+    <string name="function_body">Function Body</string>
+    <string name="class_attributes">Class Attributes</string>
+    <string name="base_classes">Base Classes</string>
+    <string name="decorators">Decorators</string>
+    
+    <!-- Memory Access Layer -->
+    <string name="memory_access_title">Memory Access Layer</string>
+    <string name="runtime_objects">Runtime Objects</string>
+    <string name="object_registration">Object Registration</string>
+    <string name="object_state">Object State</string>
+    <string name="attribute_query">Attribute Query</string>
+    <string name="method_invocation">Method Invocation</string>
+    <string name="type_registry">Type Registry</string>
+    <string name="object_attributes">Object Attributes</string>
+    <string name="available_methods">Available Methods</string>
+    <string name="access_log">Access Log</string>
+    <string name="memory_diagnostics">Memory Diagnostics</string>
+    
+    <!-- Diagnostic Framework -->
+    <string name="diagnostic_framework_title">Diagnostic Framework</string>
+    <string name="test_module_imports">Module Import Test</string>
+    <string name="test_code_parsing">Code Parsing Test</string>
+    <string name="test_concept_mapping">Concept Mapping Test</string>
+    <string name="test_memory_access">Memory Access Test</string>
+    <string name="test_self_reference">Self-Reference Test</string>
+    <string name="test_integration">Integration Test</string>
+    <string name="test_performance">Performance Test</string>
+    <string name="diagnostic_summary">Diagnostic Summary</string>
+    <string name="health_report">Health Report</string>
+    <string name="component_diagnostics">Component Diagnostics</string>
+    
+    <!-- Analysis Operation Messages -->
+    <string name="analyzing_concept">Analyzing concept mappings and knowledge structures...</string>
+    <string name="querying_implementation">Querying implementation details and code structure...</string>
+    <string name="explaining_implementation">Generating detailed implementation explanation...</string>
+    <string name="searching_concepts">Searching concept library and mapping relationships...</string>
+    <string name="analyzing_code">Parsing code structure and extracting definitions...</string>
+    <string name="accessing_memory">Accessing runtime objects and memory state...</string>
+    <string name="running_diagnostics">Running comprehensive system diagnostics...</string>
+    <string name="checking_system_status">Retrieving system status and component health...</string>
+    <string name="performing_comprehensive_analysis">Performing comprehensive introspective analysis...</string>
+    <string name="initializing_introspection_system">Initializing System Introspection Module...</string>
+    <string name="processing_code_patterns">Processing code patterns and structural analysis...</string>
+    <string name="validating_connectivity">Validating system connectivity and component health...</string>
+    
+    <!-- Results and Feedback -->
+    <string name="alignment_high">High Alignment ✅✅✅</string>
+    <string name="alignment_medium">Medium Alignment ✅✅</string>
+    <string name="alignment_low">Low Alignment ✅</string>
+    <string name="alignment_none">No Alignment ○</string>
+    
+    <string name="complexity_very_high">Very High Complexity 🔴🔴🔴</string>
+    <string name="complexity_high">High Complexity 🔴🔴</string>
+    <string name="complexity_moderate">Moderate Complexity 🟡</string>
+    <string name="complexity_low">Low Complexity 🟢</string>
+    <string name="complexity_very_low">Very Low Complexity 🟢○</string>
+    
+    <string name="health_excellent">Excellent ✨</string>
+    <string name="health_good">Good ✅</string>
+    <string name="health_fair">Fair ⚠️</string>
+    <string name="health_poor">Poor ❌</string>
+    <string name="health_critical">Critical 🚨</string>
+    
+    <!-- Status Messages -->
+    <string name="status_loading_introspection">Loading Introspection Module…</string>
+    <string name="status_success_introspection">Operation Successful</string>
+    <string name="status_error_introspection">Operation Failed</string>
+    <string name="status_warning_introspection">Warning Detected</string>
+    <string name="status_incomplete_introspection">Incomplete Analysis</string>
+    <string name="status_not_found">Implementation Not Found</string>
+    <string name="status_analyzing_introspection">Analyzing...</string>
+    <string name="status_processing_introspection">Processing...</string>
+    <string name="status_complete_introspection">Analysis Complete</string>
+    
+    <!-- System Status Messages -->
+    <string name="introspection_system_operational">🔍 System Introspection Module: OPERATIONAL\n📋 Concept Mapping: ACTIVE\n🔧 Code Analysis: READY\n🧠 Self-Reference: MONITORING\n💾 Memory Access: SYNCHRONIZED\n🏥 Diagnostics: HEALTHY</string>
+    <string name="system_health_excellent">Excellent ✨</string>
+    <string name="system_health_good">Good ✅</string>
+    <string name="system_health_fair">Fair ⚠️</string>
+    <string name="system_health_poor">Poor ❌</string>
+    <string name="system_health_critical">Critical 🚨</string>
+    
+    <!-- Actions -->
+    <string name="action_query">Query</string>
+    <string name="action_search">Search</string>
+    <string name="action_analyze">Analyze</string>
+    <string name="action_explain">Explain</string>
+    <string name="action_diagnose">Diagnose</string>
+    <string name="action_monitor">Monitor</string>
+    <string name="action_validate">Validate</string>
+    <string name="action_register">Register</string>
+    <string name="action_invoke">Invoke</string>
+    <string name="action_clear_cache">Clear Cache</string>
+    <string name="action_export_config">Export Config</string>
+    <string name="action_run_test">Run Test</string>
+    <string name="action_generate_samples">Generate Samples</string>
+    <string name="action_comprehensive_analysis">Comprehensive Analysis</string>
+    
+    <!-- Dialog Messages -->
+    <string name="dialog_exit_introspection_title">Exit System</string>
+    <string name="dialog_exit_introspection_message">Are you sure you want to exit the System Introspection Module?</string>
+    <string name="dialog_clear_cache_title">Clear Cache</string>
+    <string name="dialog_clear_cache_message">This will clear all cached analysis data. Continue?</string>
+    <string name="dialog_run_diagnostics_title">Run Diagnostics</string>
+    <string name="dialog_run_diagnostics_message">This will perform comprehensive system diagnostics. Proceed?</string>
+    <string name="dialog_reset_system_title">Reset System</string>
+    <string name="dialog_reset_system_message">This will reset all introspection system data. Are you certain?</string>
+    <string name="dialog_export_config_title">Export Configuration</string>
+    <string name="dialog_export_config_message">Export current system configuration and state?</string>
+    
+    <!-- Errors -->
+    <string name="error_network_introspection">Network error. Please check system connectivity.</string>
+    <string name="error_system_introspection">System error. Please restart introspection module.</string>
+    <string name="error_data_introspection">Data retrieval error during analysis.</string>
+    <string name="error_invalid_input_introspection">Invalid input provided for analysis.</string>
+    <string name="error_missing_fields_introspection">Please provide required analysis parameters.</string>
+    <string name="error_invalid_implementation">Invalid implementation identifier detected.</string>
+    <string name="error_concept_incomplete">Concept definition incomplete.</string>
+    
+    <!-- Specific Introspection Errors -->
+    <string name="error_concept_analysis">Error in concept analysis framework</string>
+    <string name="error_implementation_query">Implementation query execution failed</string>
+    <string name="error_code_parsing">Code parsing and analysis error</string>
+    <string name="error_memory_access">Memory access layer error</string>
+    <string name="error_diagnostic_execution">Diagnostic test execution failed</string>
+    <string name="error_system_not_initialized">Introspection system not initialized</string>
+    <string name="error_python_module_not_found">Python module not accessible</string>
+    <string name="error_concept_not_found">Concept not found in knowledge base</string>
+    <string name="error_implementation_not_found">Implementation not found in codebase</string>
+    <string name="error_object_not_found">Runtime object not found in memory</string>
+    <string name="error_connectivity_failed">System connectivity validation failed</string>
+    
+    <!-- Placeholders -->
+    <string name="placeholder_search_introspection">Search concepts, implementations, or code…</string>
+    <string name="placeholder_concept_name">Enter concept name</string>
+    <string name="placeholder_implementation_name">Enter implementation identifier</string>
+    <string name="placeholder_file_path">Enter file path or module name</string>
+    <string name="placeholder_object_id">Enter object ID or type name</string>
+    <string name="placeholder_no_results_introspection">No analysis results found</string>
+    <string name="placeholder_empty_list_introspection">No items to display</string>
+    <string name="placeholder_diagnostic_test">Enter test name or \'all\' for complete diagnostics</string>
+    
+    <!-- Input Validation -->
+    <string name="validation_no_concept_data">No concept data available for analysis</string>
+    <string name="validation_invalid_implementation_format">Invalid implementation identifier format</string>
+    <string name="validation_file_not_accessible">File or module not accessible for analysis</string>
+    <string name="validation_invalid_object_reference">Invalid object reference or ID</string>
+    <string name="validation_missing_analysis_target">Missing analysis target specification</string>
+    
+    <!-- Input Hints and Labels -->
+    <string name="input_hint_concept">Enter concept name (e.g., BoundaryDetection, Confidence)</string>
+    <string name="input_hint_implementation">Enter implementation name (e.g., BoundaryDetector, ConceptNode.update_confidence)</string>
+    <string name="input_hint_file_path">Enter file path (e.g., /path/to/module.py)</string>
+    <string name="input_hint_search_query">Enter search terms (e.g., boundary, detection, analysis)</string>
+    <string name="input_hint_object_id">Enter object ID or type name</string>
+    <string name="input_hint_diagnostic_test">Enter test name or \'all\' for complete diagnostics</string>
+    <string name="input_hint_general">Enter concept name, implementation, or file path...</string>
+    
+    <!-- Button Labels -->
+    <string name="btn_query_concept">🔍 Query\nConcept</string>
+    <string name="btn_search_concepts">🔎 Search\nConcepts</string>
+    <string name="btn_query_implementation">🔧 Query\nImplementation</string>
+    <string name="btn_explain_implementation">📖 Explain\nImplementation</string>
+    <string name="btn_analyze_code">📄 Analyze\nCode</string>
+    <string name="btn_memory_access">💾 Memory\nAccess</string>
+    <string name="btn_run_diagnostics">🏥 Run\nDiagnostics</string>
+    <string name="btn_system_status">📊 System\nStatus</string>
+    <string name="btn_comprehensive_analysis">🌟 Comprehensive\nAnalysis</string>
+    <string name="btn_generate_samples">📝 Generate\nSamples</string>
+    
+    <!-- Operation Chip Labels -->
+    <string name="chip_concepts">Concepts</string>
+    <string name="chip_implementation">Implementation</string>
+    <string name="chip_code_analysis">Code Analysis</string>
+    <string name="chip_memory">Memory</string>
+    <string name="chip_diagnostics">Diagnostics</string>
+    <string name="chip_system">System</string>
+    
+    <!-- Advanced Features -->
+    <string name="knowledge_alignment">Knowledge Alignment Analysis</string>
+    <string name="implementation_mapping">Implementation Mapping</string>
+    <string name="code_structure_analysis">Code Structure Analysis</string>
+    <string name="runtime_state_monitoring">Runtime State Monitoring</string>
+    <string name="system_health_tracking">System Health Tracking</string>
+    <string name="performance_profiling">Performance Profiling</string>
+    <string name="dependency_analysis">Dependency Analysis</string>
+    <string name="architectural_insights">Architectural Insights</string>
+    
+    <!-- Help and Guidance -->
+    <string name="help_concept_system">The Concept Analysis System maps abstract concepts to concrete implementations and analyzes knowledge alignment.</string>
+    <string name="help_implementation_system">Implementation Analysis explores code structure, complexity, and relationships between classes, methods, and functions.</string>
+    <string name="help_code_system">Code Analysis Engine parses Python files, extracts definitions, and provides structural insights.</string>
+    <string name="help_memory_system">Memory Access Layer provides runtime object management, state querying, and method invocation capabilities.</string>
+    <string name="help_diagnostic_system">Diagnostic Framework runs comprehensive health checks, performance tests, and system validation.</string>
+    <string name="help_comprehensive_analysis">Comprehensive Analysis combines all introspection systems for deep self-knowledge and system understanding.</string>
+    <string name="help_getting_started">Enter a concept name, implementation identifier, or file path to begin introspective analysis.</string>
+    
+    <!-- Technical Interface Elements -->
+    <string name="technical_separator_introspection">═══ ⟦ SYSTEM BOUNDARY ⟧ ═══</string>
+    <string name="introspection_seal">🔍 ◊ 💻 ◊ 🧠 ◊ 🔧 ◊ 🔍</string>
+    <string name="concept_symbol">🔍 ◊ 💭 ◊ 🧠 ◊ 📋</string>
+    <string name="implementation_symbol">🔧 ◊ 📄 ◊ 💻 ◊ ⚙️</string>
+    <string name="memory_symbol">💾 ◊ 🧠 ◊ 📊 ◊ 🔍</string>
+    <string name="operation_complete_introspection">✅ Introspection operation completed successfully.\nSystem knowledge has been expanded.\nInsights flow through analytical channels...</string>
+    <string name="system_ready_introspection">🔍 Introspection systems online.\n🧠 Analysis frameworks synchronized.\n💻 Ready for self-exploration.\n\nThe system knows itself...</string>
+    
+    <!-- Sample Data and Examples -->
+    <string name="sample_concept_1">BoundaryDetection</string>
+    <string name="sample_concept_2">ConceptualReformulation</string>
+    <string name="sample_concept_3">KnowledgeIntegration</string>
+    <string name="sample_implementation_1">BoundaryDetector.detect_boundaries</string>
+    <string name="sample_implementation_2">ConceptNode.update_confidence</string>
+    <string name="sample_implementation_3">SystemIntrospection.query_concept</string>
+    <string name="sample_search_terms">boundary, confidence, detection, analysis</string>
+    <string name="sample_file_paths">boundary_detector.py, concept_node.py, system_introspection.py</string>
+    
+    <!-- Accessibility -->
+    <string name="accessibility_query_concept">Query concept information</string>
+    <string name="accessibility_search_concepts">Search concept library</string>
+    <string name="accessibility_analyze_implementation">Analyze implementation details</string>
+    <string name="accessibility_explain_code">Explain code implementation</string>
+    <string name="accessibility_access_memory">Access runtime memory</string>
+    <string name="accessibility_run_diagnostics">Run system diagnostics</string>
+    <string name="accessibility_check_status">Check system status</string>
+    <string name="accessibility_comprehensive_analysis">Perform comprehensive analysis</string>
+    
+    <!-- Menu Options -->
+    <string name="menu_clear_cache">Clear Cache</string>
+    <string name="menu_export_config">Export Configuration</string>
+    <string name="menu_validate_connectivity">Validate Connectivity</string>
+    <string name="menu_performance_metrics">Performance Metrics</string>
+    <string name="menu_system_settings">System Settings</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_about">About</string>
+    
+    <!-- Footer Information -->
+    <string name="introspection_credits">System Introspection Module v1.0\n\nBased on self-reference theory, code analysis,\nand metacognitive frameworks.\n\n🔍 Explore internal architecture\n🧠 Understand system knowledge\n💻 Analyze code relationships\n\nSelf-knowledge through introspection...</string>
+    
+    <string name="version_info_introspection">Version 1.0.0 - Introspection Engine</string>
+    <string name="build_info_introspection">Built with code analysis and self-reference capabilities</string>
+    
+    <!-- Legal and Usage -->
+    <string name="disclaimer_introspection">This system analyzes code structure and conceptual mappings.\nResults are for development and educational purposes.\nUse responsibly for system understanding and improvement.</string>
+    
+    <string name="usage_disclaimer_introspection">This system performs introspective analysis of code and concepts.\nResults may vary based on codebase complexity and system configuration.\nUse responsibly for development and learning purposes.</string>
+    
+    <!-- Final System Messages -->
+    <string name="farewell_introspection">🔍 Introspection session concluded.\nAnalysis frameworks return to standby.\nUntil self-knowledge calls again...</string>
+    
+    <string name="emergency_reset_introspection">⚠️ Emergency introspection system reset initiated.\nAll analysis patterns returning to baseline.\nDiagnostic frameworks stabilizing...</string>
+    
+    <string name="system_overflow_warning_introspection">🔥 Analysis overflow detected.\nCode patterns reaching critical complexity.\nConsider reducing analysis scope.</string>
+    
+    <!-- Configuration Settings -->
+    <string name="config_analysis_timeout">Analysis Timeout (seconds)</string>
+    <string name="config_max_implementations">Maximum Implementations</string>
+    <string name="config_parsing_depth">Code Parsing Depth</string>
+    <string name="config_memory_monitoring">Memory Access Monitoring</string>
+    <string name="config_diagnostic_frequency">Diagnostic Test Frequency</string>
+    <string name="config_auto_validation">Automatic Validation</string>
+    <string name="config_performance_tracking">Performance Tracking Enabled</string>
+    
+    <!-- Component Status Indicators -->
+    <string name="component_code_parser">Code Parser</string>
+    <string name="component_concept_mapper">Concept Mapper</string>
+    <string name="component_self_reference">Self-Reference Framework</string>
+    <string name="component_memory_access">Memory Access Layer</string>
+    <string name="component_diagnostics">Diagnostic Framework</string>
+    <string name="component_status_active">Active ✅</string>
+    <string name="component_status_inactive">Inactive ❌</string>
+    <string name="component_status_error">Error 🚨</string>
+    <string name="component_status_unknown">Unknown ❓</string>
+    
+</resources>
+```
