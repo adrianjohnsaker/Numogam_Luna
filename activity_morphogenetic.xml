@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#1a1a1a">
+
+    <!-- Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🧬 Morphogenetic Memory System"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#00ff88"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+
+    <!-- Input Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#2a2a2a"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Input & Context"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:paddingBottom="8dp" />
+
+        <EditText
+            android:id="@+id/inputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter memory content or search query"
+            android:textColor="#ffffff"
+            android:textColorHint="#888888"
+            android:background="#3a3a3a"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/contextEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter context JSON"
+            android:textColor="#ffffff"
+            android:textColorHint="#888888"
+            android:background="#3a3a3a"
+            android:padding="12dp"
+            android:minLines="2" />
+    </LinearLayout>
+
+    <!-- Control Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Primary Operations -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/btnCreateMemory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🧠 Create"
+                android:backgroundTint="#4a90e2"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnRecallMemory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🔍 Recall"
+                android:backgroundTint="#50c878"
+                android:textColor="#ffffff"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/btnSearchMemories"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🔎 Search"
+                android:backgroundTint="#ff9500"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnActivatePattern"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="⚡ Activate"
+                android:backgroundTint="#ff6b6b"
+                android:textColor="#ffffff"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
+
+        <!-- Advanced Operations -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/btnCreateSignal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🌊 Signal"
+                android:backgroundTint="#9b59b6"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnEvolveSystem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🧬 Evolve"
+                android:backgroundTint="#e74c3c"
+                android:textColor="#ffffff"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
+
+        <!-- System Operations -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <Button
+                android:id="@+id/btnGetConsciousnessMap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🗺️ Map"
+                android:backgroundTint="#3498db"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnRunDiagnostics"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🔧 Diagnostics"
+                android:backgroundTint="#f39c12"
+                android:textColor="#ffffff"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
+
+        <!-- Utility Operations -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/btnRunAllTests"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🧪 All Tests"
+                android:backgroundTint="#2ecc71"
+                android:textColor="#ffffff"
+                android:layout_marginEnd="4dp" />
+
+            <Button
+                android:id="@+id/btnClearOutput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🗑️ Clear"
+                android:backgroundTint="#95a5a6"
+                android:textColor="#ffffff"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminateTint="#00ff88" />
+
+    <!-- Output Section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="System Output"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp" />
+
+    <ScrollView
+        android:id="@+id/outputScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#1e1e1e"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/outputTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#00ff88"
+            android:fontFamily="monospace"
+            android:textSize="12sp"
+            android:lineSpacingExtra="2dp" />
+    </ScrollView>
+
+</LinearLayout>
+```
