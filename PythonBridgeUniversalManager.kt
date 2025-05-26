@@ -1,4 +1,4 @@
-package com.universal.python.bridge.config
+package com.antonio.my.ai.girlfriend.free.universal.python.bridge.config
 
 import android.content.Context
 import com.universal.python.bridge.UniversalPythonBridge
