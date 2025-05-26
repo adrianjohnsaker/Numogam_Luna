@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Activity Title -->
+    <string name="title_python_bridge">Amelia Python Bridge</string>
+    
+    <!-- Status Messages -->
+    <string name="status_ready">Bridge ready</string>
+    <string name="status_initializing">Initializing Python bridge…</string>
+    <string name="status_executing">Executing function…</string>
+    <string name="status_success">Execution successful</string>
+    <string name="status_error">Execution failed</string>
+    <string name="status_astral_ready">Astral module ready for cosmic exploration</string>
+    <string name="status_checked">Status check complete</string>
+    <string name="status_running_demo">Running demonstration…</string>
+    <string name="status_demo_complete">Demo session complete</string>
+    <string name="status_loading">Loading module…</string>
+    <string name="status_connected">Bridge connected</string>
+    <string name="status_disconnected">Bridge disconnected</string>
+    <string name="status_idle">Bridge idle</string>
+    <string name="status_processing">Processing request…</string>
+    <string name="status_timeout">Request timeout</string>
+    <string name="status_retrying">Retrying connection…</string>
+    
+    <!-- Input Hints -->
+    <string name="hint_select_module">Select Python Module</string>
+    <string name="hint_function_name">Function name (e.g., initialize_session)</string>
+    <string name="hint_arguments">Arguments (comma-separated)</string>
+    <string name="hint_json_input">Enter JSON parameters</string>
+    <string name="hint_python_code">Enter Python code to execute</string>
+    <string name="hint_session_name">Session name (optional)</string>
+    <string name="hint_file_path">File path or URL</string>
+    
+    <!-- Button Labels -->
+    <string name="button_execute">Execute Function</string>
+    <string name="button_clear">Clear</string>
+    <string name="button_reset">Reset Bridge</string>
+    <string name="button_save">Save Result</string>
+    <string name="button_load">Load Module</string>
+    <string name="button_stop">Stop Execution</string>
+    <string name="button_retry">Retry</string>
+    <string name="button_export">Export Data</string>
+    <string name="button_import">Import Data</string>
+    <string name="button_test_connection">Test Connection</string>
+    
+    <!-- Section Labels -->
+    <string name="label_quick_actions">Quick Actions</string>
+    <string name="label_result">Result</string>
+    <string name="label_history">Execution History</string>
+    <string name="label_modules">Available Modules</string>
+    <string name="label_functions">Functions</string>
+    <string name="label_parameters">Parameters</string>
+    <string name="label_output">Output</string>
+    <string name="label_logs">Debug Logs</string>
+    <string name="label_performance">Performance</string>
+    <string name="label_settings">Bridge Settings</string>
+    
+    <!-- Error Messages -->
+    <string name="error_empty_function">Please enter a function name</string>
+    <string name="error_execution">Execution failed: %1$s</string>
+    <string name="error_astral_init">Failed to initialize Astral module</string>
+    <string name="error_astral_init_exception">Astral initialization failed: %1$s</string>
+    <string name="error_status_check">Status check failed: %1$s</string>
+    <string name="error_demo">Demo failed: %1$s</string>
+    <string name="error_bridge_init">Bridge initialization failed</string>
+    <string name="error_module_not_found">Module not found: %1$s</string>
+    <string name="error_function_not_found">Function not found: %1$s</string>
+    <string name="error_invalid_parameters">Invalid parameters provided</string>
+    <string name="error_network">Network error: %1$s</string>
+    <string name="error_timeout">Operation timed out after %1$d seconds</string>
+    <string name="error_permission">Permission denied: %1$s</string>
+    <string name="error_file_not_found">File not found: %1$s</string>
+    <string name="error_json_parse">JSON parsing error: %1$s</string>
+    <string name="error_type_conversion">Type conversion error: %1$s</string>
+    <string name="error_memory_limit">Memory limit exceeded</string>
+    <string name="error_unknown">Unknown error occurred</string>
+    
+    <!-- Success Messages -->
+    <string name="success_module_loaded">Module loaded successfully</string>
+    <string name="success_function_executed">Function executed successfully</string>
+    <string name="success_data_exported">Data exported to %1$s</string>
+    <string name="success_data_imported">Data imported successfully</string>
+    <string name="success_connection_test">Connection test passed</string>
+    <string name="success_bridge_reset">Bridge reset successfully</string>
+    
+    <!-- Info Messages -->
+    <string name="history_cleared">Execution history cleared</string>
+    <string name="quick_actions_hint">Use chips above for quick actions</string>
+    <string name="loading_modules">Loading available modules…</string>
+    <string name="no_modules_found">No Python modules found</string>
+    <string name="execution_time">Execution time: %1$d ms</string>
+    <string name="memory_usage">Memory usage: %1$.2f MB</string>
+    <string name="bridge_version">Bridge version: %1$s</string>
+    <string name="python_version">Python version: %1$s</string>
+    <string name="total_executions">Total executions: %1$d</string>
+    
+    <!-- Module Names -->
+    <string name="module_astral">Astral Symbolic Module</string>
+    <string name="module_data_processor">Data Processor</string>
+    <string name="module_ml_model">ML Model</string>
+    <string name="module_image_processor">Image Processor</string>
+    <string name="module_math_utils">Math Utilities</string>
+    <string name="module_file_handler">File Handler</string>
+    <string name="module_network_client">Network Client</string>
+    
+    <!-- Module Descriptions -->
+    <string name="module_desc_astral">Symbolic reasoning and pattern recognition</string>
+    <string name="module_desc_consciousness">Consciousness simulation engine</string>
+    <string name="module_desc_data_processor">Advanced data processing and analysis</string>
+    <string name="module_desc_ml_model">Machine learning model interface</string>
+    <string name="module_desc_image_processor">Image processing and computer vision</string>
+    <string name="module_desc_math_utils">Mathematical computations and utilities</string>
+    <string name="module_desc_file_handler">File system operations and management</string>
+    <string name="module_desc_network_client">Network communication and API calls</string>
+    
+    <!-- Quick Action Labels -->
+    <string name="action_initialize">Initialize</string>
+    <string name="action_status_check">Status Check</string>
+    <string name="action_run_demo">Run Demo</string>
+    <string name="action_clear_cache">Clear Cache</string>
+    <string name="action_reload_modules">Reload Modules</string>
+    <string name="action_export_logs">Export Logs</string>
+    <string name="action_system_info">System Info</string>
+    
+    <!-- Settings -->
+    <string name="setting_timeout">Execution Timeout (seconds)</string>
+    <string name="setting_retry_count">Retry Count</string>
+    <string name="setting_debug_mode">Debug Mode</string>
+    <string name="setting_auto_save">Auto-save Results</string>
+    <string name="setting_max_history">Max History Items</string>
+    <string name="setting_python_path">Python Path</string>
+    
+    <!-- Dialog Titles -->
+    <string name="dialog_confirm">Confirm Action</string>
+    <string name="dialog_error">Error</string>
+    <string name="dialog_info">Information</string>
+    <string name="dialog_settings">Settings</string>
+    <string name="dialog_export">Export Options</string>
+    <string name="dialog_import">Import Data</string>
+    
+    <!-- Dialog Messages -->
+    <string name="dialog_clear_history">Are you sure you want to clear the execution history?</string>
+    <string name="dialog_reset_bridge">This will reset the Python bridge and clear all loaded modules. Continue?</string>
+    <string name="dialog_long_execution">This operation may take a while. Continue?</string>
+    
+    <!-- Content Descriptions for Accessibility -->
+    <string name="cd_execute_button">Execute the selected Python function</string>
+    <string name="cd_clear_button">Clear the current input</string>
+    <string name="cd_module_spinner">Select Python module</string>
+    <string name="cd_function_input">Enter function name</string>
+    <string name="cd_arguments_input">Enter function arguments</string>
+    <string name="cd_result_display">Function execution result</string>
+    <string name="cd_history_list">Execution history</string>
+    <string name="cd_status_indicator">Bridge status indicator</string>
+    
+    <!-- Plurals -->
+    <plurals name="modules_count">
+        <item quantity="one">%1$d module available</item>
+        <item quantity="other">%1$d modules available</item>
+    </plurals>
+    
+    <plurals name="executions_count">
+        <item quantity="one">%1$d execution</item>
+        <item quantity="other">%1$d executions</item>
+    </plurals>
+    
+    <plurals name="errors_count">
+        <item quantity="one">%1$d error</item>
+        <item quantity="other">%1$d errors</item>
+    </plurals>
+</resources>
