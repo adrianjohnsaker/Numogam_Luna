@@ -1,4 +1,3 @@
-```python
 """
 Templexity Spirals Module for Quantum Time War System
 
