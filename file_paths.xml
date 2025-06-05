@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- External storage for images -->
+    <external-files-path name="my_images" path="Images" />
+    
+    <!-- External storage for documents -->
+    <external-files-path name="my_docs" path="Documents" />
+    
+    <!-- Internal app files for module templates -->
+    <files-path name="module_templates" path="templates/" />
+    
+    <!-- Cache directory for temporary files -->
+    <cache-path name="cache" path="." />
+    
+    <!-- External cache for larger temporary files -->
+    <external-cache-path name="external_cache" path="." />
+</paths>
