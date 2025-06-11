@@ -3,7 +3,7 @@
  * Kotlin implementation for Android with Chaquopy bridge
  */
 
-package com.amelia.consciousness
+package com.antonio.my.ai.girlfriend.free.amelia.consciousness
 
 import androidx.lifecycle.*
 import kotlinx.coroutines.*
