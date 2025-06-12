@@ -1,0 +1,7 @@
+< !-- res/xml/file_paths.xml -->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <files-path name="python_files" path="python/" />
+    <cache-path name="python_cache" path="python_cache/" />
+    <external-path name="external_files" path="." />
+    <external-files-path name="external_app_files" path="." />
+</paths>
