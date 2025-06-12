@@ -1,22 +1,3 @@
-// build.gradle (Project level)
-buildscript {
-    ext {
-        compose_version = '1.5.4'
-        kotlin_version = '1.9.10'
-    }
-}
-
-plugins {
-    id 'com.android.application' version '8.1.2' apply false
-    id 'com.android.library' version '8.1.2' apply false
-    id 'org.jetbrains.kotlin.android' version '1.9.10' apply false
-    id 'com.chaquo.python' version '14.0.2' apply false
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
-}
-
 // build.gradle (Module: app) - COMPLETE FILE
 plugins {
     id 'com.android.application'
@@ -25,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.amelia.consciousness'
+    namespace 'com.antonio.my.ai.girlfriend.free.amelia.consciousness'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.amelia.consciousness"
+        applicationId "com.antonio.my.ai.girlfriend.free.amelia.consciousness"
         minSdk 24
         targetSdk 34
         versionCode 2
