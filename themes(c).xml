@@ -1,0 +1,26 @@
+<!-- res/values/themes.xml -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme -->
+    <style name="Theme.AmeliaConsciousness" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_variant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_variant</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <!-- Phase 2 Theme -->
+    <style name="Theme.AmeliaPhase2" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/phase2_primary</item>
+        <item name="colorPrimaryVariant">@color/phase2_primary_variant</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/phase2_secondary</item>
+        <item name="colorSecondaryVariant">@color/phase2_secondary_variant</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor">@color/phase2_background</item>
+        <item name="android:navigationBarColor">@color/phase2_background</item>
+        <item name="android:windowBackground">@color/phase2_background</item>
+    </style>
+</resources>
