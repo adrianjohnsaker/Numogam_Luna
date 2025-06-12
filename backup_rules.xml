@@ -1,0 +1,7 @@
+<!-- res/xml/backup_rules.xml -->
+<full-backup-content>
+    <include domain="sharedpref" path="."/>
+    <exclude domain="sharedpref" path="device.xml"/>
+    <include domain="database" path="consciousness.db"/>
+    <include domain="file" path="python/"/>
+</full-backup-content>
