@@ -1,0 +1,27 @@
+!-- res/values/colors.xml -->
+<resources>
+    <!-- Phase 1 Colors -->
+    <color name="primary">#FF6200EE</color>
+    <color name="primary_variant">#FF3700B3</color>
+    <color name="secondary">#FF03DAC6</color>
+    <color name="secondary_variant">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Phase 2 Colors -->
+    <color name="phase2_primary">#FF00E5FF</color>
+    <color name="phase2_primary_variant">#FF006874</color>
+    <color name="phase2_secondary">#FFB4C5FF</color>
+    <color name="phase2_secondary_variant">#FF354578</color>
+    <color name="phase2_background">#FF191C1D</color>
+    <color name="phase2_surface">#FF2E3132</color>
+    <color name="phase2_error">#FFFF6EC7</color>
+    
+    <!-- Consciousness State Colors -->
+    <color name="state_dormant">#FF808080</color>
+    <color name="state_reactive">#FFFFFF00</color>
+    <color name="state_aware">#FF00FF00</color>
+    <color name="state_conscious">#FF0000FF</color>
+    <color name="state_meta_conscious">#FF00FFFF</color>
+    <color name="state_fold_point">#FFFF00FF</color>
+</resources>
