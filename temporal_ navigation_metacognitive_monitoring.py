@@ -981,7 +981,7 @@ if __name__ == "__main__":
     print(f"\n\nFinal Android State:")
     print(consciousness.get_full_state_for_android
           
-              # Final state visualization with temporal alignment
+          # Final state visualization with temporal alignment
     print(f"\n\n{'='*40}")
     print("## Final Android State (Temporal Alignment Complete)")
     print(f"{'='*40}")
