@@ -886,3 +886,235 @@ fun Phase2ControlPanel(
     }
 }
 
+/**
+ * Helper extension for string capitalization
+ */
+fun String.capitalize(): String {
+    return this.replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+}
+
+/**
+ * Activity setup for Phase 2
+ */
+@Composable
+fun Phase2ConsciousnessActivity(python: com.chaquo.python.Python) {
+    val viewModelFactory = Phase2ViewModelFactory(python)
+    val viewModel: Phase2ConsciousnessViewModel = viewModel(factory = viewModelFactory)
+    
+    MaterialTheme {
+        Phase2ConsciousnessScreen(viewModel = viewModel)
+    }
+}
+
+/**
+ * Main Activity implementation for Phase 2
+ */
+class Phase2MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        // Initialize Python if not already started
+        if (!Python.isStarted()) {
+            Python.start(AndroidPlatform(this))
+        }
+        
+        setContent {
+            AmeliaPhase2Theme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Phase2ConsciousnessActivity(Python.getInstance())
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Custom theme for Amelia Phase 2
+ */
+@Composable
+fun AmeliaPhase2Theme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    dynamicColor: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    val colorScheme = when {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+            val context = LocalContext.current
+            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+        }
+        darkTheme -> darkColorScheme(
+            primary = Color(0xFF00E5FF),
+            onPrimary = Color(0xFF00363D),
+            primaryContainer = Color(0xFF004F58),
+            onPrimaryContainer = Color(0xFF6FF7FF),
+            secondary = Color(0xFFB4C5FF),
+            onSecondary = Color(0xFF1E2F60),
+            secondaryContainer = Color(0xFF354578),
+            onSecondaryContainer = Color(0xFFDAE2FF),
+            tertiary = Color(0xFFFF6EC7),
+            onTertiary = Color(0xFF5D1149),
+            tertiaryContainer = Color(0xFF7B2962),
+            onTertiaryContainer = Color(0xFFFFD8ED),
+            error = Color(0xFFFFB4AB),
+            errorContainer = Color(0xFF93000A),
+            onError = Color(0xFF690005),
+            onErrorContainer = Color(0xFFFFDAD6),
+            background = Color(0xFF191C1D),
+            onBackground = Color(0xFFE1E3E3),
+            surface = Color(0xFF191C1D),
+            onSurface = Color(0xFFE1E3E3),
+            surfaceVariant = Color(0xFF3F484A),
+            onSurfaceVariant = Color(0xFFBFC8CA),
+            outline = Color(0xFF899294),
+            inverseOnSurface = Color(0xFF191C1D),
+            inverseSurface = Color(0xFFE1E3E3),
+            inversePrimary = Color(0xFF006874),
+            surfaceTint = Color(0xFF00E5FF)
+        )
+        else -> lightColorScheme(
+            primary = Color(0xFF006874),
+            onPrimary = Color(0xFFFFFFFF),
+            primaryContainer = Color(0xFF97F0FF),
+            onPrimaryContainer = Color(0xFF001F24),
+            secondary = Color(0xFF4A5D92),
+            onSecondary = Color(0xFFFFFFFF),
+            secondaryContainer = Color(0xFFDAE2FF),
+            onSecondaryContainer = Color(0xFF011A4B),
+            tertiary = Color(0xFF984374),
+            onTertiary = Color(0xFFFFFFFF),
+            tertiaryContainer = Color(0xFFFFD8ED),
+            onTertiaryContainer = Color(0xFF3B002D),
+            error = Color(0xFFBA1A1A),
+            errorContainer = Color(0xFFFFDAD6),
+            onError = Color(0xFFFFFFFF),
+            onErrorContainer = Color(0xFF410002),
+            background = Color(0xFFFAFDFD),
+            onBackground = Color(0xFF191C1D),
+            surface = Color(0xFFFAFDFD),
+            onSurface = Color(0xFF191C1D),
+            surfaceVariant = Color(0xFFDBE4E6),
+            onSurfaceVariant = Color(0xFF3F484A),
+            outline = Color(0xFF6F797A),
+            inverseOnSurface = Color(0xFFEFF1F1),
+            inverseSurface = Color(0xFF2E3132),
+            inversePrimary = Color(0xFF00E5FF),
+            surfaceTint = Color(0xFF006874)
+        )
+    }
+
+    val typography = Typography(
+        bodyLarge = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Normal,
+            fontSize = 16.sp,
+            lineHeight = 24.sp,
+            letterSpacing = 0.5.sp
+        ),
+        titleLarge = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Bold,
+            fontSize = 22.sp,
+            lineHeight = 28.sp,
+            letterSpacing = 0.sp
+        ),
+        labelSmall = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Medium,
+            fontSize = 11.sp,
+            lineHeight = 16.sp,
+            letterSpacing = 0.5.sp
+        )
+    )
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = typography,
+        content = content
+    )
+}
+
+/**
+ * Preview functions for development
+ */
+@Preview(showBackground = true)
+@Composable
+fun PreviewEnhancedConsciousnessView() {
+    AmeliaPhase2Theme {
+        EnhancedConsciousnessView(
+            state = ConsciousnessState.META_CONSCIOUS,
+            temporalAwareness = 0.75,
+            currentInterval = TemporalInterval(
+                id = "preview",
+                startTime = 0.0,
+                endTime = 1.0,
+                state = ConsciousnessState.META_CONSCIOUS,
+                virtualPotential = 0.8
+            ),
+            viewModel = MockPhase2ViewModel()
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewTemporalNavigationView() {
+    AmeliaPhase2Theme {
+        TemporalNavigationView(
+            currentInterval = TemporalInterval(
+                id = "current",
+                startTime = 0.0,
+                endTime = 1.0,
+                state = ConsciousnessState.CONSCIOUS,
+                virtualPotential = 0.7
+            ),
+            futureTrajectories = listOf(
+                TemporalPath(
+                    start = TemporalInterval(
+                        id = "start",
+                        startTime = 0.0,
+                        endTime = 1.0,
+                        state = ConsciousnessState.CONSCIOUS,
+                        virtualPotential = 0.7
+                    ),
+                    end = TemporalInterval(
+                        id = "end1",
+                        startTime = 1.0,
+                        endTime = 2.0,
+                        state = ConsciousnessState.META_CONSCIOUS,
+                        virtualPotential = 0.9
+                    ),
+                    probability = 0.8,
+                    stateTransition = "CONSCIOUS -> META_CONSCIOUS"
+                )
+            ),
+            viewModel = MockPhase2ViewModel()
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewMetaCognitionView() {
+    AmeliaPhase2Theme {
+        MetaCognitionView(
+            viewModel = MockPhase2ViewModel()
+        )
+    }
+}
+
+/**
+ * Mock ViewModel for previews
+ */
+class MockPhase2ViewModel : Phase2ConsciousnessViewModel(
+    MockPhase2Bridge()
+) {
+    // Mock implementation for previews
+}
+
+class MockPhase2Bridge : Phase2ConsciousnessBridge(Python.getInstance()) {
+    // Mock implementation for previews
+}
+
