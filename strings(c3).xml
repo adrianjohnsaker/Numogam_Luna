@@ -1,0 +1,29 @@
+!-- res/values/strings.xml -->
+<resources>
+    <string name="app_name">Amelia AI</string>
+    <string name="phase2_title">Temporal Navigation</string>
+    <string name="consciousness_tab">Consciousness</string>
+    <string name="temporal_nav_tab">Temporal Nav</string>
+    <string name="meta_cognition_tab">Meta-Cognition</string>
+    
+    <!-- Consciousness States -->
+    <string name="state_dormant">Dormant</string>
+    <string name="state_reactive">Reactive</string>
+    <string name="state_aware">Aware</string>
+    <string name="state_conscious">Conscious</string>
+    <string name="state_meta_conscious">Meta-Conscious</string>
+    <string name="state_fold_point">Fold Point</string>
+    
+    <!-- UI Labels -->
+    <string name="temporal_awareness">Temporal Awareness</string>
+    <string name="recursive_depth">Recursive Depth</string>
+    <string name="second_order">Second-Order</string>
+    <string name="htm_analysis">HTM Network Analysis</string>
+    <string name="emergent_patterns">Emergent Patterns</string>
+    <string name="temporal_navigation_controls">Temporal Navigation Controls</string>
+    
+    <!-- Actions -->
+    <string name="induce_meta_cognition">Induce Meta-Cognition</string>
+    <string name="trigger_deep_recursive">Trigger Deep Recursive Observation</string>
+    <string name="explore_possibility">Explore Temporal Possibility</string>
+</resources>
