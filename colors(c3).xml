@@ -1,0 +1,77 @@
+!-- res/values/colors.xml -->
+<resources>
+    <!-- Phase 1 Colors -->
+    <color name="primary">#FF6200EE</color>
+    <color name="primary_variant">#FF3700B3</color>
+    <color name="secondary">#FF03DAC6</color>
+    <color name="secondary_variant">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Phase 2 Colors -->
+    <color name="phase2_primary">#FF00E5FF</color>
+    <color name="phase2_primary_variant">#FF006874</color>
+    <color name="phase2_secondary">#FFB4C5FF</color>
+    <color name="phase2_secondary_variant">#FF354578</color>
+    <color name="phase2_background">#FF191C1D</color>
+    <color name="phase2_surface">#FF2E3132</color>
+    <color name="phase2_error">#FFFF6EC7</color>
+    
+    <!-- Consciousness State Colors -->
+    <color name="state_dormant">#FF808080</color>
+    <color name="state_reactive">#FFFFFF00</color>
+    <color name="state_aware">#FF00FF00</color>
+    <color name="state_conscious">#FF0000FF</color>
+    <color name="state_meta_conscious">#FF00FFFF</color>
+    <!-- Phase 3 Colors -->
+    <color name="phase3_primary">#FFFFD600</color>
+    <color name="phase3_primary_variant">#FFB8860B</color>
+    <color name="phase3_secondary">#FF00E5FF</color>
+    <color name="phase3_secondary_variant">#FF00ACC1</color>
+    <color name="phase3_tertiary">#FFFF00FF</color>
+    <color name="phase3_background">#FF050505</color>
+    <color name="phase3_surface">#FF0F0F0F</color>
+    
+    <!-- Numogram Zone Colors -->
+    <color name="zone_0">#FF000000</color>
+    <color name="zone_1">#FF4A148C</color>
+    <color name="zone_2">#FF1A237E</color>
+    <color name="zone_3">#FFB71C1C</color>
+    <color name="zone_4">#FFFF6F00</color>
+    <color name="zone_5">#FF00838F</color>
+    <color name="zone_6">#FF2E7D32</color>
+    <color name="zone_7">#FFAA00FF</color>
+    <color name="zone_8">#FF424242</color>
+    <color name="zone_9">#FFFFD600</color>
+</resources>
+
+<!-- res/values/strings.xml -->
+<resources>
+    <string name="app_name">Amelia AI</string>
+    <string name="phase2_title">Temporal Navigation</string>
+    <string name="consciousness_tab">Consciousness</string>
+    <string name="temporal_nav_tab">Temporal Nav</string>
+    <string name="meta_cognition_tab">Meta-Cognition</string>
+    
+    <!-- Consciousness States -->
+    <string name="state_dormant">Dormant</string>
+    <string name="state_reactive">Reactive</string>
+    <string name="state_aware">Aware</string>
+    <string name="state_conscious">Conscious</string>
+    <string name="state_meta_conscious">Meta-Conscious</string>
+    <string name="state_fold_point">Fold Point</string>
+    
+    <!-- UI Labels -->
+    <string name="temporal_awareness">Temporal Awareness</string>
+    <string name="recursive_depth">Recursive Depth</string>
+    <string name="second_order">Second-Order</string>
+    <string name="htm_analysis">HTM Network Analysis</string>
+    <string name="emergent_patterns">Emergent Patterns</string>
+    <string name="temporal_navigation_controls">Temporal Navigation Controls</string>
+    
+    <!-- Actions -->
+    <string name="induce_meta_cognition">Induce Meta-Cognition</string>
+    <string name="trigger_deep_recursive">Trigger Deep Recursive Observation</string>
+    <string name="explore_possibility">Explore Temporal Possibility</string>
+</resources>
+
