@@ -1,0 +1,9 @@
+<!-- res/xml/data_extraction_rules.xml -->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="sharedpref" path="."/>
+        <exclude domain="sharedpref" path="device.xml"/>
+        <include domain="database" path="consciousness.db"/>
+        <include domain="file" path="python/"/>
+    </cloud-backup>
+</data-extraction-rules>
