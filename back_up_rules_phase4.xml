@@ -1,0 +1,7 @@
+<!-- backup_rules.xml - For Android 11 and below -->
+<full-backup-content>
+    <include domain="sharedpref" path="."/>
+    <include domain="database" path="."/>
+    <include domain="file" path="."/>
+    <exclude domain="sharedpref" path="device.xml"/>
+</full-backup-content>
