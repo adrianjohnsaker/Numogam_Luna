@@ -1,5 +1,5 @@
 // HyperstitionEngine.kt
-package com.consciousness.amelia.phase4
+package com.antonio.my.ai.girlfriend.free.consciousness.amelia.phase4
 
 import kotlin.random.Random
 
