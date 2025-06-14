@@ -1,0 +1,9 @@
+<!-- data_extraction_rules.xml - For Android 12+ -->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="sharedpref" path="."/>
+        <include domain="database" path="."/>
+        <include domain="file" path="."/>
+        <exclude domain="sharedpref" path="device.xml"/>
+    </cloud-backup>
+</data-extraction-rules>
