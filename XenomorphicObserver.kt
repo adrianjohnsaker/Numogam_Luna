@@ -1,5 +1,5 @@
 // XenomorphicObserver.kt
-package com.consciousness.amelia.phase4
+package com.antonio.my.ai.girlfriend.free.consciousness.amelia.phase4
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
