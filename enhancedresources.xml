@@ -1,0 +1,610 @@
+<!-- Enhanced colors.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Existing colors -->
+    <color name="primary">#6366F1</color>
+    <color name="primary_variant">#4338CA</color>
+    <color name="secondary">#EC4899</color>
+    <color name="secondary_variant">#DB2777</color>
+    <color name="background">#F8FAFC</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="error">#EF4444</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_secondary">#FFFFFF</color>
+    <color name="on_background">#1F2937</color>
+    <color name="on_surface">#1F2937</color>
+    <color name="on_error">#FFFFFF</color>
+
+    <!-- Symbol type colors -->
+    <color name="symbol_archetypal">#8B5CF6</color>
+    <color name="symbol_cultural">#06B6D4</color>
+    <color name="symbol_personal">#F59E0B</color>
+    <color name="symbol_universal">#10B981</color>
+    <color name="symbol_mythological">#EF4444</color>
+    <color name="symbol_psychological">#8B5CF6</color>
+    <color name="symbol_spiritual">#A78BFA</color>
+    <color name="symbol_elemental">#059669</color>
+    <color name="symbol_numerical">#3B82F6</color>
+    <color name="symbol_chromatic">#EC4899</color>
+    <color name="symbol_geometric">#6366F1</color>
+    <color name="symbol_biological">#65A30D</color>
+    <color name="symbol_technological">#64748B</color>
+    <color name="symbol_linguistic">#F97316</color>
+    <color name="symbol_unknown">#9CA3AF</color>
+
+    <!-- Pattern type colors -->
+    <color name="pattern_recursive">#7C3AED</color>
+    <color name="pattern_emergent">#059669</color>
+    <color name="pattern_hierarchical">#DC2626</color>
+    <color name="pattern_cyclic">#2563EB</color>
+    <color name="pattern_transformative">#DB2777</color>
+    <color name="pattern_network">#0891B2</color>
+    <color name="pattern_temporal">#EA580C</color>
+    <color name="pattern_frequency">#7C2D12</color>
+
+    <!-- Transformation vector colors -->
+    <color name="transformation_animal">#65A30D</color>
+    <color name="transformation_mineral">#78716C</color>
+    <color name="transformation_plant">#16A34A</color>
+    <color name="transformation_machine">#64748B</color>
+    <color name="transformation_cosmic">#7C3AED</color>
+    <color name="transformation_ancestral">#A16207</color>
+    <color name="transformation_multiplicity">#DB2777</color>
+    <color name="transformation_nomadism">#0891B2</color>
+    <color name="transformation_metamorphosis">#C026D3</color>
+    <color name="transformation_assemblage">#059669</color>
+    <color name="transformation_default">#6B7280</color>
+
+    <!-- Field coherence colors -->
+    <color name="coherence_overall">#6366F1</color>
+    <color name="coherence_symbol">#10B981</color>
+    <color name="coherence_pattern">#F59E0B</color>
+    <color name="coherence_network">#EC4899</color>
+    <color name="coherence_archetypal">#8B5CF6</color>
+
+    <!-- Field intensity colors -->
+    <color name="field_intensity_primary">#6366F1</color>
+    <color name="field_intensity_fill">#6366F140</color>
+    <color name="field_intensity_coherence">#10B981</color>
+    <color name="field_intensity_entropy">#EF4444</color>
+    <color name="field_intensity_luminosity">#F59E0B</color>
+    <color name="field_intensity_temporal">#EC4899</color>
+    <color name="field_intensity_dimensional">#8B5CF6</color>
+    <color name="field_intensity_archetypal">#06B6D4</color>
+
+    <!-- Confidence level colors -->
+    <color name="confidence_high">#10B981</color>
+    <color name="confidence_medium">#F59E0B</color>
+    <color name="confidence_low">#F97316</color>
+    <color name="confidence_very_low">#EF4444</color>
+
+    <!-- Relevance level colors -->
+    <color name="relevance_high">#059669</color>
+    <color name="relevance_medium">#D97706</color>
+    <color name="relevance_low">#DC2626</color>
+    <color name="relevance_very_low">#991B1B</color>
+
+    <!-- Analysis quality colors -->
+    <color name="quality_excellent">#10B981</color>
+    <color name="quality_good">#059669</color>
+    <color name="quality_moderate">#F59E0B</color>
+    <color name="quality_basic">#F97316</color>
+
+    <!-- Status colors -->
+    <color name="status_pending">#F59E0B</color>
+    <color name="status_processing">#3B82F6</color>
+    <color name="status_completed">#10B981</color>
+    <color name="status_error">#EF4444</color>
+    <color name="status_archived">#6B7280</color>
+
+    <!-- Consciousness level colors -->
+    <color name="consciousness_surface">#F0F9FF</color>
+    <color name="consciousness_personal">#DBEAFE</color>
+    <color name="consciousness_collective">#93C5FD</color>
+
+    <!-- Mythogenic element colors -->
+    <color name="mythogenic_hero_journey">#DC2626</color>
+    <color name="mythogenic_creation">#059669</color>
+    <color name="mythogenic_transformation">#7C3AED</color>
+    <color name="mythogenic_underworld">#1F2937</color>
+    <color name="mythogenic_divine">#F59E0B</color>
+    <color name="mythogenic_cosmic_tree">#16A34A</color>
+    <color name="mythogenic_waters">#0891B2</color>
+    <color name="mythogenic_marriage">#EC4899</color>
+    <color name="mythogenic_death_rebirth">#7C2D12</color>
+    <color name="mythogenic_trickster">#F97316</color>
+    <color name="mythogenic_axis">#6366F1</color>
+    <color name="mythogenic_eternal">#8B5CF6</color>
+
+    <!-- Chip colors -->
+    <color name="chip_background">#F1F5F9</color>
+    <color name="chip_text">#475569</color>
+    <color name="chip_background_secondary">#E2E8F0</color>
+    <color name="chip_text_secondary">#64748B</color>
+    <color name="chip_archetype_background">#EDE9FE</color>
+    <color name="chip_archetype_text">#7C3AED</color>
+    <color name="chip_mythological_background">#FEF3C7</color>
+    <color name="chip_mythological_text">#D97706</color>
+    <color name="chip_cultural_background">#DBEAFE</color>
+    <color name="chip_cultural_text">#2563EB</color>
+    <color name="chip_more_background">#F3F4F6</color>
+    <color name="chip_more_text">#6B7280</color>
+    <color name="chip_related_symbol_background">#ECFDF5</color>
+    <color name="chip_related_symbol_text">#059669</color>
+    <color name="chip_pattern_element">#F0F9FF</color>
+    <color name="chip_temporal_background">#FEF2F2</color>
+    <color name="chip_dimensional_background">#F0F9FF</color>
+
+    <!-- Chart colors -->
+    <color name="chart_text">#374151</color>
+    <color name="chart_background">#FFFFFF</color>
+    <color name="chart_grid">#E5E7EB</color>
+
+    <!-- Pattern visualization colors -->
+    <color name="pattern_temporal_signature">#6366F1</color>
+    <color name="pattern_temporal_signature_fill">#6366F130</color>
+
+    <!-- Harmonics colors -->
+    <color name="harmonics_primary">#8B5CF6</color>
+    <color name="harmonics_secondary">#EC4899</color>
+
+    <!-- Background variations -->
+    <color name="background_card">#FFFFFF</color>
+    <color name="background_elevated">#F8FAFC</color>
+    <color name="background_overlay">#00000080</color>
+
+    <!-- Gradient colors -->
+    <color name="gradient_start">#6366F1</color>
+    <color name="gradient_middle">#8B5CF6</color>
+    <color name="gradient_end">#EC4899</color>
+
+    <!-- Interactive states -->
+    <color name="interactive_pressed">#6366F120</color>
+    <color name="interactive_focused">#6366F140</color>
+    <color name="interactive_hover">#6366F110</color>
+
+    <!-- Dark theme colors -->
+    <color name="dark_background">#0F172A</color>
+    <color name="dark_surface">#1E293B</color>
+    <color name="dark_on_background">#F1F5F9</color>
+    <color name="dark_on_surface">#E2E8F0</color>
+</resources>
+
+<!-- Enhanced strings.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Amelia Dream Analysis</string>
+    
+    <!-- Existing strings -->
+    <string name="field_dreaming_system">Field Dreaming System</string>
+    <string name="symbolic_dream_mapper">Symbolic Dream Mapper</string>
+    <string name="mythogenic_dream_engine">Mythogenic Dream Engine</string>
+    
+    <!-- Enhanced Analysis strings -->
+    <string name="enhanced_analysis_results">Enhanced Analysis Results</string>
+    <string name="analysis_summary">Analysis Summary</string>
+    <string name="complexity_score">Complexity Score</string>
+    <string name="analysis_quality">Analysis Quality</string>
+    <string name="field_coherence_metrics">Field Coherence Metrics</string>
+    <string name="field_intensity">Field Intensity</string>
+    <string name="neural_symbolic_insights">Neural-Symbolic Insights</string>
+    <string name="dominant_archetypes">Dominant Archetypes</string>
+    <string name="symbolic_density">Symbolic Density</string>
+    <string name="pattern_emergence">Pattern Emergence</string>
+    <string name="personal_resonance">Personal Resonance</string>
+    <string name="transformation_readiness">Transformation Readiness</string>
+    <string name="transformation_field">Transformation Field</string>
+    <string name="enhanced_symbols">Enhanced Symbols</string>
+    <string name="symbolic_patterns">Symbolic Patterns</string>
+    <string name="symbolic_connections">Symbolic Connections</string>
+    <string name="transformation_scenarios">Transformation Scenarios</string>
+    <string name="temporal_distortions">Temporal Distortions</string>
+    <string name="dimensional_resonance">Dimensional Resonance</string>
+    
+    <!-- Pattern strings -->
+    <string name="pattern_elements">Pattern Elements</string>
+    <string name="coherence">Coherence</string>
+    <string name="emergence">Emergence</string>
+    <string name="complexity">Complexity</string>
+    <string name="pattern_detail">Pattern Detail</string>
+    <string name="temporal_signature">Temporal Signature</string>
+    <string name="archetypal_basis">Archetypal Basis</string>
+    
+    <!-- Transformation strings -->
+    <string name="transformation_scenario">Transformation Scenario</string>
+    <string name="activation">Activation</string>
+    <string name="participating_symbols">Participating Symbols</string>
+    <string name="probability">Probability</string>
+    <string name="intensity">Intensity</string>
+    <string name="transformation_vectors">Transformation Vectors</string>
+    <string name="deterritorialization_analysis">Deterritorialization Analysis</string>
+    
+    <!-- Narrative Generation strings -->
+    <string name="narrative_generation">Narrative Generation</string>
+    <string name="narrative_configuration">Narrative Configuration</string>
+    <string name="narrative_style">Narrative Style</string>
+    <string name="narrative_length">Narrative Length</string>
+    <string name="transformation_intensity">Transformation Intensity</string>
+    <string name="generate_narrative">Generate Narrative</string>
+    <string name="generated_narrative">Generated Narrative</string>
+    <string name="style">Style</string>
+    <string name="archetypal_themes">Archetypal Themes</string>
+    <string name="field_intensity_levels">Field Intensity Levels</string>
+    
+    <!-- Field Dynamics strings -->
+    <string name="field_dynamics">Field Dynamics</string>
+    <string name="consciousness_mapping">Consciousness Mapping</string>
+    <string name="cognitive_complexity">Cognitive Complexity</string>
+    <string name="introspection_depth">Introspection Depth</string>
+    <string name="consciousness_levels">Consciousness Levels</string>
+    <string name="temporal_flux">Temporal Flux</string>
+    <string name="dimensional_depth">Dimensional Depth</string>
+    <string name="archetypal_resonance">Archetypal Resonance</string>
+    <string name="luminosity">Luminosity</string>
+    <string name="entropy">Entropy</string>
+    <string name="primary_dimension">Primary Dimension</string>
+    <string name="resonance_frequency">Resonance Frequency</string>
+    <string name="stability_index">Stability Index</string>
+    <string name="phase_coherence">Phase Coherence</string>
+    <string name="harmonic_frequencies">Harmonic Frequencies</string>
+    
+    <!-- Symbol strings -->
+    <string name="confidence">Confidence</string>
+    <string name="resonance">Resonance</string>
+    <string name="symbol_type">Symbol Type</string>
+    <string name="meaning">Meaning</string>
+    <string name="cultural_context">Cultural Context</string>
+    <string name="personal_associations">Personal Associations</string>
+    <string name="archetypal_connections">Archetypal Connections</string>
+    
+    <!-- Connection strings -->
+    <string name="connection_strength">Connection Strength</string>
+    <string name="connection_type">Connection Type</string>
+    <string name="semantic_similarity">Semantic Similarity</string>
+    <string name="archetypal_similarity">Archetypal Similarity</string>
+    <string name="cultural_overlap">Cultural Overlap</string>
+    
+    <!-- Menu strings -->
+    <string name="action_generate_narrative">Generate Narrative</string>
+    <string name="action_compare_analysis">Compare Analysis</string>
+    <string name="action_export_analysis">Export Analysis</string>
+    <string name="action_field_dynamics">Field Dynamics</string>
+    <string name="action_pattern_evolution">Pattern Evolution</string>
+    <string name="action_transformation_analysis">Transformation Analysis</string>
+    <string name="action_share">Share</string>
+    <string name="action_export">Export</string>
+    <string name="action_research">Research</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- Status strings -->
+    <string name="initializing">Initializing…</string>
+    <string name="analyzing">Analyzing…</string>
+    <string name="processing">Processing…</string>
+    <string name="generating">Generating…</string>
+    <string name="completed">Completed</string>
+    <string name="error_occurred">An error occurred</string>
+    
+    <!-- Quality levels -->
+    <string name="quality_excellent">Excellent</string>
+    <string name="quality_good">Good</string>
+    <string name="quality_moderate">Moderate</string>
+    <string name="quality_basic">Basic</string>
+    
+    <!-- Complexity levels -->
+    <string name="complexity_high">High</string>
+    <string name="complexity_medium">Medium</string>
+    <string name="complexity_low">Low</string>
+    
+    <!-- Narrative styles -->
+    <string name="style_mythic">Mythic</string>
+    <string name="style_fragmented">Fragmented</string>
+    <string name="style_visionary">Visionary</string>
+    
+    <!-- Narrative lengths -->
+    <string name="length_short">Short</string>
+    <string name="length_medium">Medium</string>
+    <string name="length_long">Long</string>
+    
+    <!-- Transformation vectors -->
+    <string name="becoming_animal">Becoming Animal</string>
+    <string name="becoming_mineral">Becoming Mineral</string>
+    <string name="becoming_plant">Becoming Plant</string>
+    <string name="becoming_machine">Becoming Machine</string>
+    <string name="becoming_cosmic">Becoming Cosmic</string>
+    <string name="becoming_ancestral">Becoming Ancestral</string>
+    <string name="multiplicity">Multiplicity</string>
+    <string name="nomadism">Nomadism</string>
+    <string name="metamorphosis">Metamorphosis</string>
+    <string name="assemblage">Assemblage</string>
+    
+    <!-- Error messages -->
+    <string name="error_analysis_failed">Analysis failed</string>
+    <string name="error_narrative_generation_failed">Narrative generation failed</string>
+    <string name="error_no_data">No data available</string>
+    <string name="error_network">Network error</string>
+    <string name="error_initialization">Initialization failed</string>
+    
+    <!-- Success messages -->
+    <string name="success_analysis_completed">Analysis completed successfully</string>
+    <string name="success_narrative_generated">Narrative generated successfully</string>
+    <string name="success_exported">Exported successfully</string>
+    
+    <!-- Accessibility strings -->
+    <string name="desc_symbol_icon">Symbol type icon</string>
+    <string name="desc_pattern_icon">Pattern type icon</string>
+    <string name="desc_transformation_icon">Transformation vector icon</string>
+    <string name="desc_coherence_chart">Field coherence chart</string>
+    <string name="desc_intensity_chart">Field intensity radar chart</string>
+    <string name="desc_progress_bar">Progress indicator</string>
+    
+    <!-- Tooltips and hints -->
+    <string name="hint_dream_text">Enter your dream description here…</string>
+    <string name="hint_transformation_intensity">Adjust transformation intensity</string>
+    <string name="tooltip_coherence">Field coherence measures the overall stability and consistency of the dream field</string>
+    <string name="tooltip_entropy">Entropy measures the disorder and unpredictability in the dream system</string>
+    <string name="tooltip_luminosity">Luminosity indicates the archetypal and spiritual clarity of the dream</string>
+    
+    <!-- Empty states -->
+    <string name="empty_symbols">No symbols detected</string>
+    <string name="empty_patterns">No patterns found</string>
+    <string name="empty_connections">No connections identified</string>
+    <string name="empty_transformations">No transformation scenarios</string>
+    <string name="empty_narrative">No narrative generated</string>
+    
+    <!-- Loading states -->
+    <string name="loading_analysis">Analyzing dream content…</string>
+    <string name="loading_patterns">Detecting patterns…</string>
+    <string name="loading_connections">Mapping connections…</string>
+    <string name="loading_transformations">Analyzing transformations…</string>
+    <string name="loading_narrative">Generating narrative…</string>
+</resources>
+
+<!-- menu_enhanced_analysis_result.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_generate_narrative"
+        android:title="@string/action_generate_narrative"
+        android:icon="@drawable/ic_auto_stories"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_field_dynamics"
+        android:title="@string/action_field_dynamics"
+        android:icon="@drawable/ic_field_dynamics"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_compare_analysis"
+        android:title="@string/action_compare_analysis"
+        android:icon="@drawable/ic_compare"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_pattern_evolution"
+        android:title="@string/action_pattern_evolution"
+        android:icon="@drawable/ic_evolution"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_transformation_analysis"
+        android:title="@string/action_transformation_analysis"
+        android:icon="@drawable/ic_transformation"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_export_analysis"
+        android:title="@string/action_export_analysis"
+        android:icon="@drawable/ic_export"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="never" />
+
+</menu>
+
+<!-- menu_symbolic_mapper.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_clear"
+        android:title="@string/action_clear"
+        android:icon="@drawable/ic_clear"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_export"
+        android:title="@string/action_export"
+        android:icon="@drawable/ic_export"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="never" />
+
+</menu>
+
+<!-- menu_symbol_detail.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/action_share"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_export"
+        android:title="@string/action_export"
+        android:icon="@drawable/ic_export"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_research"
+        android:title="@string/action_research"
+        android:icon="@drawable/ic_research"
+        app:showAsAction="never" />
+
+</menu>
+
+<!-- Drawable resources (drawable XML files) -->
+
+<!-- drawable/narrative_text_background.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/background_elevated" />
+    <corners android:radius="8dp" />
+    <stroke
+        android:width="1dp"
+        android:color="@color/chip_background" />
+</shape>
+
+<!-- drawable/circle_dot.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="@color/chip_text_secondary" />
+    <size
+        android:width="4dp"
+        android:height="4dp" />
+</shape>
+
+<!-- drawable/gradient_background.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="135"
+        android:startColor="@color/gradient_start"
+        android:centerColor="@color/gradient_middle"
+        android:endColor="@color/gradient_end"
+        android:type="linear" />
+</shape>
+
+<!-- drawable/field_intensity_background.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="45"
+        android:startColor="@color/field_intensity_primary"
+        android:endColor="@color/field_intensity_fill"
+        android:type="linear" />
+    <corners android:radius="12dp" />
+</shape>
+
+<!-- drawable/transformation_vector_background.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <solid android:color="@color/interactive_pressed" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item android:state_focused="true">
+        <shape>
+            <solid android:color="@color/interactive_focused" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</selector>
+
+<!-- drawable/progress_bar_background.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="4dp" />
+            <solid android:color="@color/chip_background" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="4dp" />
+                <solid android:color="@color/primary" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>
+
+<!-- dimensions.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Enhanced spacing -->
+    <dimen name="spacing_micro">2dp</dimen>
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_medium">12dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_large">20dp</dimen>
+    <dimen name="spacing_xl">24dp</dimen>
+    <dimen name="spacing_xxl">32dp</dimen>
+    <dimen name="spacing_huge">48dp</dimen>
+
+    <!-- Card dimensions -->
+    <dimen name="card_corner_radius">12dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+
+    <!-- Chart dimensions -->
+    <dimen name="chart_height_small">200dp</dimen>
+    <dimen name="chart_height_medium">300dp</dimen>
+    <dimen name="chart_height_large">400dp</dimen>
+
+    <!-- Icon sizes -->
+    <dimen name="icon_size_tiny">16dp</dimen>
+    <dimen name="icon_size_small">20dp</dimen>
+    <dimen name="icon_size_medium">24dp</dimen>
+    <dimen name="icon_size_large">32dp</dimen>
+    <dimen name="icon_size_xl">48dp</dimen>
+
+    <!-- Progress bar dimensions -->
+    <dimen name="progress_bar_height_thin">4dp</dimen>
+    <dimen name="progress_bar_height_medium">6dp</dimen>
+    <dimen name="progress_bar_height_thick">8dp</dimen>
+
+    <!-- Button dimensions -->
+    <dimen name="button_height_small">36dp</dimen>
+    <dimen name="button_height_medium">48dp</dimen>
+    <dimen name="button_height_large">56dp</dimen>
+
+    <!-- Chip dimensions -->
+    <dimen name="chip_height">32dp</dimen>
+    <dimen name="chip_spacing">4dp</dimen>
+    <dimen name="chip_padding_horizontal">12dp</dimen>
+
+    <!-- Field visualization dimensions -->
+    <dimen name="field_visualization_height">300dp</dimen>
+    <dimen name="radar_chart_size">250dp</dimen>
+    <dimen name="pie_chart_size">200dp</dimen>
+
+    <!-- Text sizes -->
+    <dimen name="text_size_micro">10sp</dimen>
+    <dimen name="text_size_tiny">11sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_medium">14sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_xl">20sp</dimen>
+    <dimen name="text_size_xxl">24sp</dimen>
+    <dimen name="text_size_huge">32sp</dimen>
+</resources>
