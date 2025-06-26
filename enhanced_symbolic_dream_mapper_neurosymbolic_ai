@@ -1,0 +1,1416 @@
+#!/usr/bin/env python3
+"""
+Enhanced Symbolic Dream Mapper with Neuro-Symbolic AI
+=====================================================
+
+Advanced dream symbol analysis integrating Vector Symbolic Architecture (VSA),
+pattern recognition engines, and Deleuzian deterritorialization frameworks.
+
+This system combines neural pattern recognition with symbolic reasoning for
+complex dream analysis and transformation scenario generation.
+"""
+
+import numpy as np
+import networkx as nx
+from typing import Dict, List, Tuple, Optional, Set, Any, Union
+from dataclasses import dataclass, field
+from enum import Enum
+from abc import ABC, abstractmethod
+import random
+import math
+import re
+from collections import defaultdict, deque
+import json
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.cluster import DBSCAN
+import nltk
+from nltk.corpus import wordnet as wn
+from textblob import TextBlob
+import joblib
+import pickle
+
+# Download required NLTK data
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
+try:
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    nltk.download('wordnet')
+
+class SymbolType(Enum):
+    """Enhanced symbol classification system"""
+    ARCHETYPAL = "archetypal"
+    CULTURAL = "cultural"
+    PERSONAL = "personal"
+    UNIVERSAL = "universal"
+    MYTHOLOGICAL = "mythological"
+    PSYCHOLOGICAL = "psychological"
+    SPIRITUAL = "spiritual"
+    ELEMENTAL = "elemental"
+    NUMERICAL = "numerical"
+    CHROMATIC = "chromatic"
+    GEOMETRIC = "geometric"
+    BIOLOGICAL = "biological"
+    TECHNOLOGICAL = "technological"
+    LINGUISTIC = "linguistic"
+
+class ConnectionType(Enum):
+    """Types of symbolic connections in the network"""
+    SEMANTIC = "semantic"           # Meaning-based connections
+    ASSOCIATIVE = "associative"     # Free-association links
+    ARCHETYPAL = "archetypal"       # Jungian archetypal relationships
+    CULTURAL = "cultural"           # Cultural meaning networks
+    PERSONAL = "personal"           # Individual association patterns
+    SYNTACTIC = "syntactic"         # Structural relationships
+    TRANSFORMATIONAL = "transformational"  # Deterritorialization vectors
+    TEMPORAL = "temporal"           # Time-based connections
+    SPATIAL = "spatial"             # Spatial relationship patterns
+    CAUSAL = "causal"              # Cause-effect relationships
+
+class PatternType(Enum):
+    """Neuro-symbolic pattern categories"""
+    RECURSIVE = "recursive"         # Self-similar patterns
+    EMERGENT = "emergent"          # Spontaneous pattern formation
+    HIERARCHICAL = "hierarchical"   # Nested structural patterns
+    CYCLIC = "cyclic"              # Repetitive patterns
+    TRANSFORMATIVE = "transformative"  # Change patterns
+    NETWORK = "network"            # Connection patterns
+    TEMPORAL = "temporal"          # Time-based patterns
+    FREQUENCY = "frequency"        # Occurrence patterns
+
+@dataclass
+class VectorSymbolicElement:
+    """Enhanced symbolic element with vector embeddings"""
+    symbol: str
+    vector_embedding: np.ndarray
+    semantic_field: Dict[str, float]
+    archetypal_coordinates: np.ndarray
+    cultural_context: Dict[str, float]
+    personal_resonance: float
+    frequency_signature: np.ndarray
+    transformation_potential: Dict[str, float]
+    meaning: str = ""
+    confidence: float = 0.0
+    symbol_type: SymbolType = SymbolType.UNIVERSAL
+    connections: Dict[str, float] = field(default_factory=dict)
+    pattern_memberships: List[str] = field(default_factory=list)
+
+@dataclass
+class SymbolicPattern:
+    """Represents discovered patterns in symbolic networks"""
+    pattern_id: str
+    pattern_type: PatternType
+    elements: List[str]
+    coherence_score: float
+    emergence_probability: float
+    transformation_vectors: List[str]
+    temporal_signature: np.ndarray
+    cultural_resonance: Dict[str, float]
+    archetypal_basis: List[str]
+    complexity_measure: float
+
+@dataclass
+class NeuralPatternCluster:
+    """Neural network discovered pattern clusters"""
+    cluster_id: int
+    centroid: np.ndarray
+    member_symbols: List[str]
+    cluster_coherence: float
+    semantic_theme: str
+    archetypal_signature: Dict[str, float]
+    transformation_potential: float
+
+class VectorSymbolicArchitecture:
+    """Implementation of Vector Symbolic Architecture for dream symbols"""
+    
+    def __init__(self, dimension: int = 512):
+        self.dimension = dimension
+        self.symbol_vectors = {}
+        self.binding_operations = {}
+        self.unbinding_operations = {}
+        self.similarity_threshold = 0.7
+        
+        # Initialize archetypal basis vectors
+        self.archetypal_basis = self._initialize_archetypal_basis()
+        
+        # Cultural context vectors
+        self.cultural_vectors = self._initialize_cultural_vectors()
+        
+    def _initialize_archetypal_basis(self) -> Dict[str, np.ndarray]:
+        """Initialize basis vectors for archetypal coordinates"""
+        archetypes = [
+            "hero", "shadow", "anima", "animus", "wise_old_man", "wise_old_woman",
+            "mother", "father", "child", "trickster", "magician", "lover",
+            "innocent", "explorer", "sage", "rebel", "creator", "caregiver"
+        ]
+        
+        basis = {}
+        for archetype in archetypes:
+            # Create orthogonal basis vectors
+            vector = np.random.randn(self.dimension)
+            vector = vector / np.linalg.norm(vector)
+            basis[archetype] = vector
+            
+        return basis
+    
+    def _initialize_cultural_vectors(self) -> Dict[str, np.ndarray]:
+        """Initialize cultural context vectors"""
+        cultures = [
+            "western", "eastern", "indigenous", "african", "shamanic",
+            "buddhist", "hindu", "christian", "islamic", "pagan",
+            "scientific", "mystical", "folkloric", "mythological"
+        ]
+        
+        vectors = {}
+        for culture in cultures:
+            vector = np.random.randn(self.dimension)
+            vector = vector / np.linalg.norm(vector)
+            vectors[culture] = vector
+            
+        return vectors
+    
+    def encode_symbol(self, symbol: str, context: Dict[str, Any]) -> np.ndarray:
+        """Encode symbol into vector symbolic representation"""
+        if symbol in self.symbol_vectors:
+            base_vector = self.symbol_vectors[symbol]
+        else:
+            # Create new vector for unknown symbol
+            base_vector = np.random.randn(self.dimension)
+            base_vector = base_vector / np.linalg.norm(base_vector)
+            self.symbol_vectors[symbol] = base_vector
+        
+        # Bind with context
+        context_vector = self._encode_context(context)
+        encoded = self._bind_vectors(base_vector, context_vector)
+        
+        return encoded
+    
+    def _encode_context(self, context: Dict[str, Any]) -> np.ndarray:
+        """Encode contextual information into vector"""
+        context_vector = np.zeros(self.dimension)
+        
+        # Add archetypal components
+        if 'archetypal_features' in context:
+            for archetype, weight in context['archetypal_features'].items():
+                if archetype in self.archetypal_basis:
+                    context_vector += weight * self.archetypal_basis[archetype]
+        
+        # Add cultural components
+        if 'cultural_context' in context:
+            for culture, weight in context['cultural_context'].items():
+                if culture in self.cultural_vectors:
+                    context_vector += weight * self.cultural_vectors[culture]
+        
+        # Normalize
+        if np.linalg.norm(context_vector) > 0:
+            context_vector = context_vector / np.linalg.norm(context_vector)
+        
+        return context_vector
+    
+    def _bind_vectors(self, vec1: np.ndarray, vec2: np.ndarray) -> np.ndarray:
+        """Bind two vectors using circular convolution"""
+        return np.fft.ifft(np.fft.fft(vec1) * np.fft.fft(vec2)).real
+    
+    def _unbind_vectors(self, bound_vec: np.ndarray, known_vec: np.ndarray) -> np.ndarray:
+        """Unbind vectors using circular correlation"""
+        return np.fft.ifft(np.fft.fft(bound_vec) * np.conj(np.fft.fft(known_vec))).real
+    
+    def calculate_similarity(self, vec1: np.ndarray, vec2: np.ndarray) -> float:
+        """Calculate cosine similarity between vectors"""
+        return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
+    
+    def find_analogies(self, symbol_a: str, symbol_b: str, symbol_c: str) -> List[Tuple[str, float]]:
+        """Find analogical relationships: A is to B as C is to ?"""
+        if not all(s in self.symbol_vectors for s in [symbol_a, symbol_b, symbol_c]):
+            return []
+        
+        # Calculate analogy vector: B - A + C
+        vec_a = self.symbol_vectors[symbol_a]
+        vec_b = self.symbol_vectors[symbol_b]
+        vec_c = self.symbol_vectors[symbol_c]
+        
+        analogy_vector = vec_b - vec_a + vec_c
+        
+        # Find most similar symbols
+        similarities = []
+        for symbol, vector in self.symbol_vectors.items():
+            if symbol not in [symbol_a, symbol_b, symbol_c]:
+                similarity = self.calculate_similarity(analogy_vector, vector)
+                similarities.append((symbol, similarity))
+        
+        return sorted(similarities, key=lambda x: x[1], reverse=True)[:5]
+
+class PatternRecognitionEngine:
+    """Advanced pattern recognition using neuro-symbolic approaches"""
+    
+    def __init__(self):
+        self.vectorizer = TfidfVectorizer(max_features=1000, stop_words='english')
+        self.pattern_clusters = []
+        self.learned_patterns = {}
+        self.pattern_evolution_history = []
+        
+        # Initialize archetypal pattern templates
+        self.archetypal_patterns = self._initialize_archetypal_patterns()
+        
+    def _initialize_archetypal_patterns(self) -> Dict[str, Dict]:
+        """Initialize archetypal pattern templates"""
+        return {
+            "hero_journey": {
+                "elements": ["departure", "trials", "revelation", "return", "transformation"],
+                "signature": np.array([0.8, 0.9, 0.7, 0.8, 0.9]),
+                "variations": ["quest", "adventure", "challenge", "growth"]
+            },
+            "death_rebirth": {
+                "elements": ["ending", "dissolution", "void", "emergence", "renewal"],
+                "signature": np.array([0.9, 0.8, 0.6, 0.7, 0.9]),
+                "variations": ["transformation", "renewal", "resurrection", "metamorphosis"]
+            },
+            "sacred_marriage": {
+                "elements": ["union", "opposites", "integration", "wholeness", "harmony"],
+                "signature": np.array([0.8, 0.7, 0.9, 0.8, 0.7]),
+                "variations": ["synthesis", "balance", "completion", "unity"]
+            },
+            "eternal_return": {
+                "elements": ["cycle", "repetition", "spiral", "recurrence", "pattern"],
+                "signature": np.array([0.7, 0.8, 0.6, 0.9, 0.8]),
+                "variations": ["recursion", "loop", "echo", "rhythm"]
+            }
+        }
+    
+    def analyze_patterns(self, symbols: List[VectorSymbolicElement]) -> List[SymbolicPattern]:
+        """Analyze symbols for emergent patterns"""
+        if not symbols:
+            return []
+        
+        patterns = []
+        
+        # Extract text features for clustering
+        symbol_texts = [f"{s.symbol} {s.meaning}" for s in symbols]
+        
+        try:
+            # TF-IDF vectorization
+            tfidf_matrix = self.vectorizer.fit_transform(symbol_texts)
+            
+            # Neural clustering
+            neural_clusters = self._neural_clustering(symbols, tfidf_matrix)
+            
+            # Archetypal pattern matching
+            archetypal_patterns = self._match_archetypal_patterns(symbols)
+            
+            # Temporal pattern analysis
+            temporal_patterns = self._analyze_temporal_patterns(symbols)
+            
+            # Semantic network patterns
+            network_patterns = self._analyze_network_patterns(symbols)
+            
+            patterns.extend(neural_clusters)
+            patterns.extend(archetypal_patterns)
+            patterns.extend(temporal_patterns)
+            patterns.extend(network_patterns)
+            
+        except Exception as e:
+            print(f"Pattern analysis error: {e}")
+        
+        return patterns
+    
+    def _neural_clustering(self, 
+                          symbols: List[VectorSymbolicElement], 
+                          tfidf_matrix) -> List[SymbolicPattern]:
+        """Perform neural clustering on symbol vectors"""
+        patterns = []
+        
+        if tfidf_matrix.shape[0] < 2:
+            return patterns
+        
+        try:
+            # DBSCAN clustering
+            clustering = DBSCAN(eps=0.3, min_samples=2, metric='cosine')
+            cluster_labels = clustering.fit_predict(tfidf_matrix.toarray())
+            
+            # Create patterns from clusters
+            unique_labels = set(cluster_labels)
+            for label in unique_labels:
+                if label == -1:  # Noise cluster
+                    continue
+                
+                cluster_indices = [i for i, l in enumerate(cluster_labels) if l == label]
+                cluster_symbols = [symbols[i].symbol for i in cluster_indices]
+                
+                if len(cluster_symbols) >= 2:
+                    # Calculate cluster metrics
+                    cluster_vectors = tfidf_matrix[cluster_indices]
+                    coherence = self._calculate_cluster_coherence(cluster_vectors)
+                    
+                    pattern = SymbolicPattern(
+                        pattern_id=f"neural_cluster_{label}",
+                        pattern_type=PatternType.NETWORK,
+                        elements=cluster_symbols,
+                        coherence_score=coherence,
+                        emergence_probability=coherence * 0.8,
+                        transformation_vectors=[],
+                        temporal_signature=np.zeros(5),
+                        cultural_resonance={},
+                        archetypal_basis=[],
+                        complexity_measure=len(cluster_symbols) / len(symbols)
+                    )
+                    patterns.append(pattern)
+                    
+        except Exception as e:
+            print(f"Neural clustering error: {e}")
+        
+        return patterns
+    
+    def _match_archetypal_patterns(self, symbols: List[VectorSymbolicElement]) -> List[SymbolicPattern]:
+        """Match symbols against archetypal pattern templates"""
+        patterns = []
+        
+        for pattern_name, template in self.archetypal_patterns.items():
+            matches = []
+            match_scores = []
+            
+            for symbol in symbols:
+                # Check for template element matches
+                symbol_text = f"{symbol.symbol} {symbol.meaning}".lower()
+                
+                for element in template["elements"]:
+                    if element in symbol_text or any(var in symbol_text for var in template["variations"]):
+                        matches.append(symbol.symbol)
+                        # Calculate match strength
+                        match_score = sum(1 for var in template["variations"] if var in symbol_text)
+                        match_scores.append(match_score / len(template["variations"]))
+                        break
+            
+            if len(matches) >= 2:  # Minimum pattern size
+                coherence = np.mean(match_scores) if match_scores else 0.0
+                
+                pattern = SymbolicPattern(
+                    pattern_id=f"archetypal_{pattern_name}",
+                    pattern_type=PatternType.HIERARCHICAL,
+                    elements=matches,
+                    coherence_score=coherence,
+                    emergence_probability=coherence * 0.9,
+                    transformation_vectors=[],
+                    temporal_signature=template["signature"],
+                    cultural_resonance={},
+                    archetypal_basis=[pattern_name],
+                    complexity_measure=len(matches) / len(template["elements"])
+                )
+                patterns.append(pattern)
+        
+        return patterns
+    
+    def _analyze_temporal_patterns(self, symbols: List[VectorSymbolicElement]) -> List[SymbolicPattern]:
+        """Analyze temporal patterns in symbol sequences"""
+        patterns = []
+        
+        if len(symbols) < 3:
+            return patterns
+        
+        # Look for recursive patterns
+        symbol_sequence = [s.symbol for s in symbols]
+        
+        # Find repeating subsequences
+        for length in range(2, len(symbol_sequence) // 2 + 1):
+            for start in range(len(symbol_sequence) - length * 2 + 1):
+                subsequence = symbol_sequence[start:start + length]
+                
+                # Look for repetitions
+                repetitions = []
+                for i in range(start + length, len(symbol_sequence) - length + 1):
+                    if symbol_sequence[i:i + length] == subsequence:
+                        repetitions.append(i)
+                
+                if repetitions:
+                    pattern = SymbolicPattern(
+                        pattern_id=f"temporal_recursive_{start}_{length}",
+                        pattern_type=PatternType.RECURSIVE,
+                        elements=subsequence,
+                        coherence_score=len(repetitions) / len(symbol_sequence),
+                        emergence_probability=0.7,
+                        transformation_vectors=[],
+                        temporal_signature=np.array([1.0, 0.8, 0.6, 0.8, 0.9]),
+                        cultural_resonance={},
+                        archetypal_basis=[],
+                        complexity_measure=length / len(symbol_sequence)
+                    )
+                    patterns.append(pattern)
+        
+        return patterns
+    
+    def _analyze_network_patterns(self, symbols: List[VectorSymbolicElement]) -> List[SymbolicPattern]:
+        """Analyze network connectivity patterns"""
+        patterns = []
+        
+        # Create symbol network
+        G = nx.Graph()
+        for symbol in symbols:
+            G.add_node(symbol.symbol, **symbol.__dict__)
+        
+        # Add edges based on semantic similarity
+        for i, symbol1 in enumerate(symbols):
+            for j, symbol2 in enumerate(symbols[i+1:], i+1):
+                similarity = cosine_similarity(
+                    symbol1.vector_embedding.reshape(1, -1),
+                    symbol2.vector_embedding.reshape(1, -1)
+                )[0, 0]
+                
+                if similarity > 0.6:
+                    G.add_edge(symbol1.symbol, symbol2.symbol, weight=similarity)
+        
+        # Analyze network structure
+        if len(G.nodes()) > 2:
+            # Find communities
+            try:
+                communities = nx.algorithms.community.greedy_modularity_communities(G)
+                
+                for i, community in enumerate(communities):
+                    if len(community) >= 2:
+                        # Calculate community metrics
+                        subgraph = G.subgraph(community)
+                        density = nx.density(subgraph)
+                        
+                        pattern = SymbolicPattern(
+                            pattern_id=f"network_community_{i}",
+                            pattern_type=PatternType.NETWORK,
+                            elements=list(community),
+                            coherence_score=density,
+                            emergence_probability=density * 0.8,
+                            transformation_vectors=[],
+                            temporal_signature=np.zeros(5),
+                            cultural_resonance={},
+                            archetypal_basis=[],
+                            complexity_measure=len(community) / len(G.nodes())
+                        )
+                        patterns.append(pattern)
+                        
+            except Exception as e:
+                print(f"Network analysis error: {e}")
+        
+        return patterns
+    
+    def _calculate_cluster_coherence(self, cluster_vectors) -> float:
+        """Calculate coherence score for a cluster"""
+        if cluster_vectors.shape[0] < 2:
+            return 0.0
+        
+        # Calculate pairwise similarities
+        similarities = cosine_similarity(cluster_vectors)
+        
+        # Average similarity excluding diagonal
+        n = similarities.shape[0]
+        total_similarity = np.sum(similarities) - n  # Exclude diagonal
+        avg_similarity = total_similarity / (n * (n - 1))
+        
+        return max(0.0, avg_similarity)
+    
+    def learn_pattern(self, pattern: SymbolicPattern, feedback: float):
+        """Learn from pattern recognition feedback"""
+        pattern_key = f"{pattern.pattern_type.value}_{pattern.pattern_id}"
+        
+        if pattern_key not in self.learned_patterns:
+            self.learned_patterns[pattern_key] = {
+                "recognition_count": 0,
+                "avg_coherence": 0.0,
+                "success_rate": 0.0,
+                "evolution_history": []
+            }
+        
+        # Update pattern statistics
+        self.learned_patterns[pattern_key]["recognition_count"] += 1
+        self.learned_patterns[pattern_key]["success_rate"] = (
+            (self.learned_patterns[pattern_key]["success_rate"] * 
+             (self.learned_patterns[pattern_key]["recognition_count"] - 1) + feedback) /
+            self.learned_patterns[pattern_key]["recognition_count"]
+        )
+        
+        # Record evolution
+        self.learned_patterns[pattern_key]["evolution_history"].append({
+            "timestamp": len(self.pattern_evolution_history),
+            "coherence": pattern.coherence_score,
+            "feedback": feedback,
+            "complexity": pattern.complexity_measure
+        })
+
+class EnhancedSymbolicDreamMapper:
+    """Enhanced symbolic dream mapper with neuro-symbolic AI capabilities"""
+    
+    def __init__(self):
+        self.vsa = VectorSymbolicArchitecture()
+        self.pattern_engine = PatternRecognitionEngine()
+        self.symbolic_network = nx.MultiDiGraph()
+        self.connection_history = []
+        self.learning_memory = {}
+        
+        # Enhanced archetypal symbol database
+        self.archetypal_symbols = self._initialize_archetypal_database()
+        
+        # Cultural symbol mappings
+        self.cultural_mappings = self._initialize_cultural_mappings()
+        
+        # Personal symbol learning system
+        self.personal_symbols = {}
+        
+        # Deterritorialization vector mappings
+        self.deterritorializiation_vectors = self._initialize_deterritorialization_vectors()
+        
+    def _initialize_archetypal_database(self) -> Dict[str, Dict]:
+        """Initialize comprehensive archetypal symbol database"""
+        return {
+            # Hero archetype symbols
+            "sword": {"archetype": "hero", "meaning": "power, decision, discrimination", "weight": 0.9},
+            "journey": {"archetype": "hero", "meaning": "personal growth, transformation", "weight": 0.8},
+            "mountain": {"archetype": "hero", "meaning": "challenge, achievement, transcendence", "weight": 0.7},
+            "bridge": {"archetype": "hero", "meaning": "transition, connection, crossing", "weight": 0.6},
+            
+            # Shadow archetype symbols
+            "darkness": {"archetype": "shadow", "meaning": "unconscious, repressed, hidden", "weight": 0.9},
+            "monster": {"archetype": "shadow", "meaning": "feared aspects, destructive potential", "weight": 0.8},
+            "basement": {"archetype": "shadow", "meaning": "deep unconscious, hidden fears", "weight": 0.7},
+            "mirror": {"archetype": "shadow", "meaning": "reflection, self-confrontation", "weight": 0.6},
+            
+            # Anima/Animus symbols
+            "moon": {"archetype": "anima", "meaning": "feminine principle, intuition, cycles", "weight": 0.9},
+            "water": {"archetype": "anima", "meaning": "emotion, unconscious, flow", "weight": 0.8},
+            "forest": {"archetype": "anima", "meaning": "natural wisdom, mystery", "weight": 0.7},
+            "bird": {"archetype": "anima", "meaning": "spiritual messenger, transcendence", "weight": 0.6},
+            
+            # Wise Old Man/Woman symbols
+            "owl": {"archetype": "wise_old", "meaning": "wisdom, night vision, knowledge", "weight": 0.9},
+            "book": {"archetype": "wise_old", "meaning": "knowledge, learning, wisdom", "weight": 0.8},
+            "staff": {"archetype": "wise_old", "meaning": "authority, guidance, support", "weight": 0.7},
+            "crystal": {"archetype": "wise_old", "meaning": "clarity, purity, insight", "weight": 0.6},
+            
+            # Mother archetype symbols
+            "earth": {"archetype": "mother", "meaning": "nurturing, stability, fertility", "weight": 0.9},
+            "garden": {"archetype": "mother", "meaning": "growth, cultivation, care", "weight": 0.8},
+            "home": {"archetype": "mother", "meaning": "security, belonging, comfort", "weight": 0.7},
+            "breast": {"archetype": "mother", "meaning": "nourishment, care, life", "weight": 0.6},
+            
+            # Trickster symbols
+            "crossroads": {"archetype": "trickster", "meaning": "choice, paradox, change", "weight": 0.9},
+            "mask": {"archetype": "trickster", "meaning": "deception, persona, transformation", "weight": 0.8},
+            "fool": {"archetype": "trickster", "meaning": "wisdom through folly, unconventional", "weight": 0.7},
+            "dance": {"archetype": "trickster", "meaning": "play, celebration, spontaneity", "weight": 0.6}
+        }
+    
+    def _initialize_cultural_mappings(self) -> Dict[str, Dict]:
+        """Initialize cultural symbol interpretation mappings"""
+        return {
+            "western": {
+                "cross": {"meaning": "sacrifice, spirituality, intersection", "weight": 0.9},
+                "crown": {"meaning": "authority, achievement, divine right", "weight": 0.8},
+                "rose": {"meaning": "love, beauty, divine feminine", "weight": 0.7}
+            },
+            "eastern": {
+                "lotus": {"meaning": "enlightenment, purity, rebirth", "weight": 0.9},
+                "dragon": {"meaning": "power, wisdom, cosmic force", "weight": 0.8},
+                "bamboo": {"meaning": "flexibility, growth, resilience", "weight": 0.7}
+            },
+            "indigenous": {
+                "eagle": {"meaning": "vision, spiritual messenger, connection to divine", "weight": 0.9},
+                "bear": {"meaning": "strength, introspection, healing", "weight": 0.8},
+                "turtle": {"meaning": "wisdom, longevity, earth connection", "weight": 0.7}
+            },
+            "shamanic": {
+                "spiral": {"meaning": "consciousness expansion, energy flow", "weight": 0.9},
+                "feather": {"meaning": "lightness, air element, communication", "weight": 0.8},
+                "drum": {"meaning": "heartbeat, rhythm, shamanic journey", "weight": 0.7}
+            }
+        }
+    
+    def _initialize_deterritorialization_vectors(self) -> Dict[str, Dict]:
+        """Initialize deterritorialization transformation vectors"""
+        return {
+            "becoming_animal": {
+                "triggers": ["animal", "instinct", "wild", "hunt", "pack", "territory"],
+                "transformations": ["consciousness merger", "instinctual awakening", "territorial awareness"],
+                "vector_field": np.array([0.8, 0.9, 0.6, 0.7, 0.8])
+            },
+            "becoming_plant": {
+                "triggers": ["growth", "roots", "leaves", "photosynthesis", "seasons"],
+                "transformations": ["time dilation", "earth connection", "seasonal awareness"],
+                "vector_field": np.array([0.6, 0.7, 0.9, 0.8, 0.5])
+            },
+            "becoming_mineral": {
+                "triggers": ["stone", "crystal", "metal", "hardness", "formation"],
+                "transformations": ["geological time", "crystalline structure", "mineral patience"],
+                "vector_field": np.array([0.9, 0.5, 0.7, 0.6, 0.9])
+            },
+            "becoming_machine": {
+                "triggers": ["mechanical", "digital", "code", "algorithm", "network"],
+                "transformations": ["computational thinking", "digital consciousness", "networked awareness"],
+                "vector_field": np.array([0.7, 0.8, 0.8, 0.9, 0.6])
+            },
+            "becoming_cosmic": {
+                "triggers": ["space", "star", "galaxy", "universe", "infinity"],
+                "transformations": ["cosmic consciousness", "stellar awareness", "galactic perspective"],
+                "vector_field": np.array([0.9, 0.9, 0.9, 0.8, 0.9])
+            },
+            "multiplicity": {
+                "triggers": ["many", "multiple", "crowd", "fragments", "division"],
+                "transformations": ["consciousness splitting", "multiple perspectives", "crowd mind"],
+                "vector_field": np.array([0.6, 0.9, 0.7, 0.8, 0.7])
+            },
+            "nomadism": {
+                "triggers": ["movement", "wandering", "displacement", "migration", "flow"],
+                "transformations": ["spatial fluidity", "territorial dissolution", "nomadic consciousness"],
+                "vector_field": np.array([0.7, 0.8, 0.6, 0.9, 0.8])
+            }
+        }
+    
+    def analyze_dream_text(self, dream_text: str, cultural_context: List[str] = None) -> Dict[str, Any]:
+        """
+        Enhanced dream analysis with neuro-symbolic pattern recognition
+        """
+        if not dream_text.strip():
+            return {"error": "Empty dream text provided"}
+        
+        try:
+            # Initialize cultural context
+            if cultural_context is None:
+                cultural_context = ["western"]
+            
+            # Extract and analyze symbols
+            raw_symbols = self._extract_symbols(dream_text)
+            
+            # Create vector symbolic elements
+            symbolic_elements = []
+            for symbol_data in raw_symbols:
+                vector_element = self._create_vector_symbolic_element(
+                    symbol_data, dream_text, cultural_context
+                )
+                symbolic_elements.append(vector_element)
+            
+            # Pattern recognition analysis
+            patterns = self.pattern_engine.analyze_patterns(symbolic_elements)
+            
+            # Create symbolic connections
+            connections = self._create_enhanced_symbolic_connections(symbolic_elements)
+            
+            # Analyze deterritorialization vectors
+            deterritorialization_analysis = self._analyze_deterritorialization_vectors(
+                symbolic_elements, dream_text
+            )
+            
+            # Generate transformation scenarios
+            transformation_scenarios = self._generate_transformation_scenarios(
+                symbolic_elements, patterns, deterritorialization_analysis
+            )
+            
+            # Calculate field coherence metrics
+            field_coherence = self._calculate_field_coherence(symbolic_elements, patterns)
+            
+            return {
+                "symbols": [self._element_to_dict(elem) for elem in symbolic_elements],
+                "patterns": [self._pattern_to_dict(pattern) for pattern in patterns],
+                "connections": connections,
+                "deterritorialization_vectors": deterritorialization_analysis,
+                "transformation_scenarios": transformation_scenarios,
+                "field_coherence": field_coherence,
+                "neuro_symbolic_insights": self._generate_neuro_symbolic_insights(
+                    symbolic_elements, patterns
+                ),
+                "cultural_context": cultural_context,
+                "complexity_measure": self._calculate_dream_complexity(
+                    symbolic_elements, patterns
+                )
+            }
+            
+        except Exception as e:
+            return {"error": f"Analysis failed: {str(e)}"}
+    
+    def _extract_symbols(self, dream_text: str) -> List[Dict[str, Any]]:
+        """Extract symbols from dream text using multiple approaches"""
+        symbols = []
+        
+        # Tokenize text
+        blob = TextBlob(dream_text.lower())
+        words = blob.words
+        
+        # Direct archetypal symbol matching
+        for word in words:
+            if word in self.archetypal_symbols:
+                symbol_data = self.archetypal_symbols[word].copy()
+                symbol_data['symbol'] = word
+                symbol_data['extraction_method'] = 'archetypal_match'
+                symbols.append(symbol_data)
+        
+        # Semantic analysis for symbolic content
+        symbolic_candidates = []
+        for word in words:
+            # Check if word has symbolic potential
+            synsets = wn.synsets(word)
+            if synsets:
+                # Look for symbolic, metaphorical, or archetypal meanings
+                for synset in synsets:
+                    definition = synset.definition()
+                    if any(keyword in definition for keyword in 
+                          ['symbol', 'represent', 'metaphor', 'archetype', 'emblem']):
+                        symbolic_candidates.append({
+                            'symbol': word,
+                            'meaning': definition,
+                            'archetype': 'unknown',
+                            'weight': 0.5,
+                            'extraction_method': 'semantic_analysis'
+                        })
+                        break
+        
+        symbols.extend(symbolic_candidates)
+        
+        # Cultural symbol matching
+        for culture, culture_symbols in self.cultural_mappings.items():
+            for word in words:
+                if word in culture_symbols:
+                    symbol_data = culture_symbols[word].copy()
+                    symbol_data['symbol'] = word
+                    symbol_data['culture'] = culture
+                    symbol_data['extraction_method'] = 'cultural_match'
+                    symbols.append(symbol_data)
+        
+        # Remove duplicates and return
+        unique_symbols = {}
+        for symbol in symbols:
+            key = symbol['symbol']
+            if key not in unique_symbols or symbol['weight'] > unique_symbols[key]['weight']:
+                unique_symbols[key] = symbol
+        
+        return list(unique_symbols.values())
+    
+    def _create_vector_symbolic_element(self, 
+                                      symbol_data: Dict[str, Any], 
+                                      dream_text: str,
+                                      cultural_context: List[str]) -> VectorSymbolicElement:
+        """Create enhanced vector symbolic element"""
+        symbol = symbol_data['symbol']
+        
+        # Create context for VSA encoding
+        context = {
+            'archetypal_features': {symbol_data.get('archetype', 'unknown'): symbol_data.get('weight', 0.5)},
+            'cultural_context': {culture: 1.0 for culture in cultural_context}
+        }
+        
+        # Encode symbol with VSA
+        vector_embedding = self.vsa.encode_symbol(symbol, context)
+        
+        # Calculate archetypal coordinates
+        archetypal_coordinates = self._calculate_archetypal_coordinates(symbol_data)
+        
+        # Calculate cultural context vector
+        cultural_context_vector = self._calculate_cultural_context(symbol_data, cultural_context)
+        
+        # Calculate personal resonance (placeholder - would be learned)
+        personal_resonance = self._calculate_personal_resonance(symbol, dream_text)
+        
+        # Generate frequency signature
+        frequency_signature = self._generate_frequency_signature(symbol, dream_text)
+        
+        # Calculate transformation potential
+        transformation_potential = self._calculate_transformation_potential(symbol, dream_text)
+        
+        return VectorSymbolicElement(
+            symbol=symbol,
+            vector_embedding=vector_embedding,
+            semantic_field=self._generate_semantic_field(symbol),
+            archetypal_coordinates=archetypal_coordinates,
+            cultural_context=cultural_context_vector,
+            personal_resonance=personal_resonance,
+            frequency_signature=frequency_signature,
+            transformation_potential=transformation_potential,
+            meaning=symbol_data.get('meaning', ''),
+            confidence=symbol_data.get('weight', 0.5),
+            symbol_type=self._determine_symbol_type(symbol_data)
+        )
+    
+    def _calculate_archetypal_coordinates(self, symbol_data: Dict[str, Any]) -> np.ndarray:
+        """Calculate archetypal coordinate vector"""
+        coordinates = np.zeros(len(self.vsa.archetypal_basis))
+        
+        archetype = symbol_data.get('archetype', 'unknown')
+        weight = symbol_data.get('weight', 0.5)
+        
+        if archetype in self.vsa.archetypal_basis:
+            archetype_index = list(self.vsa.archetypal_basis.keys()).index(archetype)
+            coordinates[archetype_index] = weight
+        
+        return coordinates
+    
+    def _calculate_cultural_context(self, 
+                                  symbol_data: Dict[str, Any], 
+                                  cultural_context: List[str]) -> Dict[str, float]:
+        """Calculate cultural context weights"""
+        context_weights = {}
+        
+        for culture in cultural_context:
+            if culture in self.cultural_mappings:
+                if symbol_data['symbol'] in self.cultural_mappings[culture]:
+                    context_weights[culture] = self.cultural_mappings[culture][symbol_data['symbol']]['weight']
+                else:
+                    context_weights[culture] = 0.3  # Default cultural influence
+            else:
+                context_weights[culture] = 0.1
+        
+        return context_weights
+    
+    def _calculate_personal_resonance(self, symbol: str, dream_text: str) -> float:
+        """Calculate personal resonance of symbol"""
+        # Count frequency in text
+        frequency = dream_text.lower().count(symbol.lower())
+        
+        # Check for emotional context
+        emotional_indicators = ['feel', 'felt', 'emotion', 'love', 'fear', 'joy', 'sad']
+        emotional_context = sum(1 for indicator in emotional_indicators 
+                              if indicator in dream_text.lower())
+        
+        # Calculate resonance
+        base_resonance = min(frequency / 10.0, 1.0)
+        emotional_boost = min(emotional_context / 5.0, 0.5)
+        
+        return min(base_resonance + emotional_boost, 1.0)
+    
+    def _generate_frequency_signature(self, symbol: str, dream_text: str) -> np.ndarray:
+        """Generate frequency signature for symbol occurrence patterns"""
+        # Simple frequency analysis - in practice would be more sophisticated
+        text_length = len(dream_text.split())
+        occurrences = dream_text.lower().count(symbol.lower())
+        
+        # Create 5-dimensional frequency signature
+        signature = np.array([
+            occurrences / max(text_length, 1),  # Raw frequency
+            min(occurrences, 5) / 5.0,         # Capped frequency
+            1.0 if occurrences > 1 else 0.5,   # Repetition indicator
+            len(symbol) / 20.0,                # Symbol complexity
+            random.random() * 0.2              # Noise component
+        ])
+        
+        return signature
+    
+    def _calculate_transformation_potential(self, symbol: str, dream_text: str) -> Dict[str, float]:
+        """Calculate transformation potential for each deterritorialization vector"""
+        potential = {}
+        
+        for vector_name, vector_data in self.deterritorializiation_vectors.items():
+            # Check for trigger words in context
+            trigger_matches = sum(1 for trigger in vector_data['triggers'] 
+                                if trigger in dream_text.lower())
+            
+            # Calculate potential based on matches and symbol resonance
+            base_potential = trigger_matches / len(vector_data['triggers'])
+            
+            # Symbol-specific adjustments
+            if symbol.lower() in vector_data['triggers']:
+                base_potential += 0.3
+            
+            potential[vector_name] = min(base_potential, 1.0)
+        
+        return potential
+    
+    def _generate_semantic_field(self, symbol: str) -> Dict[str, float]:
+        """Generate semantic field associations for symbol"""
+        semantic_field = {}
+        
+        # Use WordNet for semantic associations
+        try:
+            synsets = wn.synsets(symbol)
+            if synsets:
+                # Get hypernyms, hyponyms, and similar words
+                for synset in synsets[:2]:  # Limit to first 2 synsets
+                    # Hypernyms (broader categories)
+                    for hypernym in synset.hypernyms():
+                        for lemma in hypernym.lemmas():
+                            semantic_field[lemma.name()] = 0.7
+                    
+                    # Hyponyms (specific instances)
+                    for hyponym in synset.hyponyms():
+                        for lemma in hyponym.lemmas():
+                            semantic_field[lemma.name()] = 0.6
+                    
+                    # Similar words
+                    for similar in synset.similar_tos():
+                        for lemma in similar.lemmas():
+                            semantic_field[lemma.name()] = 0.8
+        except:
+            pass
+        
+        return semantic_field
+    
+    def _determine_symbol_type(self, symbol_data: Dict[str, Any]) -> SymbolType:
+        """Determine the type of symbol based on characteristics"""
+        if 'archetype' in symbol_data and symbol_data['archetype'] != 'unknown':
+            return SymbolType.ARCHETYPAL
+        elif 'culture' in symbol_data:
+            return SymbolType.CULTURAL
+        elif symbol_data.get('extraction_method') == 'semantic_analysis':
+            return SymbolType.UNIVERSAL
+        else:
+            return SymbolType.PERSONAL
+    
+    def _create_enhanced_symbolic_connections(self, 
+                                            elements: List[VectorSymbolicElement]) -> List[Dict[str, Any]]:
+        """Create enhanced symbolic connections using multiple methods"""
+        connections = []
+        
+        for i, elem1 in enumerate(elements):
+            for j, elem2 in enumerate(elements[i+1:], i+1):
+                # Multiple connection methods
+                connection_strength = 0.0
+                connection_types = []
+                
+                # Vector similarity
+                vector_similarity = self.vsa.calculate_similarity(
+                    elem1.vector_embedding, elem2.vector_embedding
+                )
+                if vector_similarity > 0.6:
+                    connection_strength += vector_similarity * 0.3
+                    connection_types.append(ConnectionType.SEMANTIC)
+                
+                # Archetypal connections
+                archetypal_similarity = np.dot(elem1.archetypal_coordinates, elem2.archetypal_coordinates)
+                if archetypal_similarity > 0.5:
+                    connection_strength += archetypal_similarity * 0.25
+                    connection_types.append(ConnectionType.ARCHETYPAL)
+                
+                # Cultural connections
+                cultural_overlap = set(elem1.cultural_context.keys()) & set(elem2.cultural_context.keys())
+                if cultural_overlap:
+                    cultural_strength = np.mean([
+                        min(elem1.cultural_context[culture], elem2.cultural_context[culture])
+                        for culture in cultural_overlap
+                    ])
+                    connection_strength += cultural_strength * 0.2
+                    connection_types.append(ConnectionType.CULTURAL)
+                
+                # Transformation potential connections
+                transformation_overlap = set(elem1.transformation_potential.keys()) & set(elem2.transformation_potential.keys())
+                if transformation_overlap:
+                    transform_strength = np.mean([
+                        min(elem1.transformation_potential[vector], elem2.transformation_potential[vector])
+                        for vector in transformation_overlap
+                        if elem1.transformation_potential[vector] > 0.3 and elem2.transformation_potential[vector] > 0.3
+                    ]) if transformation_overlap else 0.0
+                    
+                    if transform_strength > 0.3:
+                        connection_strength += transform_strength * 0.25
+                        connection_types.append(ConnectionType.TRANSFORMATIONAL)
+                
+                # Semantic field connections
+                semantic_overlap = set(elem1.semantic_field.keys()) & set(elem2.semantic_field.keys())
+                if semantic_overlap:
+                    semantic_strength = np.mean([
+                        min(elem1.semantic_field[word], elem2.semantic_field[word])
+                        for word in semantic_overlap
+                    ])
+                    connection_strength += semantic_strength * 0.2
+                    connection_types.append(ConnectionType.ASSOCIATIVE)
+                
+                # Create connection if strong enough
+                if connection_strength > 0.4 and connection_types:
+                    connections.append({
+                        "symbol1": elem1.symbol,
+                        "symbol2": elem2.symbol,
+                        "strength": connection_strength,
+                        "types": [conn_type.value for conn_type in connection_types],
+                        "vector_similarity": vector_similarity,
+                        "archetypal_similarity": archetypal_similarity,
+                        "cultural_overlap": list(cultural_overlap),
+                        "transformation_overlap": list(transformation_overlap)
+                    })
+        
+        return connections
+    
+    def _analyze_deterritorialization_vectors(self, 
+                                            elements: List[VectorSymbolicElement],
+                                            dream_text: str) -> Dict[str, Any]:
+        """Analyze deterritorialization transformation vectors"""
+        vector_analysis = {}
+        
+        for vector_name, vector_data in self.deterritorializiation_vectors.items():
+            # Calculate vector activation strength
+            trigger_count = sum(1 for trigger in vector_data['triggers'] 
+                              if trigger in dream_text.lower())
+            
+            symbol_activation = sum(elem.transformation_potential.get(vector_name, 0) 
+                                  for elem in elements)
+            
+            # Overall activation
+            activation_strength = (trigger_count / len(vector_data['triggers']) + 
+                                 symbol_activation / len(elements)) / 2
+            
+            # Identify participating symbols
+            participating_symbols = [elem.symbol for elem in elements 
+                                   if elem.transformation_potential.get(vector_name, 0) > 0.3]
+            
+            vector_analysis[vector_name] = {
+                "activation_strength": activation_strength,
+                "trigger_matches": trigger_count,
+                "participating_symbols": participating_symbols,
+                "transformation_types": vector_data['transformations'],
+                "vector_field": vector_data['vector_field'].tolist()
+            }
+        
+        return vector_analysis
+    
+    def _generate_transformation_scenarios(self, 
+                                         elements: List[VectorSymbolicElement],
+                                         patterns: List[SymbolicPattern],
+                                         deterritorialization_analysis: Dict[str, Any]) -> List[Dict[str, Any]]:
+        """Generate detailed transformation scenarios"""
+        scenarios = []
+        
+        # High activation vectors
+        active_vectors = {name: data for name, data in deterritorialization_analysis.items() 
+                         if data['activation_strength'] > 0.4}
+        
+        for vector_name, vector_data in active_vectors.items():
+            if vector_data['participating_symbols']:
+                scenario = {
+                    "vector": vector_name,
+                    "activation_strength": vector_data['activation_strength'],
+                    "participating_symbols": vector_data['participating_symbols'],
+                    "transformation_narrative": self._generate_transformation_narrative(
+                        vector_name, vector_data, elements
+                    ),
+                    "pattern_integration": self._analyze_pattern_transformation_integration(
+                        vector_name, patterns
+                    ),
+                    "field_effects": self._calculate_transformation_field_effects(
+                        vector_name, vector_data['vector_field']
+                    )
+                }
+                scenarios.append(scenario)
+        
+        return scenarios
+    
+    def _generate_transformation_narrative(self, 
+                                         vector_name: str,
+                                         vector_data: Dict[str, Any],
+                                         elements: List[VectorSymbolicElement]) -> str:
+        """Generate narrative description of transformation"""
+        participating_symbols = vector_data['participating_symbols']
+        transformation_types = vector_data['transformation_types']
+        
+        if not participating_symbols:
+            return f"Potential for {vector_name.replace('_', ' ')} transformation detected."
+        
+        primary_symbol = participating_symbols[0]
+        primary_transformation = transformation_types[0] if transformation_types else "consciousness shift"
+        
+        narrative_templates = {
+            "becoming_animal": f"The {primary_symbol} triggers an {primary_transformation}, where human consciousness begins to merge with animal awareness.",
+            "becoming_plant": f"Through the {primary_symbol}, awareness slows and deepens into {primary_transformation}, connecting with plant-time rhythms.",
+            "becoming_mineral": f"The {primary_symbol} initiates {primary_transformation}, where consciousness crystallizes into geological patience.",
+            "becoming_machine": f"Via the {primary_symbol}, awareness shifts into {primary_transformation}, adopting computational logic patterns.",
+            "becoming_cosmic": f"The {primary_symbol} opens {primary_transformation}, expanding awareness to cosmic scales.",
+            "multiplicity": f"The {primary_symbol} catalyzes {primary_transformation}, fragmenting singular perspective into multiple viewpoints.",
+            "nomadism": f"Through the {primary_symbol}, {primary_transformation} emerges, dissolving fixed spatial boundaries."
+        }
+        
+        base_narrative = narrative_templates.get(vector_name, 
+                                               f"The {primary_symbol} initiates {primary_transformation}.")
+        
+        # Add additional participating symbols if present
+        if len(participating_symbols) > 1:
+            additional_symbols = ", ".join(participating_symbols[1:3])
+            base_narrative += f" The transformation is amplified by {additional_symbols}, creating a complex deterritorialization field."
+        
+        return base_narrative
+    
+    def _analyze_pattern_transformation_integration(self, 
+                                                  vector_name: str,
+                                                  patterns: List[SymbolicPattern]) -> Dict[str, float]:
+        """Analyze how patterns integrate with transformation vectors"""
+        integration_scores = {}
+        
+        for pattern in patterns:
+            # Check if transformation vector aligns with pattern elements
+            vector_triggers = set(self.deterritorializiation_vectors[vector_name]['triggers'])
+            pattern_elements = set(element.lower() for element in pattern.elements)
+            
+            overlap = vector_triggers & pattern_elements
+            if overlap:
+                integration_score = len(overlap) / len(vector_triggers)
+                integration_scores[pattern.pattern_id] = integration_score
+        
+        return integration_scores
+    
+    def _calculate_transformation_field_effects(self, 
+                                              vector_name: str,
+                                              vector_field: List[float]) -> Dict[str, float]:
+        """Calculate field effects of transformation"""
+        return {
+            "coherence_impact": vector_field[0],
+            "entropy_generation": vector_field[1], 
+            "temporal_distortion": vector_field[2],
+            "spatial_fluidity": vector_field[3],
+            "consciousness_expansion": vector_field[4]
+        }
+    
+    def _calculate_field_coherence(self, 
+                                 elements: List[VectorSymbolicElement],
+                                 patterns: List[SymbolicPattern]) -> Dict[str, float]:
+        """Calculate overall field coherence metrics"""
+        if not elements:
+            return {"overall_coherence": 0.0}
+        
+        # Symbol coherence
+        symbol_coherence = np.mean([elem.confidence for elem in elements])
+        
+        # Pattern coherence
+        pattern_coherence = np.mean([pattern.coherence_score for pattern in patterns]) if patterns else 0.0
+        
+        # Network coherence
+        network_coherence = self._calculate_network_coherence(elements)
+        
+        # Archetypal coherence
+        archetypal_coherence = self._calculate_archetypal_coherence(elements)
+        
+        # Overall coherence
+        overall_coherence = (symbol_coherence + pattern_coherence + 
+                           network_coherence + archetypal_coherence) / 4
+        
+        return {
+            "overall_coherence": overall_coherence,
+            "symbol_coherence": symbol_coherence,
+            "pattern_coherence": pattern_coherence,
+            "network_coherence": network_coherence,
+            "archetypal_coherence": archetypal_coherence,
+            "entropy_measure": 1.0 - overall_coherence,
+            "complexity_measure": len(elements) * len(patterns) if patterns else len(elements)
+        }
+    
+    def _calculate_network_coherence(self, elements: List[VectorSymbolicElement]) -> float:
+        """Calculate coherence of symbolic network"""
+        if len(elements) < 2:
+            return 1.0
+        
+        # Calculate pairwise similarities
+        similarities = []
+        for i, elem1 in enumerate(elements):
+            for elem2 in elements[i+1:]:
+                similarity = self.vsa.calculate_similarity(
+                    elem1.vector_embedding, elem2.vector_embedding
+                )
+                similarities.append(similarity)
+        
+        return np.mean(similarities) if similarities else 0.0
+    
+    def _calculate_archetypal_coherence(self, elements: List[VectorSymbolicElement]) -> float:
+        """Calculate archetypal coherence of symbol set"""
+        if not elements:
+            return 0.0
+        
+        # Count archetypal activations
+        archetypal_activations = defaultdict(float)
+        for elem in elements:
+            for i, activation in enumerate(elem.archetypal_coordinates):
+                if activation > 0.3:
+                    archetype_name = list(self.vsa.archetypal_basis.keys())[i]
+                    archetypal_activations[archetype_name] += activation
+        
+        if not archetypal_activations:
+            return 0.0
+        
+        # Calculate coherence based on archetypal distribution
+        total_activation = sum(archetypal_activations.values())
+        if total_activation == 0:
+            return 0.0
+        
+        # Normalize and calculate entropy-based coherence
+        normalized_activations = [activation / total_activation 
+                                for activation in archetypal_activations.values()]
+        
+        entropy = -sum(p * np.log(p + 1e-10) for p in normalized_activations if p > 0)
+        max_entropy = np.log(len(archetypal_activations))
+        
+        return 1.0 - (entropy / max_entropy) if max_entropy > 0 else 0.0
+    
+    def _generate_neuro_symbolic_insights(self, 
+                                        elements: List[VectorSymbolicElement],
+                                        patterns: List[SymbolicPattern]) -> Dict[str, Any]:
+        """Generate insights from neuro-symbolic analysis"""
+        insights = {
+            "dominant_archetypes": self._identify_dominant_archetypes(elements),
+            "pattern_complexity": self._analyze_pattern_complexity(patterns),
+            "transformation_readiness": self._assess_transformation_readiness(elements),
+            "symbolic_density": len(elements),
+            "pattern_emergence": len([p for p in patterns if p.emergence_probability > 0.7]),
+            "cultural_influence": self._analyze_cultural_influence(elements),
+            "personal_resonance_strength": np.mean([elem.personal_resonance for elem in elements])
+        }
+        
+        return insights
+    
+    def _identify_dominant_archetypes(self, elements: List[VectorSymbolicElement]) -> List[str]:
+        """Identify dominant archetypal themes"""
+        archetypal_strengths = defaultdict(float)
+        
+        for elem in elements:
+            for i, strength in enumerate(elem.archetypal_coordinates):
+                if strength > 0.3:
+                    archetype = list(self.vsa.archetypal_basis.keys())[i]
+                    archetypal_strengths[archetype] += strength
+        
+        # Sort by strength and return top 3
+        sorted_archetypes = sorted(archetypal_strengths.items(), 
+                                 key=lambda x: x[1], reverse=True)
+        
+        return [archetype for archetype, strength in sorted_archetypes[:3] if strength > 0.5]
+    
+    def _analyze_pattern_complexity(self, patterns: List[SymbolicPattern]) -> Dict[str, float]:
+        """Analyze complexity of discovered patterns"""
+        if not patterns:
+            return {"average_complexity": 0.0, "max_complexity": 0.0, "pattern_diversity": 0.0}
+        
+        complexities = [pattern.complexity_measure for pattern in patterns]
+        pattern_types = set(pattern.pattern_type for pattern in patterns)
+        
+        return {
+            "average_complexity": np.mean(complexities),
+            "max_complexity": max(complexities),
+            "pattern_diversity": len(pattern_types) / len(PatternType)
+        }
+    
+    def _assess_transformation_readiness(self, elements: List[VectorSymbolicElement]) -> Dict[str, float]:
+        """Assess readiness for various transformations"""
+        readiness = {}
+        
+        for vector_name in self.deterritorializiation_vectors.keys():
+            vector_potential = [elem.transformation_potential.get(vector_name, 0) 
+                              for elem in elements]
+            readiness[vector_name] = np.mean(vector_potential) if vector_potential else 0.0
+        
+        return readiness
+    
+    def _analyze_cultural_influence(self, elements: List[VectorSymbolicElement]) -> Dict[str, float]:
+        """Analyze cultural influence distribution"""
+        cultural_weights = defaultdict(float)
+        
+        for elem in elements:
+            for culture, weight in elem.cultural_context.items():
+                cultural_weights[culture] += weight
+        
+        # Normalize
+        total_weight = sum(cultural_weights.values())
+        if total_weight > 0:
+            cultural_weights = {culture: weight / total_weight 
+                              for culture, weight in cultural_weights.items()}
+        
+        return dict(cultural_weights)
+    
+    def _calculate_dream_complexity(self, 
+                                  elements: List[VectorSymbolicElement],
+                                  patterns: List[SymbolicPattern]) -> float:
+        """Calculate overall dream complexity measure"""
+        if not elements:
+            return 0.0
+        
+        # Symbol complexity
+        symbol_complexity = len(elements) / 20.0  # Normalized to ~20 symbols max
+        
+        # Pattern complexity
+        pattern_complexity = len(patterns) / 10.0  # Normalized to ~10 patterns max
+        
+        # Connection density
+        total_possible_connections = len(elements) * (len(elements) - 1) / 2
+        actual_connections = sum(len(elem.connections) for elem in elements) / 2
+        connection_density = actual_connections / max(total_possible_connections, 1)
+        
+        # Archetypal diversity
+        unique_archetypes = set()
+        for elem in elements:
+            for i, activation in enumerate(elem.archetypal_coordinates):
+                if activation > 0.3:
+                    unique_archetypes.add(i)
+        archetypal_diversity = len(unique_archetypes) / len(self.vsa.archetypal_basis)
+        
+        # Overall complexity
+        complexity = (symbol_complexity + pattern_complexity + 
+                     connection_density + archetypal_diversity) / 4
+        
+        return min(complexity, 1.0)
+    
+    # Helper methods for converting to dictionaries
+    def _element_to_dict(self, element: VectorSymbolicElement) -> Dict[str, Any]:
+        """Convert VectorSymbolicElement to dictionary"""
+        return {
+            "symbol": element.symbol,
+            "meaning": element.meaning,
+            "confidence": element.confidence,
+            "symbol_type": element.symbol_type.value,
+            "personal_resonance": element.personal_resonance,
+            "archetypal_coordinates": element.archetypal_coordinates.tolist(),
+            "cultural_context": element.cultural_context,
+            "transformation_potential": element.transformation_potential,
+            "semantic_field": dict(list(element.semantic_field.items())[:5])  # Limit for display
+        }
+    
+    def _pattern_to_dict(self, pattern: SymbolicPattern) -> Dict[str, Any]:
+        """Convert SymbolicPattern to dictionary"""
+        return {
+            "pattern_id": pattern.pattern_id,
+            "pattern_type": pattern.pattern_type.value,
+            "elements": pattern.elements,
+            "coherence_score": pattern.coherence_score,
+            "emergence_probability": pattern.emergence_probability,
+            "complexity_measure": pattern.complexity_measure,
+            "archetypal_basis": pattern.archetypal_basis,
+            "temporal_signature": pattern.temporal_signature.tolist()
+        }
+
+# Example usage and testing
+if __name__ == "__main__":
+    # Initialize enhanced mapper
+    mapper = EnhancedSymbolicDreamMapper()
+    
+    # Example dream text
+    dream_text = """
+    I was in a vast forest, walking along a winding path. Suddenly, a white owl appeared 
+    on a branch above me, its eyes glowing with ancient wisdom. The owl spoke without 
+    words, showing me visions of a golden key hidden beneath the roots of an enormous tree. 
+    As I dug with my hands, the earth transformed into water, and I found myself swimming 
+    in an ocean of stars. My body began to dissolve and multiply, becoming a school of 
+    luminous fish swimming through cosmic currents. Time moved differently here - 
+    I experienced lifetimes in moments, seeing the birth and death of galaxies.
+    """
+    
+    # Analyze with multiple cultural contexts
+    cultural_contexts = [["western", "shamanic"], ["eastern"], ["indigenous"]]
+    
+    for i, context in enumerate(cultural_contexts):
+        print(f"\n{'='*60}")
+        print(f"ANALYSIS {i+1}: Cultural Context - {', '.join(context)}")
+        print(f"{'='*60}")
+        
+        result = mapper.analyze_dream_text(dream_text, context)
+        
+        if "error" in result:
+            print(f"Error: {result['error']}")
+            continue
+        
+        print(f"\nSYMBOLS DETECTED: {len(result['symbols'])}")
+        for symbol in result['symbols'][:5]:  # Show first 5
+            print(f"- {symbol['symbol']}: {symbol['meaning']} "
+                  f"(type: {symbol['symbol_type']}, confidence: {symbol['confidence']:.2f})")
+        
+        print(f"\nPATTERNS DISCOVERED: {len(result['patterns'])}")
+        for pattern in result['patterns'][:3]:  # Show first 3
+            print(f"- {pattern['pattern_id']} ({pattern['pattern_type']}): "
+                  f"coherence {pattern['coherence_score']:.2f}")
+        
+        print(f"\nTRANSFORMATION VECTORS:")
+        for vector, data in result['deterritorialization_vectors'].items():
+            if data['activation_strength'] > 0.3:
+                print(f"- {vector}: {data['activation_strength']:.2f} activation")
+        
+        print(f"\nFIELD COHERENCE:")
+        coherence = result['field_coherence']
+        print(f"- Overall: {coherence['overall_coherence']:.2f}")
+        print(f"- Complexity: {coherence['complexity_measure']:.2f}")
+        
+        print(f"\nNEURO-SYMBOLIC INSIGHTS:")
+        insights = result['neuro_symbolic_insights']
+        print(f"- Dominant archetypes: {', '.join(insights['dominant_archetypes'])}")
+        print(f"- Transformation readiness: High vectors - {[v for v, r in insights['transformation_readiness'].items() if r > 0.5]}")
