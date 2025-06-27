@@ -1,5 +1,5 @@
 // MythogenesisAnimator.kt
-package com.consciousness.amelia.phase5
+package com.antonio.my.ai.girlfriend.free.consciousness.amelia.phase5
 
 import androidx.compose.animation.core.*
 import androidx.compose.runtime.*
