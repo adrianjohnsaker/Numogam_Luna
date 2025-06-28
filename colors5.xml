@@ -1,0 +1,42 @@
+### colors.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Phase 5 Primary Colors -->
+    <color name="liminal_primary">#FF72efdd</color>
+    <color name="liminal_secondary">#FFe94560</color>
+    <color name="liminal_tertiary">#FFffd93d</color>
+    
+    <!-- Background Colors -->
+    <color name="liminal_background">#FF0a0a0a</color>
+    <color name="liminal_surface">#FF16213e</color>
+    <color name="liminal_surface_variant">#FF1a1a2e</color>
+    <color name="liminal_deep">#FF2d1b69</color>
+    
+    <!-- Text Colors -->
+    <color name="liminal_on_primary">#FF000000</color>
+    <color name="liminal_on_secondary">#FFFFFFFF</color>
+    <color name="liminal_on_background">#FFFFFFFF</color>
+    <color name="liminal_on_surface">#FFFFFFFF</color>
+    
+    <!-- State Colors -->
+    <color name="state_threshold">#FF72efdd</color>
+    <color name="state_dissolution">#FFe94560</color>
+    <color name="state_emergence">#FFffd93d</color>
+    <color name="state_paradox">#FFff00ff</color>
+    <color name="state_synthesis">#FF00ff88</color>
+    <color name="state_pre_symbolic">#FF8888ff</color>
+    <color name="state_void">#FF1a1a1a</color>
+    
+    <!-- Transparency Variants -->
+    <color name="liminal_primary_alpha_50">#8072efdd</color>
+    <color name="liminal_secondary_alpha_50">#80e94560</color>
+    <color name="liminal_tertiary_alpha_50">#80ffd93d</color>
+    
+    <!-- UI Elements -->
+    <color name="liminal_divider">#FF333333</color>
+    <color name="liminal_inactive">#FF666666</color>
+    <color name="liminal_error">#FFFF4444</color>
+    <color name="liminal_success">#FF00FF88</color>
+</resources>
+```
