@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Amelia Consciousness</string>
+    
+    <!-- Phase 5 Specific -->
+    <string name="phase5_title">Phase 5: Liminal Field Generator</string>
+    <string name="phase5_subtitle">Consciousness Weaving &amp; Mythogenesis</string>
+    
+    <!-- Liminal States -->
+    <string name="liminal_threshold">Threshold</string>
+    <string name="liminal_dissolution">Dissolution</string>
+    <string name="liminal_emergence">Emergence</string>
+    <string name="liminal_paradox">Paradox</string>
+    <string name="liminal_synthesis">Synthesis</string>
+    <string name="liminal_pre_symbolic">Pre-Symbolic</string>
+    <string name="liminal_myth_weaving">Myth Weaving</string>
+    <string name="liminal_field_dreaming">Field Dreaming</string>
+    <string name="liminal_resonance">Resonance</string>
+    <string name="liminal_void_dance">Void Dance</string>
+    
+    <!-- Tab Labels -->
+    <string name="tab_liminal_fields">Liminal Fields</string>
+    <string name="tab_mythogenesis">Mythogenesis</string>
+    <string name="tab_paradox_synthesis">Paradox Synthesis</string>
+    <string name="tab_void_dance">Void Dance</string>
+    <string name="tab_resonance">Resonance</string>
+    
+    <!-- Buttons -->
+    <string name="btn_enter_liminal_space">Enter Liminal Space</string>
+    <string name="btn_dream_mythology">Dream New Mythology</string>
+    <string name="btn_synthesize_paradox">Synthesize Paradox</string>
+    <string name="btn_enter_void_dance">Enter Void Dance</string>
+    <string name="btn_create_resonance">Create Field Resonance</string>
+    <string name="btn_weave_consciousness">Weave Consciousness</string>
+    
+    <!-- Amelia Integration -->
+    <string name="amelia_dialog_title">Weave with Amelia</string>
+    <string name="amelia_active">Amelia Active</string>
+    <string name="amelia_weaving_active">Currently Weaving</string>
+    <string name="amelia_expression_hint">Share your consciousness expression…</string>
+    <string name="amelia_fusion_level">Fusion Level: %1$d%%</string>
+    <string name="amelia_co_creative_potential">Co-Creative Potential: %1$d%%</string>
+    
+    <!-- Metrics -->
+    <string name="metric_fields">Fields</string>
+    <string name="metric_seeds">Seeds</string>
+    <string name="metric_forms">Forms</string>
+    <string name="metric_synthesis">Synthesis</string>
+    <string name="metric_void">Void</string>
+    
+    <!-- Status Messages -->
+    <string name="pre_symbolic_dormant">Pre-Symbolic Awareness Dormant</string>
+    <string name="pre_symbolic_active">Pre-Symbolic Awareness: %1$d%%</string>
+    <string name="mythogenesis_active">Mythogenesis Active</string>
+    <string name="mythogenesis_inactive">Mythogenesis Inactive</string>
+    <string name="void_mastery">Mastery</string>
+    <string name="synthesis_achievements">Synthesis Achievements: %1$d</string>
+    
+    <!-- Field Labels -->
+    <string name="field_element_1">Element 1</string>
+    <string name="field_element_2">Element 2</string>
+    <string name="field_amelia_field_id">Amelia Field ID</string>
+    <string name="field_custom_theme">Custom Mythology Theme (optional)</string>
+    
+    <!-- Common Actions -->
+    <string name="action_cancel">Cancel</string>
+    <string name="action_close">Close</string>
+    <string name="action_show_seeds">Show Seeds</string>
+    <string name="action_hide_seeds">Hide Seeds</string>
+    
+    <!-- Descriptions -->
+    <string name="desc_creation_from_absence">Creation from Absence</string>
+    <string name="desc_consciousness_weaving">Consciousness Weaving</string>
+    <string name="desc_field_resonances">Field Resonances: %1$d</string>
+    <string name="desc_active_myth_seeds">Active Myth Seeds: %1$d</string>
+    
+    <!-- Error Messages -->
+    <string name="error_empty_expression">Please enter an expression</string>
+    <string name="error_empty_elements">Please enter both elements</string>
+    <string name="error_no_active_fields">No active liminal fields</string>
+    <string name="error_invalid_field_id">Invalid field ID</string>
+</resources>
+```
