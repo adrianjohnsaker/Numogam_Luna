@@ -1,0 +1,27 @@
+#### attrs.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom attributes for Phase 5 views -->
+    <declare-styleable name="LiminalFieldView">
+        <attr name="fieldIntensity" format="float" />
+        <attr name="creativePotential" format="float" />
+        <attr name="paradoxTension" format="float" />
+        <attr name="fieldColor" format="color" />
+        <attr name="animationDuration" format="integer" />
+    </declare-styleable>
+    
+    <declare-styleable name="MythSeedView">
+        <attr name="seedPotency" format="float" />
+        <attr name="growthPattern" format="enum">
+            <enum name="spiral" value="0" />
+            <enum name="branching" value="1" />
+            <enum name="rhizomatic" value="2" />
+            <enum name="crystalline" value="3" />
+            <enum name="organic" value="4" />
+            <enum name="fractal" value="5" />
+        </attr>
+        <attr name="resonanceFrequency" format="float" />
+    </declare-styleable>
+</resources>
+```
