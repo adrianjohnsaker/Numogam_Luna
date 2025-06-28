@@ -1,0 +1,62 @@
+### themes.xml
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Phase 5 Theme -->
+    <style name="Theme.AmeliaPhase5" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/liminal_primary</item>
+        <item name="colorPrimaryVariant">@color/liminal_primary</item>
+        <item name="colorOnPrimary">@color/liminal_on_primary</item>
+        
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/liminal_secondary</item>
+        <item name="colorSecondaryVariant">@color/liminal_secondary</item>
+        <item name="colorOnSecondary">@color/liminal_on_secondary</item>
+        
+        <!-- Background colors -->
+        <item name="android:colorBackground">@color/liminal_background</item>
+        <item name="colorOnBackground">@color/liminal_on_background</item>
+        
+        <!-- Surface colors -->
+        <item name="colorSurface">@color/liminal_surface</item>
+        <item name="colorOnSurface">@color/liminal_on_surface</item>
+        
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/liminal_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+        
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">@color/liminal_background</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        
+        <!-- Window background -->
+        <item name="android:windowBackground">@color/liminal_background</item>
+        
+        <!-- Typography -->
+        <item name="android:fontFamily">@font/space_grotesk</item>
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Phase5.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Phase5.Headline2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Phase5.Body1</item>
+    </style>
+    
+    <!-- Text Appearances -->
+    <style name="TextAppearance.Phase5.Headline1" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:textColor">@color/liminal_primary</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:fontFamily">@font/space_grotesk_bold</item>
+    </style>
+    
+    <style name="TextAppearance.Phase5.Headline2" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textColor">@color/liminal_on_surface</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">@font/space_grotesk_medium</item>
+    </style>
+    
+    <style name="TextAppearance.Phase5.Body1" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">@color/liminal_on_surface</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/space_grotesk_regular</item>
+    </style>
+</resources>
+```
