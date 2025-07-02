@@ -1,0 +1,14 @@
+<resources>
+    <color name="black">#000000</color>
+    <color name="deep_black">#0A0A0F</color>
+    <color name="midnight_blue">#1A1A2E</color>
+
+    <color name="drift_purple">#6C63FF</color>
+    <color name="logic_red">#FF6B6B</color>
+    <color name="myth_gold">#FFD700</color>
+
+    <color name="paradox_orange">#FF9800</color>
+    <color name="resonance_blue">#2196F3</color>
+    <color name="growth_green">#4CAF50</color>
+    <color name="void_purple">#9C27B0</color>
+</resources>h
