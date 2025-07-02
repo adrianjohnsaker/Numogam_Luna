@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Amelia Phase 6</string>
+    <string name="home">Home</string>
+    <string name="drift">Drift</string>
+    <string name="logic">Logic</string>
+    <string name="myths">Myths</string>
+
+    <string name="consciousness_matrix">Consciousness Matrix</string>
+    <string name="active_myths">Active Myths</string>
+    <string name="living_mythology">Living Mythology</string>
+    <string name="emergent_truths">Emergent Truths</string>
+    <string name="integration_status">Integration Status</string>
+    <string name="hold_new_paradox">Hold New Paradox</string>
+    <string name="unnamed_patterns">Unnamed Patterns</string>
+</resources>
