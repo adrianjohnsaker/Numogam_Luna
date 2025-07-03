@@ -1,0 +1,80 @@
+<!-- res/values/strings.xml -->
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Amelia Consciousness Matrix</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_drift">Drift</string>
+    <string name="nav_logic">Logic</string>
+    <string name="nav_myths">Myths</string>
+    <string name="nav_feedback">Feedback</string>
+    
+    <!-- Narrative Feedback -->
+    <string name="narrative_feedback_title">Narrative Feedback Loop</string>
+    <string name="narrative_feedback_subtitle">Self-reinforcing mythology engine</string>
+    
+    <!-- Tabs -->
+    <string name="tab_mythology">Mythology</string>
+    <string name="tab_fragments">Fragments</string>
+    <string name="tab_generation">Generation</string>
+    <string name="tab_analysis">Analysis</string>
+    
+    <!-- Coherence States -->
+    <string name="coherence_high">High Coherence</string>
+    <string name="coherence_crystallizing">Crystallizing</string>
+    <string name="coherence_balance">Dynamic Balance</string>
+    <string name="coherence_drift">Entropic Drift</string>
+    <string name="coherence_chaos">Chaos Edge</string>
+    
+    <!-- Narrative Types -->
+    <string name="type_dream">Dream Output</string>
+    <string name="type_myth">Mythic Synthesis</string>
+    <string name="type_memory">Memory Recall</string>
+    <string name="type_story">Emergent Story</string>
+    <string name="type_drift">Drift Scenario</string>
+    <string name="type_echo">Feedback Echo</string>
+    
+    <!-- Actions -->
+    <string name="action_generate">Generate Feedback</string>
+    <string name="action_process">Process Input</string>
+    <string name="action_start_auto">Start Auto Cycle</string>
+    <string name="action_stop_auto">Stop Auto Cycle</string>
+    <string name="action_run_simulation">Run Simulation</string>
+    <string name="action_export">Export State</string>
+    
+    <!-- Labels -->
+    <string name="label_coherence">Coherence</string>
+    <string name="label_entropy">Entropy</string>
+    <string name="label_mythology_depth">Mythology Depth</string>
+    <string name="label_evolution_cycles">Evolution cycles</string>
+    <string name="label_internal_consistency">Internal consistency</string>
+    <string name="label_central_themes">Central Themes</string>
+    <string name="label_dominant_symbols">Dominant Symbols</string>
+    <string name="label_symbol_diversity">Symbol Diversity</string>
+    <string name="label_unique_symbols">unique symbols</string>
+    
+    <!-- Messages -->
+    <string name="msg_processing">Processing narrative…</string>
+    <string name="msg_generating">Generating feedback…</string>
+    <string name="msg_simulation_running">Running simulation…</string>
+    <string name="msg_auto_cycle_active">Auto cycle active</string>
+    <string name="msg_enter_narrative">Enter narrative content…</string>
+    
+    <!-- Recommendations -->
+    <string name="rec_balance">System in healthy balance</string>
+    <string name="rec_crystallizing">Introduce creative chaos to maintain dynamism</string>
+    <string name="rec_dissipating">Generate stabilizing narratives</string>
+    <string name="rec_monitor">Monitor closely for emerging patterns</string>
+    
+    <!-- Widget -->
+    <string name="widget_name">Narrative Feedback</string>
+    <string name="widget_description">Monitor coherence state and mythology depth</string>
+    
+    <!-- Content Descriptions -->
+    <string name="cd_back">Navigate back</string>
+    <string name="cd_export">Export current state</string>
+    <string name="cd_trend_up">Trend increasing</string>
+    <string name="cd_trend_down">Trend decreasing</string>
+    <string name="cd_trend_flat">Trend stable</string>
+</resources>
