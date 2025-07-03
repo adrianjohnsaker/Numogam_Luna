@@ -1,0 +1,9 @@
+!-- res/xml/backup_rules.xml -->
+<full-backup-content>
+    <include domain="sharedpref" path="."/>
+    <exclude domain="sharedpref" path="device.xml"/>
+    <include domain="file" path="mythology/"/>
+    <include domain="file" path="coherence/"/>
+    <include domain="database" path="narrative_feedback.db"/>
+    <exclude domain="cache" path="."/>
+</full-backup-content>
