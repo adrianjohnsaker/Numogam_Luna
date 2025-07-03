@@ -35,8 +35,4 @@
         <item name="android:fontFamily">@font/space_grotesk</item>
     </style>
     
-    <!-- No Action Bar variant -->
-    <style name="Theme.AmeliaPhase7.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowFullscreen">false</item>
+
