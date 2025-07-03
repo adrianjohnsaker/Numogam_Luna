@@ -1,0 +1,39 @@
+<!-- res/values/colors.xml -->
+<resources>
+    <!-- Primary Colors -->
+    <color name="purple_primary">#6C63FF</color>
+    <color name="purple_variant">#4A43DB</color>
+    <color name="red_primary">#FF6B6B</color>
+    <color name="gold_primary">#FFD700</color>
+    <color name="violet_primary">#9C27B0</color>
+    
+    <!-- Coherence State Colors -->
+    <color name="coherence_high">#4CAF50</color>
+    <color name="coherence_crystallizing">#2196F3</color>
+    <color name="coherence_balance">#9C27B0</color>
+    <color name="coherence_drift">#FF9800</color>
+    <color name="coherence_chaos">#FF5252</color>
+    
+    <!-- Narrative Type Colors -->
+    <color name="type_dream">#3F51B5</color>
+    <color name="type_myth">#FFD700</color>
+    <color name="type_memory">#795548</color>
+    <color name="type_story">#009688</color>
+    <color name="type_drift">#673AB7</color>
+    <color name="type_echo">#607D8B</color>
+    
+    <!-- Background Colors -->
+    <color name="background_primary">#0A0A0F</color>
+    <color name="background_secondary">#1A0F2E</color>
+    <color name="background_tertiary">#2A1A3E</color>
+    
+    <!-- Surface Colors -->
+    <color name="surface_dim">#121218</color>
+    <color name="surface_bright">#2A2A3E</color>
+    <color name="surface_container">#1E1E2E</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+    <color name="text_disabled">#606060</color>
+</resources>
