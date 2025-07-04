@@ -1,0 +1,19 @@
+<resources>
+    <color name="primary">#6200EE</color>
+    <color name="primaryVariant">#3700B3</color>
+    <color name="secondary">#03DAC6</color>
+    <color name="background">#F4F4F4</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="onSecondary">#000000</color>
+    <color name="onBackground">#000000</color>
+    <color name="onSurface">#000000</color>
+
+    <!-- Zone Colors -->
+    <color name="zone_mythic">#8E24AA</color>
+    <color name="zone_symbolic">#3949AB</color>
+    <color name="zone_logical">#00897B</color>
+    <color name="zone_dream">#5E35B1</color>
+    <color name="zone_affective">#E53935</color>
+    <color name="zone_intuitive">#43A047</color>
+</resources>
