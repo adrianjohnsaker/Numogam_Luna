@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Amelia Autonomy</string>
+    <string name="evaluate_and_launch">Evaluate &amp; Launch</string>
+    <string name="no_projects">No Active Projects</string>
+    <string name="no_initiatives">No Emergent Initiatives</string>
+</resources>
