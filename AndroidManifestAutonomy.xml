@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.antonio.my.ai.girlfriend.free.amelia.autonomy"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Required for internet access (Python/Kotlin bridges, remote evaluation, etc.) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Optional: for reading/writing logs or memory states -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".AutonomyApp"
+        android:allowBackup="true"
+        android:label="Amelia Autonomy"
+        android:icon="@mipmap/ic_launcher"
+        android:theme="@style/Theme.AmeliaAutonomy"
+        android:supportsRtl="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AmeliaAutonomy">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Optional: Deep links or project screens -->
+        <activity android:name=".ui.screens.ProjectDetailActivity" />
+        <activity android:name=".ui.screens.AttractorLandscapeActivity" />
+        <activity android:name=".ui.screens.InitiativesActivity" />
+
+    </application>
+
+</manifest>
