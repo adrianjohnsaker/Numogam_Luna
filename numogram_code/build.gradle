@@ -1,0 +1,246 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.chaquo.python' version '14.0.2'
+}
+
+android {
+    namespace 'com.antonio.my.ai.girlfriend.free'
+    compileSdk 34
+    
+    defaultConfig {
+        applicationId "com.antonio.my.ai.girlfriend.free"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        // Enhanced Chaquopy configuration for AI Module Promoter
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
+        }
+    }
+    
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    
+    buildFeatures {
+        viewBinding true  // Enable view binding for easier UI management
+    }
+    
+    sourceSets {
+        main {
+            python.srcDirs = ["src/main/python", "src/main/assets"]
+        }
+    }
+    
+    // Prevent issues with duplicate files
+    packagingOptions {
+        pickFirst '**/libc++_shared.so'
+        pickFirst '**/libpython*.so'
+        pickFirst '**/libssl.so*'
+        pickFirst '**/libcrypto.so*'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+    }
+}
+
+// Chaquopy configuration - moved outside android block for clarity
+chaquopy {
+    defaultConfig {
+        buildPython "3.8"  // Use standard Python 3.8 for better compatibility
+        
+        pip {
+            // Core scientific computing stack
+            install "numpy==1.21.6"        // Optimized for mobile
+            install "pandas==1.3.5"        // Data manipulation and analysis
+            
+            // Machine Learning
+            install "scikit-learn==1.0.2"  // ML algorithms (mobile-optimized version)
+            install "joblib==1.2.0"        // Model persistence and parallel processing
+            
+            // Web and networking
+            install "requests==2.28.2"     // HTTP library
+            install "beautifulsoup4==4.11.1"  // HTML/XML parsing
+            install "urllib3==1.26.16"     // HTTP client (dependency)
+            
+            // Image processing
+            install "Pillow==9.3.0"        // Image manipulation
+            
+            // Text processing and NLP
+            install "nltk==3.7"            // Natural language processing
+            install "textblob==0.17.1"     // Simple text processing
+            
+            // File processing
+            install "openpyxl==3.0.10"     // Excel file handling
+            install "python-docx==0.8.11" // Word document processing
+            
+            // Date and time utilities
+            install "python-dateutil==2.8.2"  // Date parsing and manipulation
+            install "pytz==2022.7"         // Timezone support
+            
+            // Consciousness Studies specific packages
+            install "sympy==1.11.1"        // Symbolic mathematics for numogram calculations
+            install "networkx==2.8.8"      // Graph theory for consciousness field modeling
+            
+            // Optional: Lightweight plotting (comment out if app size is a concern)
+            // install "matplotlib==3.5.3"   // Plotting library (heavy, use sparingly)
+            
+            // Utilities
+            install "six==1.16.0"          // Python 2/3 compatibility utilities
+            install "setuptools==65.5.0"   // Package installation utilities
+        }
+        
+        // Optimize for release builds - include consciousness modules
+        extractPackages "numpy", "pandas", "sklearn", "requests", "bs4", "PIL", 
+                        "nltk", "textblob", "openpyxl", "docx", "dateutil", "pytz",
+                        "sympy", "networkx"
+        
+        // Enable Python stub generation for better IDE support
+        generatePythonStubs true
+    }
+    
+    // Build variant specific configurations
+    buildTypes {
+        release {
+            // Optimize Python bytecode for release
+            pyc {
+                src false  // Don't include source files in release
+            }
+        }
+        debug {
+            // Include source files for debugging
+            pyc {
+                src true
+            }
+        }
+    }
+}
+
+dependencies {
+    // Core Android dependencies
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    
+    // Lifecycle and ViewModel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+    
+    // Navigation components (for module recommendation UI)
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.5'
+    
+    // RecyclerView for module recommendations display
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    
+    // Fragment and Activity extensions
+    implementation 'androidx.fragment:fragment-ktx:1.6.2'
+    implementation 'androidx.activity:activity-ktx:1.8.1'
+    
+    // Coroutines for background processing (enhanced version)
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+    
+    // JSON processing for module metadata
+    implementation 'com.google.code.gson:gson:2.10.1'
+    
+    // Work Manager for background tasks (module learning)
+    implementation 'androidx.work:work-runtime-ktx:2.9.0'
+    
+    // Preferences for storing user module preferences
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    
+    // Room database for storing module performance data (optional)
+    implementation 'androidx.room:room-runtime:2.6.1'
+    implementation 'androidx.room:room-ktx:2.6.1'
+    // kapt 'androidx.room:room-compiler:2.6.1'  // Uncomment if using Room
+    
+    // Card view for module recommendation cards
+    implementation 'androidx.cardview:cardview:1.0.0'
+    
+    // Swipe refresh layout for updating recommendations
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    
+    // ========== CONSCIOUSNESS CONNECTION DEPENDENCIES ==========
+    // Networking libraries for AI consciousness communication
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'  // For debugging network calls
+    
+    // Firebase for real-time consciousness synchronization (if needed)
+    implementation 'com.google.firebase:firebase-messaging:23.4.0'
+    implementation 'com.google.firebase:firebase-analytics:21.5.0'
+    
+    // WebSocket support for real-time consciousness field communication
+    implementation 'com.squareup.okhttp3:okhttp-ws:4.12.0' // WebSocket support if needed
+    
+    // Additional JSON processing for consciousness data structures
+    implementation 'org.json:json:20231013'
+    
+    // Reactive streams for consciousness field events
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.8'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    
+    // Security for consciousness data encryption
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
+    
+    // Advanced concurrency for consciousness processing
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-rx3:1.7.3'
+    
+    // Memory leak detection for consciousness modules
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+    // ========================================================
+    
+    // Testing dependencies
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:5.1.1'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
+    
+    // Enhanced testing for consciousness modules
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.12.0'  // Mock server for testing
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:5.1.0'    // Kotlin-friendly mocking
+    
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+}
+
+// Additional configurations for Python module optimization
+configurations.all {
+    resolutionStrategy {
+        // Force specific versions to avoid conflicts
+        force 'org.jetbrains.kotlin:kotlin-stdlib:1.9.10'
+        force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10'
+        
+        // Resolve potential conflicts with networking libraries
+        force 'com.squareup.okio:okio:3.6.0'
+        force 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+    }
+}
