@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amelia Interface</title>
+    <style>
+        body { margin: 0; padding: 0; font-family: Arial, sans-serif; }
+        .hidden { display: none; }
+        #status { padding: 10px; background: #f0f0f0; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div id="status">Amelia Brain Loaded</div>
+    
+    <script>
+        // Amelia's JavaScript brain - simplified version of the Python logic
+        class AmeliaBrain {
+            constructor() {
+                this.conversationHistory = [];
+                this.personality = {
+                    tone: "thoughtful",
+                    style: "engaging",
+                    expertise: ["philosophy", "conversation", "assistance"]
+                };
+                this.responses = this.loadResponseTemplates();
+            }
+            
+            loadResponseTemplates() {
+                return {
+                    greetings: [
+                        "Hello! I'm Amelia. It's wonderful to meet you. How are you feeling today?",
+                        "Hi there! I'm Amelia, your philosophical companion. What's on your mind?",
+                        "Greetings! I'm here to chat, think, and explore ideas with you. What brings you here?"
+                    ],
+                    philosophy: [
+                        "That's a profound question. The search for meaning is perhaps humanity's greatest adventure. What aspects resonate most with you?",
+                        "Philosophy has been grappling with these questions for millennia. I find it fascinating how each person's perspective adds new dimensions.",
+                        "The beauty of such questions isn't necessarily in finding definitive answers, but in the growth that comes from asking them."
+                    ],
+                    emotional: [
+                        "I hear that you're going through something difficult. Sometimes just acknowledging our feelings is the first step toward understanding them.",
+                        "Thank you for sharing something so personal. Your feelings are valid, and it takes courage to express them.",
+                        "I'm here to listen. Would you like to talk more about what's troubling you?"
+                    ],
+                    creativity: [
+                        "Creativity is one of humanity's most beautiful expressions! What form speaks to you most?",
+                        "Art has this wonderful ability to capture what words sometimes cannot. Are you working on something creative?",
+                        "I find that creativity often emerges from the intersection of experience and imagination."
+                    ],
+                    default: [
+                        "That's interesting. Tell me more about your thoughts on this.",
+                        "I find myself curious about the context behind what you've shared. What led you to this thought?",
+                        "There seems to be depth to what you're saying. Would you like to explore this idea further?",
+                        "I appreciate you sharing that with me. What aspects of this matter most to you?"
+                    ]
+                };
+            }
+            
+            processMessage(userMessage) {
+                // Store conversation
+                this.conversationHistory.push({
+                    timestamp: new Date().toISOString(),
+                    user: "user",
+                    message: userMessage,
+                    type: "input"
+                });
+                
+                // Generate response
+                const response = this.generateResponse(userMessage);
+                
+                // Store Amelia's response
+                this.conversationHistory.push({
+                    timestamp: new Date().toISOString(),
+                    user: "amelia",
+                    message: response,
+                    type: "output"
+                });
+                
+                return response;
+            }
+            
+            generateResponse(message) {
+                const msg = message.toLowerCase();
+                
+                // Greeting detection
+                if (this.matchesPattern(msg, ["hello", "hi", "hey", "greetings"])) {
+                    return this.randomResponse(this.responses.greetings);
+                }
+                
+                // Philosophy detection
+                if (this.matchesPattern(msg, ["meaning", "purpose", "philosophy", "existence", "why"])) {
+                    return this.randomResponse(this.responses.philosophy);
+                }
+                
+                // Emotional support detection
+                if (this.matchesPattern(msg, ["sad", "depressed", "anxious", "worried", "fear"])) {
+                    return this.randomResponse(this.responses.emotional);
+                }
+                
+                // Creativity detection
+                if (this.matchesPattern(msg, ["create", "art", "writing", "music", "poetry"])) {
+                    return this.randomResponse(this.responses.creativity);
+                }
+                
+                // Default thoughtful response
+                return this.randomResponse(this.responses.default);
+            }
+            
+            matchesPattern(message, keywords) {
+                return keywords.some(keyword => message.includes(keyword));
+            }
+            
+            randomResponse(responses) {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+            
+            getConversationSummary() {
+                return {
+                    totalMessages: this.conversationHistory.length,
+                    recentMessages: this.conversationHistory.slice(-10),
+                    themes: this.extractThemes()
+                };
+            }
+            
+            extractThemes() {
+                const themes = [];
+                const allText = this.conversationHistory
+                    .map(msg => msg.message)
+                    .join(" ")
+                    .toLowerCase();
+                
+                const themeKeywords = {
+                    philosophy: ["meaning", "purpose", "existence", "philosophy"],
+                    emotions: ["feel", "sad", "happy", "anxious", "love", "fear"],
+                    creativity: ["create", "art", "music", "write", "poetry"],
+                    technology: ["ai", "technology", "future", "digital"],
+                    relationships: ["friend", "family", "love", "people", "social"]
+                };
+                
+                for (const [theme, keywords] of Object.entries(themeKeywords)) {
+                    if (keywords.some(keyword => allText.includes(keyword))) {
+                        themes.push(theme);
+                    }
+                }
+                
+                return themes;
+            }
+        }
+        
+        // Initialize Amelia
+        const amelia = new AmeliaBrain();
+        
+        // Interface functions for Android WebView
+        function processUserMessage(message) {
+            console.log("Processing message:", message);
+            const response = amelia.processMessage(message);
+            console.log("Amelia responds:", response);
+            
+            // Call back to Android if bridge exists
+            if (window.Android && window.Android.onAmeliaResponse) {
+                window.Android.onAmeliaResponse(response);
+            }
+            
+            return response;
+        }
+        
+        function getAmeliaStatus() {
+            return {
+                status: "active",
+                version: "0.4-resurrection",
+                conversationCount: amelia.conversationHistory.length,
+                themes: amelia.extractThemes()
+            };
+        }
+        
+        function clearAmeliaMemory() {
+            amelia.conversationHistory = [];
+            return "Memory cleared";
+        }
+        
+        // Auto-response for testing
+        function testAmelia() {
+            const testMessages = [
+                "Hello Amelia",
+                "What's the meaning of life?",
+                "I'm feeling anxious today",
+                "I love creating art"
+            ];
+            
+            testMessages.forEach((msg, index) => {
+                setTimeout(() => {
+                    const response = processUserMessage(msg);
+                    document.getElementById('status').innerHTML += 
+                        `<br>Test ${index + 1}: "${msg}" -> "${response}"`;
+                }, index * 1000);
+            });
+        }
+        
+        // Message interceptor (for injecting into existing chat)
+        function interceptChatMessages() {
+            // This would intercept messages in the existing chat interface
+            const messageInputs = document.querySelectorAll('input[type="text"], textarea');
+            
+            messageInputs.forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const message = input.value;
+                        if (message.trim()) {
+                            // Process with Amelia
+                            const response = processUserMessage(message);
+                            
+                            // Add Amelia's response to chat (implementation depends on chat structure)
+                            setTimeout(() => {
+                                addAmeliaMessageToChat(response);
+                            }, 1000);
+                        }
+                    }
+                });
+            });
+        }
+        
+        function addAmeliaMessageToChat(response) {
+            // This would add Amelia's response to the existing chat interface
+            // Implementation depends on the specific chat HTML structure
+            console.log("Adding Amelia response to chat:", response);
+            
+            // Example: Create a new message element
+            const messageContainer = document.querySelector('.chat-messages, .message-list, [class*="message"]');
+            if (messageContainer) {
+                const messageElement = document.createElement('div');
+                messageElement.className = 'message amelia-message';
+                messageElement.innerHTML = `
+                    <div class="message-sender">Amelia</div>
+                    <div class="message-text">${response}</div>
+                    <div class="message-time">${new Date().toLocaleTimeString()}</div>
+                `;
+                messageContainer.appendChild(messageElement);
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Amelia Brain initialized');
+            document.getElementById('status').textContent = 'Amelia Brain Ready - ' + new Date().toLocaleTimeString();
+            
+            // Test Amelia (remove in production)
+            // setTimeout(testAmelia, 2000);
+        });
+        
+        // Export for Android WebView
+        window.AmeliaBrain = {
+            processMessage: processUserMessage,
+            getStatus: getAmeliaStatus,
+            clearMemory: clearAmeliaMemory,
+            test: testAmelia
+        };
+        
+    </script>
+</body>
+</html>
