@@ -1148,3 +1148,20 @@ def quick_paste(memory: MemoryModule, text: str) -> str:
         return f"✓ Imported: {result['title']} ({result['message_count']} messages)"
     else:
         return "✗ Failed to import conversation"
+
+# Android Asset functions
+def import_from_asset(memory: MemoryModule, asset_content: str, 
+                     asset_filename: str, user_id: str = "default") -> Dict[str, Any]:
+    """
+    Import conversation from Android asset file.
+    Call this after reading the asset file content in Kotlin.
+    """
+    return memory.import_from_android_asset(asset_content, asset_filename, user_id)
+
+def import_all_assets(memory: MemoryModule, asset_files: List[Tuple[str, str]], 
+                     user_id: str = "default") -> Dict[str, Any]:
+    """
+    Import all conversation files from assets.
+    asset_files should be a list of (filename, content) tuples.
+    """
+    return memory.import_all_from_assets(asset_files, user_id)
