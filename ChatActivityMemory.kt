@@ -1,4 +1,4 @@
-package com.amelia.ai
+package com.antonio.my.ai.girlfriend.free.amelia.ai
 
 import android.content.ClipboardManager
 import android.content.Context
