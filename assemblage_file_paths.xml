@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path name="assemblage_data" path="assemblage/" />
+    <files-path name="assemblage_files" path="assemblage/" />
+    <cache-path name="assemblage_cache" path="assemblage/" />
+    <external-files-path name="assemblage_external" path="assemblage/" />
+</paths>
