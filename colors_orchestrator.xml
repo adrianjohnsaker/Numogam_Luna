@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="high_intensity">#FF4CAF50</color>
+    <color name="medium_intensity">#FFFF9800</color>
+    <color name="low_intensity">#FFE0E0E0</color>
+    <color name="high_creativity">#FF8BC34A</color>
+    <color name="medium_creativity">#FFCDDC39</color>
+    <color name="low_creativity">#FFFF5722</color>
+    <color name="high_emergence">#FF9C27B0</color>
+    <color name="medium_emergence">#FF673AB7</color>
+    <color name="low_emergence">#FF607D8B</color>
+    <color name="category_chip_background">#FFE1F5FE</color>
+    <color name="concept_chip_background">#FFF3E5F5</color>
+    <color name="accent_color">#FF3F51B5</color>
+    <color name="emergent_state">#FF9C27B0</color>
+    <color name="completed_state">#FF4CAF50</color>
+    <color name="failed_state">#FFF44336</color>
+    <color name="default_state">#FF9E9E9E</color>
+</resources>
