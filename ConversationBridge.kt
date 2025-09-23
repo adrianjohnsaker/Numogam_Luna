@@ -1,4 +1,4 @@
-package com.amelia.assemblage
+package com.antonio.my.ai.girlfriend.free.amelia.assemblage
 
 import kotlinx.coroutines.*
 import android.util.Log
