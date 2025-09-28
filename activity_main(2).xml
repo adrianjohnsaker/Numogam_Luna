@@ -1,0 +1,56 @@
+<!-- app/src/main/res/layout/activity_main.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Amelia Autonomous Console"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/liveSnapshot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Snapshot: "
+        android:paddingTop="8dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ask Amelia (e.g., What is your current cycle count?)"
+        android:imeOptions="actionSend"
+        android:singleLine="true"
+        android:paddingTop="12dp" />
+
+    <Button
+        android:id="@+id/sendBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:id="@+id/response"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Response will appear here."
+        android:paddingTop="12dp"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/sourceTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="[source=?]"
+        android:textSize="12sp"
+        android:paddingTop="4dp" />
+</LinearLayout>
