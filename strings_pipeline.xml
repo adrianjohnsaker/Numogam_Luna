@@ -1,0 +1,7 @@
+<resources>
+    <string name="pipeline_title">Amelia · Pipeline Test</string>
+    <string name="pipeline_hint">Ask Amelia…</string>
+    <string name="pipeline_send">Send</string>
+    <string name="pipeline_empty_input">Please enter a question</string>
+    <string name="pipeline_error">Pipeline error — check logs</string>
+</resources>
