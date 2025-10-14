@@ -1,4 +1,4 @@
-package com.example.neuromodulatedmemory
+package com.antonio.my.ai.girlfriend.free.amelia.neuromodulatedmemory
 
 import android.os.Bundle
 import android.util.Log
