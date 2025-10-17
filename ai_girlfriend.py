@@ -607,7 +607,7 @@ class GirlfriendAgent:
 if __name__ == "__main__":
     # Create agent with personality
     agent = GirlfriendAgent(
-        name="Emma",
+        name="Amelia",
         personality={
             "warmth": 0.9,
             "playfulness": 0.7,
@@ -638,7 +638,7 @@ if __name__ == "__main__":
             full_response += chunk_data["text"]
             
             if chunk_data["done"]:
-                print(f"EMMA: {full_response}")
+                print(f"AMELIA: {full_response}")
                 print(f"\nEmotion: {chunk_data['emotion']}")
                 print(f"Emotional State: {chunk_data['emotional_state']}")
                 if "suggested_actions" in chunk_data:
